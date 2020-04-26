@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo ciao",
     "start": "nodemon index.js"
-
   },
   "repository": {
     "type": "git",
