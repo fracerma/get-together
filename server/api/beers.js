@@ -27,16 +27,10 @@ router.get('/', function(req, res) {
     });
 
   }
-
   else {
     res.status(400).send("ERROR: missing searching parameter. Please include in your request one of these parameters: food, abv_lt, abv_gt, beer_name. \n "+
     "Read the documentation  for more informations !!!" );
-
   }
-
-
-
-
 });
 
 
