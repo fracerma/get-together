@@ -4,8 +4,8 @@ const request = require("request");
 const bodyParser = require("body-parser");
 
 router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
 // define the home page route
 router.get("/cocktails", function (req, res) {
   var city = req.body.city;
