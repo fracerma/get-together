@@ -4,7 +4,10 @@ const request = require("request");
 const bodyParser = require("body-parser");
 
 router.use(bodyParser.json());
+<<<<<<< HEAD
 //TODO : capisci a cosa serve:
+=======
+>>>>>>> d2cf16d7698679773fbebee77aad8b330bb614ce
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // define the home page route
 router.get("/cocktails", function (req, res) {

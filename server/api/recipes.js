@@ -60,6 +60,7 @@ router.post("/",(req,res)=>{
             }),
             leng: data.leng,
             type: "users_recipes_url"
+            //TODO vini abbinati
           }
           console.log(obj);
           // TODO aggiungi ricetta (obj) trovata su internet al database
@@ -86,6 +87,7 @@ router.post("/",(req,res)=>{
       else if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
       else{
         data.type="users_recipes"
+        //TODO vini abbinati
         //TODO aggiungi ricetta (data) di un utente registrato al database
         console.log(data);
         res.status(200).json(data);
