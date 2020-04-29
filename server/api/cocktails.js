@@ -4,7 +4,7 @@ const request = require("request");
 const bodyParser = require("body-parser");
 
 router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: false }));
+//TODO : capisci a cosa serve:
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // define the home page route
 router.get("/cocktails", function (req, res) {
@@ -33,6 +33,7 @@ router.get("/cocktails", function (req, res) {
           ingredient,
         method: "GET",
       },
+      //TODO: scegli tre cocktail
       function (error, response, body) {
         console.error("error:", error);
         console.log("statusCode:", response && response.statusCode);
@@ -52,6 +53,7 @@ router.get("/cocktails", function (req, res) {
             console.log("body:", body);
             const res = JSON.parse(body);
             //Ho preso il primo cocktail
+            //TODO: ritorna valore al client
           }
         );
       }
