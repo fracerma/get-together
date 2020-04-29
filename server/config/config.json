@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "schizzo98",
+    "database": "get_together",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "postgres",
+    "password": "schizzo98",
+    "database": "get_together",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "postgres",
+    "password": "schizzo98",
+    "database": "get_together",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  }
+}
