@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     // associations can be defined here
     //TODO associazioni
+    User.belongsTo(User,{as: "friends", through: "Friendships", foreignKey:"userId"});
   };
   return User;
 };
