@@ -5,8 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Comment.associate = function(models) {
     // associations can be defined here
-    //TODO associazioni commento
-    
+    Comment.belongsToMany(models.Party, {through: 'CommentParty',foreignKey: "commentId"});
   };
   return Comment;
 };
