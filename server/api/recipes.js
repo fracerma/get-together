@@ -7,29 +7,92 @@ const router = express.Router();
 
 router.use(bodyParser.json());
 
-//ricerco la ricetta per nome (obbligatorio), per dieta e per tipo di cucina entrambi opzionali
-router.get('/', function(req, res) {
-  const query=req.url;
-  console.log(query);
-  
-  //TODO cerca nel database prima
 
-  //uso spoonacular
-  axios.get(" https://api.spoonacular.com/recipes/random"+query+`&number=100&apiKey=${process.env.SPOONACULAR_KEY}`)
+//ricerco spoonacular
+router.get('/search', function(req, res) {
+  const query=req.url;
+  axios.get(`https://api.spoonacular.com/recipes${query}&instructionsRequired=true&apiKey=${process.env.SPOONACULAR_KEY}`)
   .then((response)=>{
+    let result=response.data.results;
+    result=result.map((ricetta)=>{return ricetta.id});
+    return axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${result.toString()}&apiKey=${process.env.SPOONACULAR_KEY}`)
+  }).then((response)=>{
     let result=response.data;
-    //prendo le ricette che sono valutate più positivamente
-    res.send(result.recipes.filter((el)=>{
-      return el.spoonacularScore>60;
-    }));
+    result=result.map((ricetta)=>{
+      let obj= {
+        title: ricetta.title,
+        image: ricetta.image,
+        readyInMinutes: ricetta.readyInMinutes,
+        servings: ricetta.servings,
+        sourceUrl: ricetta.sourceUrl,
+        dishTypes: ricetta.dishTypes,
+        cuisines: ricetta.cuisines,
+        diets: ricetta.diets,
+        extendedIngredients: ricetta.extendedIngredients.map((el)=>{ 
+          return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
+        }),
+        analyzedInstructions:ricetta.analyzedInstructions,
+        leng: "en",
+        type: "api_recipe"
+      }
+      return obj
+    });
+    //ritorno quello che ho trovato
+    res.json(result);
   })
   .catch((error)=>{
     console.error(error);
-    
+    res.status(500).end(error);
   });
-    
 });
+
+  
+
+//ricerco ricette spoonacular random, per tags
+router.get('/random', function(req, res) {
+  const query=req.url;
+  axios.get(`https://api.spoonacular.com/recipes${query}&apiKey=${process.env.SPOONACULAR_KEY}`)
+  .then((response)=>{
+    let result=response.data.recipes;
+    result=result.map((ricetta)=>{
+      let obj= {
+        title: ricetta.title,
+        image: ricetta.image,
+        readyInMinutes: ricetta.readyInMinutes,
+        servings: ricetta.servings,
+        sourceUrl: ricetta.sourceUrl,
+        dishTypes: ricetta.dishTypes,
+        cuisines: ricetta.cuisines,
+        diets: ricetta.diets,
+        extendedIngredients: ricetta.extendedIngredients.map((el)=>{ 
+          return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
+        }),
+        analyzedInstructions:ricetta.analyzedInstructions,
+        leng: "en",
+        type: "api_recipe"
+      }
+      return obj
+    });
+    //ritorno quello che ho trovato
+    res.json(result);
+  })
+  .catch((error)=>{
+    console.error(error);
+    res.status(500).end(error);
+  });
+});
+//TODO ricerco le mie ricette anche con parametri
+router.get("/",(req,res)=>{
+
+});
+//TODO ricero le ricette aggiunte da altri utenti, anche con parametri
+router.get("/all",(req,res)=>{
+
+});
+
+
 // Possibilità di aggiungere una ricetta al database:
+//TODO gestione associazione ricetta con utente
 router.post("/",(req,res)=>{
   //prendi i dati dal body
     let data=req.body;
@@ -59,8 +122,7 @@ router.post("/",(req,res)=>{
               return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
             }),
             leng: data.leng,
-            type: "users_recipes_url"
-            //TODO vini abbinati
+            type: "users_recipe_url"
           }
           console.log(obj);
           // TODO aggiungi ricetta (obj) trovata su internet al database
@@ -84,11 +146,12 @@ router.post("/",(req,res)=>{
       else if(!data.cuisines) res.status(400).send({message:"missing cuisines params"}).end();
       else if(!data.diets) res.status(400).send({message:"missing diets params"}).end();
       else if(!data.extendedIngredients) res.status(400).send({message:"missing extendedIngredients params"}).end();
+      else if(!data.analyzedInstructions) res.status(400).send({message:"missing analyzedInstructions params"}).end();
       else if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
       else{
-        data.type="users_recipes"
-        //TODO vini abbinati
+        data.type="users_recipe"
         //TODO aggiungi ricetta (data) di un utente registrato al database
+
         console.log(data);
         res.status(200).json(data);
       }
