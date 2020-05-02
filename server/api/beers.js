@@ -2,6 +2,7 @@ const express= require("express");
 const router = express.Router();
 const bodyParser=require("body-parser");
 const axios= require("axios");
+require("dotenv").config();
 
 router.use(bodyParser.json());
 
@@ -10,7 +11,7 @@ router.get('/', function(req, res) {
   const query=req.url;
   //ricerca birre per parametro tra food, abvmin,  abvmax, nome o stile
   if(req.query.food || req.query.abv_lt || req.query.abv_gt || req.query.beer_name ){
-    axios.get("https://api.punkapi.com/v2/beers"+query).then((response)=>{
+    axios.get(""+query+).then((response)=>{
       let alldata=response.data;
       alldata=alldata.map((obj) => { 
         return {
