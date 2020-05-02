@@ -14,12 +14,29 @@ router.get('/search', function(req, res) {
   axios.get(`https://api.spoonacular.com/recipes${query}&instructionsRequired=true&apiKey=${process.env.SPOONACULAR_KEY}`)
   .then((response)=>{
     let result=response.data.results;
-    
-    result.forEach((ricetta)=>{
-      ricetta.leng="en";
-      ricetta.type= "api_recipe_uncomplete";
+    result=result.map((ricetta)=>{return ricetta.id});
+    return axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${result.toString()}&apiKey=${process.env.SPOONACULAR_KEY}`)
+  }).then((response)=>{
+    let result=response.data;
+    result=result.map((ricetta)=>{
+      let obj= {
+        title: ricetta.title,
+        image: ricetta.image,
+        readyInMinutes: ricetta.readyInMinutes,
+        servings: ricetta.servings,
+        sourceUrl: ricetta.sourceUrl,
+        dishTypes: ricetta.dishTypes,
+        cuisines: ricetta.cuisines,
+        diets: ricetta.diets,
+        extendedIngredients: ricetta.extendedIngredients.map((el)=>{ 
+          return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
+        }),
+        analyzedInstructions:ricetta.analyzedInstructions,
+        leng: "en",
+        type: "api_recipe"
+      }
+      return obj
     });
-    console.log(result);
     //ritorno quello che ho trovato
     res.json(result);
   })
@@ -28,6 +45,7 @@ router.get('/search', function(req, res) {
     res.status(500).end(error);
   });
 });
+
   
 
 //ricerco ricette spoonacular random, per tags
@@ -51,7 +69,7 @@ router.get('/random', function(req, res) {
         }),
         analyzedInstructions:ricetta.analyzedInstructions,
         leng: "en",
-        type: "api_recipe_complete"
+        type: "api_recipe"
       }
       return obj
     });
