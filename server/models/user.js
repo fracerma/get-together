@@ -4,10 +4,13 @@ module.exports = (sequelize, DataTypes) => {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     email: DataTypes.STRING
-  }, {});
+  }, {
+  });
   User.associate = function(models) {
     // associations can be defined here
     //TODO associazioni
+    User.belongsToMany(User,{as: "friends", through: "Friendships",foreignKey:"userId"});
+    User.belongsToMany(models.Recipe,{as: "favourites", through: "Favourites",foreignKey:"userId"});
   };
   return User;
 };
