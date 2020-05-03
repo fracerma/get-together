@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+<!--<link rel="stylesheet" href="css/bootstrap-grid.min.css"> -->
+    <link rel="stylesheet" href="css/index.css">
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <title>Get Together!</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,10 +29,13 @@
             </li>
           </ul>
         </div>
-        <a class="navbar-brand mx-auto" href="#">
-            <img src="image/LogoGetTorgether.png"  width="150" height="75" alt="">
-        </a>
+        <div class="navbar-brand">
+          <a href="#" >
+              <img src="image/LogoGetTorgether.png" id="logo-nav" alt="logo" >
+          </a>
+          </div>
+        
     </nav>
-    <img src="image/banner.jpeg" style="width: 100vw;" >
+    <div id="banner-image"> <img src="image/banner.jpeg"></div>
 </body>
 </html>

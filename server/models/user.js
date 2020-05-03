@@ -1,7 +1,6 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    "User",
+  const User = sequelize.define("User",
     {
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
@@ -31,5 +30,17 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "userId",
     });
   };
+  //class method
+  User.addHook('beforeCreate', (user, options) => {
+    const salt= bcrypt.genSaltSync();
+    user.password = bcrypt.hashSync(user.password,salt);
+  });
+  //instance Methods
+  User.prototype.authenticate = function(password){
+    return bcrypt.compareSync(password, this.password);
+  }
+  User.prototype.stringa = function(){
+    return this.firstName;
+  }
   return User;
 };
