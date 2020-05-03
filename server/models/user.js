@@ -1,11 +1,12 @@
 'use strict';
+const bcrypt = require('bcrypt');
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    email: DataTypes.STRING
-  }, {
-  });
+    email: DataTypes.STRING,
+    password: DataTypes.STRING
+  }, {});
   User.associate = function(models) {
     User.belongsToMany(User,{as: "friends", through: "Friendships",foreignKey:"userId"});
     User.belongsToMany(models.Recipe,{as: "favourites", through: "Favourites",foreignKey:"userId"});
@@ -18,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
   //instance Methods
   User.prototype.authenticate = function(password){
     return bcrypt.compareSync(password, this.password);
+  }
+  User.prototype.stringa = function(){
+    return this.firstName;
   }
   return User;
 };
