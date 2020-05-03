@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   CommentParty.associate = function(models) {
     // associations can be defined here
-    commentId.belongsTo(models.Comment);
-    partyId.belongsTo(models.Party);
+    CommentParty.belongsTo(models.Comment);
+    CommentParty.belongsTo(models.Party);
   };
   return CommentParty;
 };
