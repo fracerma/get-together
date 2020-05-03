@@ -61,37 +61,41 @@ router.get("/cocktails", function (req, res) {
 });
 */
 
-router.get("/", function (req, res) {
+router.get("/", function (req, response) {
   const query = req.url;
   axios
-    .get("https://www.thecocktaildb.com/api/json/v1/1/random.php", {
-      method: "get",
-      responseType: "JSON",
-    })
+    .get("https://www.thecocktaildb.com/api/json/v1/1/random.php")
     .then(function (res) {
       let rawData = res.data;
       let allRaw = rawData.drinks[0];
-      var ingredient = {};
-      let regex = /[0-9]+/;
+      var ingredient = new Object();
+      let regex = "strIngredient";
       var i = 0;
+      console.log(allRaw);
+      console.log(allRaw.strDrink);
       for (property in allRaw) {
-        if (property == "strIngredient" + regex && property.value != null) {
-          ingredient["ingredient" + i] = property.value;
+        if (property.substring(0, 13) === regex && allRaw[property] != null) {
+          ingredient["Ingredient" + i] = allRaw[property];
           i++;
         }
       }
-
-      var cleanData = rawData.map(function (data) {
-        let result = {
-          cocktailID: data.drinks[0].idDrink,
-          cocktailName: data.drinks[0].strDrink,
-          cocktailCat: data.drinks[0].strCategory,
-          cocktailType: data.drinks[0].strAlcoholic,
-          instructions: data.drinks[0].strInstructions,
-          photo: data.drinks[0].strDrinkThumb,
+      console.log("ingredient:   " , ingredient);
+      
+      var cleanData = rawData.drinks.map((data) => {
+        console.log(data);
+        return {
+          cocktailID: data.idDrink,
+          cocktailName: data.strDrink,
+          cocktailCat: data.strCategory,
+          cocktailType: data.strAlcoholic,
+          instructions: data.strInstructions,
+          photo: data.strDrinkThumb,
           ingredients: ingredient,
         };
       });
+      console.log("cleanData: " ,cleanData);
+      //var newData = JSON.stringify(cleanData);
+      response.send(cleanData);
     })
     .catch(function (error) {})
     .finally(function (final) {});
