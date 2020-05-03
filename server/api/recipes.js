@@ -5,6 +5,7 @@ require("dotenv").config();
 const Recipe= require("../models/index").Recipe;
 const User= require("../models/index").User;
 
+
 const router = express.Router();
 
 router.use(bodyParser.json());
@@ -150,8 +151,7 @@ router.post("/",async (req,res)=>{
       else if(!data.analyzedInstructions) res.status(400).send({message:"missing analyzedInstructions params"}).end();
       else if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
       else{
-        data.type="users_recipe"
-        
+        data.type="users_recipe"  
         await Recipe.create(obj);
         console.log(data);
         res.status(200).json(data);
