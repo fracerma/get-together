@@ -1,8 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const CommentParty = sequelize.define('CommentParty', {
-    commentId: Sequelize.INTEGER,
-    partyId: Sequelize.INTEGER
+    commentId: DataTypes.INTEGER,
+    partyId: DataTypes.INTEGER
   }, {});
   CommentParty.associate = function(models) {
     // associations can be defined here
