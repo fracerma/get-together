@@ -9,15 +9,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       firstName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       lastName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique:true,
+        allowNull: false
       },
-      //TODO password
+      password: {
+          type: Sequelize.STRING,
+          allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
