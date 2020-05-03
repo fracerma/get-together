@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING
-    
   }, {});
   User.associate = function(models) {
     User.belongsToMany(User,{as: "friends", through: "Friendships",foreignKey:"userId"});
