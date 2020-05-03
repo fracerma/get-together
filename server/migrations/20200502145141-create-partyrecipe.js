@@ -1,18 +1,26 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Serata', {
+    return queryInterface.createTable('PartyRecipes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      beers: {
-        type: Sequelize.JSONB
+      partyId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Parties',
+          key: 'id'
+        }
       },
-      cocktails: {
-        type: Sequelize.JSONB
+      recipeId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Recipes',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
@@ -25,6 +33,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Serata');
+    return queryInterface.dropTable('PartyRecipes');
   }
 };
