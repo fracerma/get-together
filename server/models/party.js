@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     cocktails: DataTypes.JSONB,
 
   }, {});
-  Serata.associate = function(models) {
+  Party.associate = function(models) {
     // associations can be defined here 
     //TODO associazioni
     Party.belongsToMany(models.Comment, {through: 'CommentParty', foreingKey: "partyId"});

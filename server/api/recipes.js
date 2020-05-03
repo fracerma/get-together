@@ -2,6 +2,8 @@ const express= require("express");
 const bodyParser=require("body-parser");
 const axios= require("axios");
 require("dotenv").config();
+const Recipe= require("../models/index").Recipe;
+const User= require("../models/index").User;
 
 const router = express.Router();
 
@@ -93,7 +95,7 @@ router.get("/all",(req,res)=>{
 
 // Possibilità di aggiungere una ricetta al database:
 //TODO gestione associazione ricetta con utente
-router.post("/",(req,res)=>{
+router.post("/",async (req,res)=>{
   //prendi i dati dal body
     let data=req.body;
     //se è una ricetta presa da un sito web
@@ -106,7 +108,7 @@ router.post("/",(req,res)=>{
       else{
         //faccio una richiesta a spoonacular per fare il parsing della ricetta
         axios.get(`https://api.spoonacular.com/recipes/extract?apiKey=${process.env.SPOONACULAR_KEY}&url=${data.sourceUrl}&forceExtraction=true`)
-        .then((response)=>{
+        .then(async (response)=>{
           //prendo il risultato e costruisco un oggetto da mettere nel database
           const ricetta= response.data;
           const obj={
@@ -125,8 +127,7 @@ router.post("/",(req,res)=>{
             type: "users_recipe_url"
           }
           console.log(obj);
-          // TODO aggiungi ricetta (obj) trovata su internet al database
-
+          await Recipe.create(obj);
           //ritorno quello che ho aggiunto
           res.json(obj);
         })
@@ -150,8 +151,8 @@ router.post("/",(req,res)=>{
       else if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
       else{
         data.type="users_recipe"
-        //TODO aggiungi ricetta (data) di un utente registrato al database
-
+        
+        await Recipe.create(obj);
         console.log(data);
         res.status(200).json(data);
       }
