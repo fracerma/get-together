@@ -14,11 +14,15 @@ module.exports = {
       image:{ type: Sequelize.STRING},
       readyInMinutes:{ type: Sequelize.INTEGER},
       servings:{ type: Sequelize.INTEGER},
-      sourceUrl:{ type: Sequelize.STRING},
+      sourceUrl:{ 
+        type: Sequelize.STRING,
+        unique: true
+      },
       dishTypes:{ type: Sequelize.JSONB} ,//arary json
       cuisines:{ type: Sequelize.JSONB} ,//array json
       diets:{ type: Sequelize.JSONB},//array json
       extendedIngredients:{ type: Sequelize.JSONB},//array di json
+      analyzedInstructions:{ type: Sequelize.JSONB},
       leng:{ type: Sequelize.STRING},
       type:{ type: Sequelize.STRING},
       createdAt: {

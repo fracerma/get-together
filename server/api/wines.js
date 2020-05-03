@@ -1,11 +1,11 @@
 const express= require("express");
 const router = express.Router();
 
-// define the home page route
-//TODO anche il modello
-
-router.get('/aggiungiamico', function(req, res) {
-    res.send('Vini homepage');
+router.get('/pairing', function(req, res) {
+  axios.get(`https://api.spoonacular.com/food/wine/pairing${query}&apiKey=${process.env.SPOONACULAR_KEY}`)
+  .then((response)=>{
+    res.send(response.data);
   });
+});
 
 module.exports = router;
