@@ -7,10 +7,17 @@ module.exports = (sequelize, DataTypes) => {
   }, {
   });
   User.associate = function(models) {
-    // associations can be defined here
-    //TODO associazioni
     User.belongsToMany(User,{as: "friends", through: "Friendships",foreignKey:"userId"});
     User.belongsToMany(models.Recipe,{as: "favourites", through: "Favourites",foreignKey:"userId"});
   };
+  //class method
+  User.addHook('beforeCreate', (user, options) => {
+    const salt= bcrypt.genSaltSync();
+    user.password = bcrypt.hashSync(user.password,salt);
+  });
+  //instance Methods
+  User.prototype.authenticate = function(password){
+    return bcrypt.compareSync(password, this.password);
+  }
   return User;
 };
