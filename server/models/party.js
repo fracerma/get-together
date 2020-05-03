@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
   const Party = sequelize.define('Party', {
     recipes: DataTypes.JSONB,
@@ -8,10 +8,18 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {});
   Party.associate = function(models) {
-    // associations can be defined here 
-    //TODO associazioni
-    Party.belongsToMany(models.Comment, {through: 'CommentParty', foreingKey: "partyId"});
-    Party.belongsToMany(models.Recipe, {through: 'PartyRecipe', foreingKey: "partyId"});
+    Party.belongsToMany(models.Comment, {
+      through: "CommentParty",
+      foreingKey: "partyId",
+    });
+    Party.belongsToMany(models.Recipe, {
+      through: "PartyRecipe",
+      foreingKey: "partyId",
+    });
+    Party.belongsToMany(models.User, {
+      through: "UserParty",
+      foreingKey: "partyId",
+    });
   };
   return Party;
 };
