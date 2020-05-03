@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
   const CommentParty = sequelize.define('CommentParty', {
     commentId: DataTypes.INTEGER,
