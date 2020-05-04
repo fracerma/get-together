@@ -43,8 +43,8 @@ app.post("/login",(req,res)=>{
     const { userId } = req.session;
     if(userId) res.redirect("/profile.html");
     else{
-        const email = req.body.email,
-       password = req.body.password;   
+        const email = req.body.email;
+        const password = req.body.password;   
         User.findOne({ where: { email: email } }).then(function (user) {
             if (!user||!user.authenticate(password)) {
                 res.redirect('/login.html');
