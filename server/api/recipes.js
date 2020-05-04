@@ -12,7 +12,7 @@ router.use(bodyParser.json());
 
 
 //ricerco spoonacular
-router.get('/search', function(req, res) {
+router.get('/', function(req, res) {
   const query=req.url;
   axios.get(`https://api.spoonacular.com/recipes${query}&instructionsRequired=true&apiKey=${process.env.SPOONACULAR_KEY}`)
   .then((response)=>{
@@ -85,7 +85,7 @@ router.get('/random', function(req, res) {
   });
 });
 //TODO ricerco le mie ricette anche con parametri
-router.get("/",(req,res)=>{
+router.get("/user",(req,res)=>{
 
 });
 //TODO ricero le ricette aggiunte da altri utenti, anche con parametri
