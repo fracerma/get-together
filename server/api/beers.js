@@ -5,6 +5,45 @@ const axios = require("axios");
 
 router.use(bodyParser.json());
 
+router.get("/random",(req,res)=>{
+  if(req.query.number&&/[0-9]+/.test(req.query.number)){
+    let ids = "";
+    let norepetition = new Array(req.query.number);
+    for (let i = 0; i < req.query.number; i++) {
+      let number = getRandomIntBetween(1, 325);
+      if (norepetition.includes(number)) {
+        i--;
+      } else {
+        ids += `${number}|`;
+        norepetition[i] = number;
+      }
+    }
+    axios
+      .get("https://api.punkapi.com/v2/beers" + `?ids=${ids}`)
+      .then((response) => {
+        let allrandom = response.data;
+        allrandom = allrandom.map((obj) => {
+          return {
+            name: obj.name,
+            description: obj.description,
+            image_url: obj.image_url,
+            abv: obj.abv,
+          };
+        });
+        res.send(allrandom);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+    else{
+      res
+      .status(400)
+      .send(
+        "ERROR: missing searching parameter random: an integer");
+    }
+});
+
 // ricerca birre
 router.get("/", function (req, res) {
   const query = req.url;
@@ -27,40 +66,7 @@ router.get("/", function (req, res) {
             abv: obj.abv,
           };
         });
-        console.log(alldata);
         res.send(alldata);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  } else if (req.query.random) {
-    let ids = "";
-    let norepetition = new Array(req.query.random);
-    for (let i = 0; i < req.query.random; i++) {
-      let number = getRandomIntBetween(1, 325);
-      if (norepetition.includes(number)) {
-        i--;
-        console.log("ho trovato un numero uguale e l'ho scartato");
-      } else {
-        ids += `${number}|`;
-        norepetition[i] = number;
-      }
-    }
-    console.log(ids);
-    axios
-      .get("https://api.punkapi.com/v2/beers" + `?ids=${ids}`)
-      .then((response) => {
-        let allrandom = response.data;
-        allrandom = allrandom.map((obj) => {
-          return {
-            name: obj.name,
-            description: obj.description,
-            image_url: obj.image_url,
-            abv: obj.abv,
-          };
-        });
-        console.log(allrandom);
-        res.send(allrandom);
       })
       .catch((error) => {
         console.error(error);
