@@ -37,6 +37,8 @@ router.get("/", function (req, res) {
           ingredients: ingredient,
         };
       });
+      console.log(cleanData);
+      
     })
     .catch(function (error) {})
     .finally(function (final) {});
