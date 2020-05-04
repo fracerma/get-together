@@ -19,7 +19,6 @@ app.use(session({
     cookie: {
         maxAge: TWO_HOURS,
         sameSite: true,
-
     }
 }));
 
@@ -45,9 +44,7 @@ app.post("/login",(req,res)=>{
     if(userId) res.redirect("/profile.html");
     else{
         const email = req.body.email,
-            password = req.body.password;
-            
-
+       password = req.body.password;   
         User.findOne({ where: { email: email } }).then(function (user) {
             if (!user||!user.authenticate(password)) {
                 res.redirect('/login.html');
