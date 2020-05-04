@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
   const PartyRecipe = sequelize.define('PartyRecipe', {
     partyId: DataTypes.INTEGER,
