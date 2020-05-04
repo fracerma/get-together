@@ -131,41 +131,11 @@ function cleaner(res, max){
 router.get("/random", function (req, response) {
   const query = req.url;
   axios
-    .get("https://www.thecocktaildb.com/api/json/v1/1/random.php")
+    .get("https://www.thecocktaildb.com/api/json/v1/1/random.php", {
+      method: "get",
+      responseType: "JSON",
+    })
     .then(function (res) {
-     /* let rawData = res.data;
-      let allRaw = rawData.drinks[0];
-      var Ingredient = new Object();
-      let regex = "strIngredient";
-      var i = 0;
-      for (property in allRaw) {
-        if (property.substring(0, 13) === regex && allRaw[property] != null) {
-          Ingredient["i" + i] = allRaw[property];
-          i++;
-        }
-      }
-      regex = "strMeasure";
-      var Quantity = new Object();
-      i = 0; 
-      for (property in allRaw) {
-        if (property.substring(0, 10) === regex && allRaw[property] != null) {
-          Quantity["q" + i] = allRaw[property];
-          i++;
-        }
-      }
-      
-      var cleanData = rawData.drinks.map((data) => {
-        return {
-          cocktailID: data.idDrink,
-          cocktailName: data.strDrink,
-          cocktailCat: data.strCategory,
-          cocktailType: data.strAlcoholic,
-          instructions: data.strInstructions,
-          photo: data.strDrinkThumb,
-          Ingredients: Ingredient,
-          Quantity: Quantity
-        };
-      });*/
       var cleanData = cleaner(res, 5);
       response.send(cleanData);
     })
