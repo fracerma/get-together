@@ -61,28 +61,100 @@ router.get("/cocktails", function (req, res) {
 });
 */
 
-router.get("/", function (req, response) {
+function random(top, length){
+  let res = new Array(length);
+  let i = 0;
+  
+  while( i < length){
+    let num = Math.floor(Math.random() * top);
+    if( !(res.includes(num)) ){
+      res[i] = num;
+      i++;
+    }
+  }
+  return res;
+}
+
+function cleaner(res, max){
+  let rawData = res.data;
+  var totLength = rawData.drinks.length;
+  var limit;
+  if( max > totLength) limit = totLength;
+  else limit = max;
+
+  let numbers = random(totLength, limit);
+  let cleanData = new Array(limit);
+  let Ingredient = new Object();
+  let Quantity = new Object();
+
+  let cnt = 0;
+  for(;cnt < limit; cnt++){
+    Ingredient = {};
+    Quantity = {};
+    let picked = numbers[cnt];
+    let allRaw = rawData.drinks[picked];
+    let regex = "strIngredient";
+    let i = 0;
+    for (property in allRaw) {
+      if (property.substring(0, 13) === regex && allRaw[property] != null) {
+        Ingredient["i" + i] = allRaw[property];
+        i++;
+      }
+    }
+    regex = "strMeasure";
+    
+    i = 0;
+    for (property in allRaw) {
+      if (property.substring(0, 10) === regex && allRaw[property] != null) {
+        Quantity["q" + i] = allRaw[property];
+        i++;
+      }
+    }
+    cleanData[cnt] = rawData.drinks.filter(x => x === allRaw).map((data) => {
+        return {
+        cocktailID: data.idDrink,
+        cocktailName: data.strDrink,
+        cocktailCat: data.strCategory,
+        cocktailType: data.strAlcoholic,
+        instructions: data.strInstructions,
+        photo: data.strDrinkThumb,
+        Ingredients: Ingredient,
+        Quantity: Quantity
+        };
+    });
+
+  }
+    return cleanData;
+}
+
+
+router.get("/random", function (req, response) {
   const query = req.url;
   axios
     .get("https://www.thecocktaildb.com/api/json/v1/1/random.php")
     .then(function (res) {
-      let rawData = res.data;
+     /* let rawData = res.data;
       let allRaw = rawData.drinks[0];
-      var ingredient = new Object();
+      var Ingredient = new Object();
       let regex = "strIngredient";
       var i = 0;
-      console.log(allRaw);
-      console.log(allRaw.strDrink);
       for (property in allRaw) {
         if (property.substring(0, 13) === regex && allRaw[property] != null) {
-          ingredient["Ingredient" + i] = allRaw[property];
+          Ingredient["i" + i] = allRaw[property];
           i++;
         }
       }
-      console.log("ingredient:   " , ingredient);
+      regex = "strMeasure";
+      var Quantity = new Object();
+      i = 0; 
+      for (property in allRaw) {
+        if (property.substring(0, 10) === regex && allRaw[property] != null) {
+          Quantity["q" + i] = allRaw[property];
+          i++;
+        }
+      }
       
       var cleanData = rawData.drinks.map((data) => {
-        console.log(data);
         return {
           cocktailID: data.idDrink,
           cocktailName: data.strDrink,
@@ -90,14 +162,26 @@ router.get("/", function (req, response) {
           cocktailType: data.strAlcoholic,
           instructions: data.strInstructions,
           photo: data.strDrinkThumb,
-          ingredients: ingredient,
+          Ingredients: Ingredient,
+          Quantity: Quantity
         };
-      });
-      console.log("cleanData: " ,cleanData);
-      //var newData = JSON.stringify(cleanData);
+      });*/
+      var cleanData = cleaner(res, 5);
       response.send(cleanData);
     })
     .catch(function (error) {})
     .finally(function (final) {});
+});
+
+router.get("/name", function( req, response ){
+axios
+  .get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita"
+)
+  .then(function(res){
+    let result = cleaner(res, 2);
+    response.send(result);
+  })
+  .catch()
+  .finally()
 });
 module.exports = router;
