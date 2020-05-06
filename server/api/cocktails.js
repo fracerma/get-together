@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 router.use(bodyParser.json());
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+//Random genera un array di lunghezza length di numeri casuali 
+//che vanno da 0 top (viene usata per non ricevere sempre gli stessi cocktail da cocktailDB)
 function random(top, length){
   let res = new Array(length);
   let i = 0;
@@ -20,10 +22,15 @@ function random(top, length){
   return res;
 }
 
+//Cleaner formatta il file JSON da restituire inserendo solo le info 
+//che ci interessano del cocktail
 function cleaner(rawData, max){
+//max indica il numero di cocktail che  l'utente vuole ricevere
   let totLength = rawData.drinks.length;
   let limit;
-  if( max > totLength) limit = totLength;
+  // se il numero di cocktail restituito dal DB e' minore di max, allora ne restituisco
+  // al massimo totLength ( ovvero tutti quelli disponibili )
+  if( max > totLength) limit = totLength; 
   else limit = max;
 
   let numbers = random(totLength, limit);
@@ -37,6 +44,8 @@ function cleaner(rawData, max){
     Quantity = {};
     let picked = numbers[cnt];
     let allRaw = rawData.drinks[picked];
+    
+    //Seleziono tutti gli ingredienti e li metto in un array
     let regex = "strIngredient";
     let i = 0;
     for (property in allRaw) {
@@ -45,6 +54,8 @@ function cleaner(rawData, max){
         i++;
       }
     }
+
+    //Seleziono tutte le quantita' di ogni singolo ingrediente e le metto in un array
     regex = "strMeasure";
     
     i = 0;
@@ -54,6 +65,9 @@ function cleaner(rawData, max){
         i++;
       }
     }
+
+    //Costruisco l-oggetto JSON che pero' deve essere 'pulito',
+    // infatti si crea un array di array 
     cleanDt[cnt] = rawData.drinks.filter(x => x === allRaw).map((data) => {
         return {
         cocktailID: data.idDrink,
@@ -68,11 +82,13 @@ function cleaner(rawData, max){
     });
 
   }
+
+  //pulisco l'array generato ( CleanDt ) creando un oggetto con una chiave 'drinks'
+  //e come valore un array di cocktail da restituire
   let tmp = new Array();
   let i = 0; 
   for(; i < limit; i++){
     tmp[i] = (cleanDt[i][0]);
-    // (cleanDt[i][0])
   }
   let cleanData = {drinks: tmp}
     return cleanData;
@@ -84,6 +100,7 @@ router.get("/type", function (req, response) {
   const q = req.query;
   var num = q.number
   var type = q.cocktail_type;
+//Prendo prima tutti i cocktail con type ( il JSON di risposta contiene solo l'id del cocktail e poco altro)
   axios
     .get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=" + type)
     .then(function (res) {
@@ -100,17 +117,20 @@ router.get("/type", function (req, response) {
         ids.push(resId.drinks[i].cocktailID);
 
       i = 0;
-
+      //Ora prendo gli id restituiti dalla prima get,
+      //e creo un array di promise con 'array.push(axios.get(url));'
       for (; i < x; i++) {
         let url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + ids[i];
         array.push(axios.get(url));
       }
-
+      //Chiamo le promise con axios.all e mi scorro responses che e' un array che contiene tutte le 
+      //risposte, ognuna proveniente da una singola chiamata e che si trova in responses[i]
       axios.all(array).then(axios.spread((...responses) => {
         let i;
         for (i = 0; i < x; i++) {
           ress.push(responses[i].data.drinks[0]);
         }
+        //Creo l'oggetto finale e ci chiamo cleaner
         let finalRaw = { drinks: ress };
         let final = cleaner(finalRaw, num)
         response.send(final);
@@ -123,6 +143,37 @@ router.get("/type", function (req, response) {
       console.error(error);
     })
     .finally(function (final) { })
+});
+
+router.get("/random", function (req, response) {
+  const q = req.query;
+  var num = q.number;
+  ////////////////////////////////////
+
+  var array = new Array();
+  var ress = new Array();
+  let i = 0;
+  i = 0;
+
+  //Faccio num chiamate random, dato che il server cocktailDB mi restituisce un solo cocktail
+  //Per far ele chiamate uso le promise e axios.all.
+  for (; i < num; i++) {
+    let url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+    array.push(axios.get(url));
+  }
+
+  axios.all(array).then(axios.spread((...responses) => {
+  let i;
+  for (i = 0; i < num; i++) {
+    ress.push(responses[i].data.drinks[0]);
+  }
+  let finalRaw = { drinks: ress };
+  let final = cleaner(finalRaw, num)
+  response.send(final);
+  })).catch(function (error) {
+  console.error(error);
+  });
+  //////////////////////////////////////////
 });
 
 //works
