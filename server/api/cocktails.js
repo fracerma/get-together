@@ -80,9 +80,9 @@ function cleaner(rawData, max){
 
 
 //works
-router.get("/random" && "/type", function (req, response) {
+router.get("/type", function (req, response) {
   const q = req.query;
-  var num = q.cocktail_num
+  var num = q.number_cocktail
   var type = q.cocktail_type;
   axios
     .get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=" + type)
@@ -91,7 +91,7 @@ router.get("/random" && "/type", function (req, response) {
 
       ////////////////////////////////////
       let x = resId.drinks.length;
-      
+
       var ids = new Array();
       var array = new Array();
       var ress = new Array();
@@ -128,7 +128,7 @@ router.get("/random" && "/type", function (req, response) {
 //works
 router.get("/name", function( req, response ){
   const q = req.query; 
-  var num = q.cocktail_num
+  var num = q.number_cocktail
 axios
   .get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + q.cocktail_name
 )
@@ -145,7 +145,7 @@ axios
 //works
 router.get("/category", function (req, response) {
   const q = req.query;
-  var num = q.cocktail_num
+  var num = q.number_cocktail
   axios
     .get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=' + q.cocktail_category
     )
@@ -191,7 +191,7 @@ router.get("/category", function (req, response) {
 //works
 router.get("/ingredient", function (req, response) {
   const q = req.query;
-  var num = q.cocktail_num
+  var num = q.number_cocktail
   axios
     .get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + q.cocktail_ingredient
     )
