@@ -13,9 +13,9 @@ router.get('/random', function(req, res) {
       number: query.number_beer||3
     }
   });
-  const urlCocktail=buildUrl(baseUrl+'/api/cocktails/random', {
+  const urlCocktail=buildUrl(baseUrl+'/api/cocktails/type', {
     queryParams: {
-      number: query.number_cocktail||3
+      number_cocktail: query.number_cocktail||3
     }
   });
   const urlRecipe=buildUrl(baseUrl+'/api/recipes/random', {
@@ -27,14 +27,14 @@ router.get('/random', function(req, res) {
   let request=[];
   request[0]=axios.get(urlRecipe);
   request[1]=axios.get(urlBeer);
-  //request[2]=axios.get(urlCocktail);
+  request[2]=axios.get(urlCocktail);
 
   axios.all(request)
   .then(axios.spread((...responses) => {
     const finalResponse={
       recipes: responses[0].data,
       beers: responses[1].data,
-//     cocktail: responses[2].data.slice(0,number)
+      cocktail: responses[2].data.slice(0,number)
     }
     res.json(finalResponse);
   })).catch(error=>{
@@ -77,7 +77,7 @@ router.get('/', (req, res) =>{
       let request=[];
       request[0]=axios.get(urlRecipe);
       request[1]=axios.get(urlBeer);
-      //request[2]=axios.get(urlCocktail);
+      request[2]=axios.get(urlCocktail);
     
 
       axios.all(request)
@@ -88,7 +88,7 @@ router.get('/', (req, res) =>{
         const finalResponse={
           recipes: responses[0].data.slice(0,number_recipe),
           beers: responses[1].data.slice(0,number_beer),
-  //     cocktail: responses[2].data.slice(0,number)
+          cocktail: responses[2].data.slice(0,number_cocktail)
         }
         console.log("Final response:",finalResponse);
         
