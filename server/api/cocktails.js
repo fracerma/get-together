@@ -82,7 +82,7 @@ function cleaner(rawData, max){
 //works
 router.get("/type", function (req, response) {
   const q = req.query;
-  var num = q.number_cocktail
+  var num = q.number
   var type = q.cocktail_type;
   axios
     .get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=" + type)
@@ -128,7 +128,7 @@ router.get("/type", function (req, response) {
 //works
 router.get("/name", function( req, response ){
   const q = req.query; 
-  var num = q.number_cocktail
+  var num = q.number
 axios
   .get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + q.cocktail_name
 )
@@ -145,7 +145,7 @@ axios
 //works
 router.get("/category", function (req, response) {
   const q = req.query;
-  var num = q.number_cocktail
+  var num = q.number
   axios
     .get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=' + q.cocktail_category
     )
@@ -191,7 +191,7 @@ router.get("/category", function (req, response) {
 //works
 router.get("/ingredient", function (req, response) {
   const q = req.query;
-  var num = q.number_cocktail
+  var num = q.number
   axios
     .get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + q.cocktail_ingredient
     )
@@ -239,7 +239,7 @@ router.get("/ingredient", function (req, response) {
 
 
 //prende un id e restituisce tutti i dettagli sul cocktail
-router.get("/full_cocktail", function(req, response){
+/*router.get("/full_cocktail", function(req, response){
   const q = req.query;
   const id = q.cocktail_id;
   axios
@@ -253,6 +253,6 @@ router.get("/full_cocktail", function(req, response){
     })
     .finally(function (final) { })
 });
-
+*/
 module.exports = router;
 

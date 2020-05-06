@@ -13,9 +13,9 @@ router.get('/random', function(req, res) {
       number: query.number_beer||3
     }
   });
-  const urlCocktail=buildUrl(baseUrl+'/api/cocktails/type', {
+  const urlCocktail=buildUrl(baseUrl+'/api/cocktails/random', {
     queryParams: {
-      number_cocktail: query.number_cocktail||3
+      number: query.number_cocktail||3
     }
   });
   const urlRecipe=buildUrl(baseUrl+'/api/recipes/random', {
