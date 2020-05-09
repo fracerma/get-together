@@ -17,7 +17,7 @@ router.get("/random",(req,res)=>{
         ids += `${number}|`;
         norepetition[i] = number;
       }
-    }
+    } 
     axios
       .get("https://api.punkapi.com/v2/beers" + `?ids=${ids}`)
       .then((response) => {

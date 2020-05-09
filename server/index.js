@@ -20,7 +20,6 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 const api = require("./api/main");
 const session= require("./controller/session").router;
 const user=require("./controller/user");
