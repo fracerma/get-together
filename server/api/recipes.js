@@ -14,8 +14,9 @@ router.use(bodyParser.json());
 //ricerco spoonacular
 router.get('/', function(req, res) {
   const query=req.url;
-  axios.get(`https://api.spoonacular.com/recipes${query}&instructionsRequired=true&apiKey=${process.env.SPOONACULAR_KEY}`)
+  axios.get(`https://api.spoonacular.com/recipes/search${query}&instructionsRequired=true&apiKey=${process.env.SPOONACULAR_KEY}`)
   .then((response)=>{
+    console.log(response);
     let result=response.data.results;
     result=result.map((ricetta)=>{return ricetta.id});
     return axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${result.toString()}&apiKey=${process.env.SPOONACULAR_KEY}`)
@@ -31,6 +32,7 @@ router.get('/', function(req, res) {
         dishTypes: ricetta.dishTypes,
         cuisines: ricetta.cuisines,
         diets: ricetta.diets,
+        instructions: ricetta.instructions,
         extendedIngredients: ricetta.extendedIngredients.map((el)=>{ 
           return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
         }),
@@ -121,6 +123,7 @@ router.post("/",async (req,res)=>{
             dishTypes: data.dishTypes,
             cuisines: data.cuisines,
             diets: data.diets,
+            instructions: ricetta.instructions,
             extendedIngredients: ricetta.extendedIngredients.map((el)=>{ 
               return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
             }),
@@ -152,6 +155,7 @@ router.post("/",async (req,res)=>{
       else if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
       else{
         data.type="users_recipe"  
+        //TODO instructions: su un'unica stringa
         await Recipe.create(obj);
         console.log(data);
         res.status(200).json(data);
