@@ -13,5 +13,10 @@ module.exports = (sequelize, DataTypes) => {
     UserComment.belongsTo(models.User);
     UserComment.belongsTo(models.Comment);
   };
+
   return UserComment;
 };
+
+
+
+
