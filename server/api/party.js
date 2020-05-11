@@ -61,13 +61,15 @@ router.get('/', (req, res) =>{
           obj_recipe[arr.slice(1).join("_")]=query[key];
         }
         else if(arr[0]==="cocktail") {
-          obj_cocktail[arr.slice(1).join("_")]=query[key];
+          if(obj_cocktail.keys.lenght<1){
+            obj_cocktail[arr.slice(1).join("_")]=query[key];
+          }
         }
       });
       const urlBeer=buildUrl(baseUrl+'/api/beers', {
         queryParams: obj_beer
       });
-      const urlCocktail=buildUrl(baseUrl+'/api/cocktails', {
+      const urlCocktail=buildUrl(baseUrl+'/api/cocktails/'+obj_cocktail.keys[0], {
         queryParams: obj_cocktail
       });
       const urlRecipe=buildUrl(baseUrl+'/api/recipes', {
@@ -82,9 +84,9 @@ router.get('/', (req, res) =>{
 
       axios.all(request)
       .then(axios.spread((...responses) => {
-        const number_beer=req.query.number_beer||3;
-        const number_recipe=req.query.number_recipe||3;
-        const number_cocktail=req.query.number_cocktail||3;
+        const number_beer=req.query.beer_number||3;
+        const number_recipe=req.query.recipe_number||3;
+        const number_cocktail=req.query.cocktail_number||3;
         const finalResponse={
           recipes: responses[0].data.slice(0,number_recipe),
           beers: responses[1].data.slice(0,number_beer),
