@@ -2,14 +2,10 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Friendships', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
       userId: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
+        allowNull: false,
         references: {
           model: 'Users',
           key: 'id'
@@ -17,10 +13,16 @@ module.exports = {
       },
       friendId: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
+        allowNull: false,
         references: {
           model: 'Users',
           key: 'id'
         }
+      },
+      pending:{
+        type: Sequelize.BOOLEAN,
+        allowNull:false
       },
       createdAt: {
         allowNull: false,

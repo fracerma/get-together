@@ -1,86 +1,32 @@
 //Requiring all needed modules
 const express = require("express");
 const bodyParser = require("body-parser");
-const session = require("express-session");
 const app = express();
-const User= require("./models/index").User;
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
+    if (req.method === 'OPTIONS') {
+      res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+      return res.status(200).json({});
+    }
+    next();
+  });
+  
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//creo la sessione
-const TWO_HOURS= 1000* 60 * 60 *2;
-app.use(session({
-    name: "sid",
-    resave: false,
-    saveUninitialized: false,
-    secret: "ssh!secret",
-    cookie: {
-        maxAge: TWO_HOURS,
-        sameSite: true,
-    }
-}));
-
-const redirectLogin = (req,res,next)=>{
-    if(!req.session.userId){
-        res.redirect('/login.html');
-    }
-    else next();
-}
-
-app.use("/profile.html",redirectLogin);
-
-const redirectHome = (req,res,next)=>{
-    if(req.session.userId){
-        res.redirect('/');
-    }
-    else next();
-}
-app.use("/login.html",redirectHome);
-
-app.post("/login",(req,res)=>{
-    const { userId } = req.session;
-    if(userId) res.redirect("/profile.html");
-    else{
-        const email = req.body.email;
-        const password = req.body.password;   
-        User.findOne({ where: { email: email } }).then(function (user) {
-            if (!user||!user.authenticate(password)) {
-                res.redirect('/login.html');
-            } else {
-                req.session.userId = user.id;
-                res.redirect('/profile.html');
-            }
-        });
-    }
-});
-
-app.use("/register.html",redirectHome);
-
-app.post("/register",(req,res)=>{
-    console.log("Trying to login");
-    
-    const { userId } = req.session;
-    if(userId) res.redirect("/profile.html");
-    else{
-        User.create(req.body);
-        res.redirect("/login.html");
-    }
-});
-
-// route for user logout
-app.get('/logout', (req, res) => {
-    if (req.session.userId) {
-        req.session.destroy();
-        res.clearCookie("sid");
-        res.redirect('/');
-    }
-});
-
-const api = require("./api/main");
+const api = require("./api/api");
+const controller= require("./controller/controller");
 
 app.use("/api", api);
+
+app.use("/", controller);
+
 
 app.use("/", express.static(__dirname + "/client/"));
 
