@@ -36,82 +36,82 @@ io.use(
   })
 );
 
-io.on("connection", function (socket) {
-  socket.handshake.session.userId = 15;
-  socket.handshake.session.save();
-  //console.log(socket);
-  socketArray.push(socket);
-  console.log("------------------", socketArray);
-  /////////////////////////////////////////////////////////////////
+//io.on("connection", function (socket) {
+//socket.handshake.session.userId = 15;
+//socket.handshake.session.save();
+//console.log(socket);
+//socketArray.push(socket);
+//console.log("------------------", socketArray);
+/////////////////////////////////////////////////////////////////
 
-  app.use(sess);
+app.use(sess);
 
-  const redirectLogin = (req, res, next) => {
-    if (!req.session.userId) {
-      res.redirect("/login.html");
-    } else next();
-  };
+const redirectLogin = (req, res, next) => {
+  if (!req.session.userId) {
+    res.redirect("/login.html");
+  } else next();
+};
 
-  app.use("/profile.html", redirectLogin);
+app.use("/profile.html", redirectLogin);
 
-  const redirectHome = (req, res, next) => {
-    if (req.session.userId) {
-      res.redirect("/");
-    } else next();
-  };
-  app.use("/login.html", redirectHome);
+const redirectHome = (req, res, next) => {
+  if (req.session.userId) {
+    res.redirect("/");
+  } else next();
+};
+app.use("/login.html", redirectHome);
 
-  app.post("/login", (req, res) => {
-    const { userId } = req.session;
-    if (userId) res.redirect("/profile.html");
-    else {
-      const email = req.body.email;
-      const password = req.body.password;
-      User.findOne({ where: { email: email } }).then(function (user) {
-        if (!user || !user.authenticate(password)) {
-          res.redirect("/login.html");
-        } else {
-          req.session.userId = user.id;
-          //////////////////////////////
-          socket.handshake.session.userId = user.id;
-          socket.handshake.session.save();
-          socketArray.push(socket);
-          /////////////////////////////////////////
-          res.redirect("/profile.html");
-        }
-      });
-    }
-  });
-
-  app.use("/register.html", redirectHome);
-
-  app.post("/register", (req, res) => {
-    console.log("Trying to login");
-
-    const { userId } = req.session;
-    if (userId) res.redirect("/profile.html");
-    else {
-      User.create(req.body);
-      res.redirect("/login.html");
-    }
-  });
-
-  // route for user logout
-  app.get("/logout", (req, res) => {
-    if (req.session.userId) {
-      req.session.destroy();
-      ////////////////////////////////////
-      if (socket.handshake.session.userId) {
-        delete socket.handshake.session.userId;
-        socket.handshake.session.save();
+app.post("/login", (req, res) => {
+  const { userId } = req.session;
+  if (userId) res.redirect("/profile.html");
+  else {
+    const email = req.body.email;
+    const password = req.body.password;
+    User.findOne({ where: { email: email } }).then(function (user) {
+      if (!user || !user.authenticate(password)) {
+        res.redirect("/login.html");
+      } else {
+        req.session.userId = user.id;
+        //////////////////////////////
+        // socket.handshake.session.userId = user.id;
+        // socket.handshake.session.save();
+        // socketArray.push(socket);
+        /////////////////////////////////////////
+        res.redirect("/profile.html");
       }
-      //////////////////////////////////////
-      res.clearCookie("sid");
-      res.redirect("/");
-    }
-  });
-  module.exports = socketArray;
+    });
+  }
 });
+
+app.use("/register.html", redirectHome);
+
+app.post("/register", (req, res) => {
+  console.log("Trying to login");
+
+  const { userId } = req.session;
+  if (userId) res.redirect("/profile.html");
+  else {
+    User.create(req.body);
+    res.redirect("/login.html");
+  }
+});
+
+// route for user logout
+app.get("/logout", (req, res) => {
+  if (req.session.userId) {
+    req.session.destroy();
+    ////////////////////////////////////
+    // if (socket.handshake.session.userId) {
+    //   delete socket.handshake.session.userId;
+    //   socket.handshake.session.save();
+    // }
+    //////////////////////////////////////
+    res.clearCookie("sid");
+    res.redirect("/");
+  }
+});
+module.exports = socketArray;
+//});
 
 const api = require("./api/main");
 
