@@ -20,15 +20,13 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const api = require("./api/main");
-const session= require("./controller/session").router;
-const user=require("./controller/user");
+const api = require("./api/api");
+const controller= require("./controller/controller");
 
 app.use("/api", api);
 
-app.use("/", session);
+app.use("/", controller);
 
-app.use("/user", user);
 
 app.use("/", express.static(__dirname + "/client/"));
 
