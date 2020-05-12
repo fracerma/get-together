@@ -11,6 +11,20 @@ module.exports = {
       text: {
         type: Sequelize.TEXT
       },
+      partyId: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Parties',
+            key: 'id'
+          }
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

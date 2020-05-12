@@ -99,7 +99,7 @@ function cleaner(rawData, max){
 router.get("/type", function (req, response) {
   const q = req.query;
   var num = q.number
-  var type = q.cocktail_type;
+  var type = q.type;
 //Prendo prima tutti i cocktail con type ( il JSON di risposta contiene solo l'id del cocktail e poco altro)
   axios
     .get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=" + type)
@@ -181,7 +181,7 @@ router.get("/name", function( req, response ){
   const q = req.query; 
   var num = q.number
 axios
-  .get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + q.cocktail_name
+  .get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + q.name
 )
   .then(function(res){
     let result = cleaner(res.data, num);
@@ -198,7 +198,7 @@ router.get("/category", function (req, response) {
   const q = req.query;
   var num = q.number
   axios
-    .get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=' + q.cocktail_category
+    .get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=' + q.category
     )
     .then(function (res) {
       let resId = cleaner(res.data, num);
@@ -244,7 +244,7 @@ router.get("/ingredient", function (req, response) {
   const q = req.query;
   var num = q.number
   axios
-    .get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + q.cocktail_ingredient
+    .get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + q.ingredient
     )
     .then(function (res) {
 
@@ -288,22 +288,5 @@ router.get("/ingredient", function (req, response) {
     .finally(function (final) { })
 });
 
-
-//prende un id e restituisce tutti i dettagli sul cocktail
-/*router.get("/full_cocktail", function(req, response){
-  const q = req.query;
-  const id = q.cocktail_id;
-  axios
-    .get('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + id)
-    .then(function (res) {
-      let result = cleaner(res.data,  1);
-      response.send(result);
-    })
-    .catch(function (error) { 
-      console.error(error);
-    })
-    .finally(function (final) { })
-});
-*/
 module.exports = router;
 
