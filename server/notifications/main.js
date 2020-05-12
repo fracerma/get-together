@@ -17,7 +17,8 @@ const Notification = require("../models/index").Notification;
 
 router.get("/", function (req, res) {
   let io = res.io;
-  io.on("connection", function (socket) {
+  res.redirect("/profile1.html");
+  /* io.on("connection", function (socket) {
     io.to(socket.id).emit("welcome", "Connesso al server in /notification");
     const currentId = req.session.userId;
 
@@ -117,7 +118,6 @@ router.get("/", function (req, res) {
       sockets = currObj;
       console.log("sockets in disconnessione: ---->", sockets);
     });
-  });
-  res.redirect("/profile1.html");
+  });*/
 });
 module.exports = router;
