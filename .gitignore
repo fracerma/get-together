@@ -41,3 +41,7 @@ jspm_packages/
 .env.test
 Icon?
 
+#https:
+server.cert
+server.key
+
