@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Recipe.belongsToMany(models.User,{as: "favourites", through: "Favourites",foreignKey:"recipeId"});
     Recipe.belongsToMany(models.Party, {through: 'PartyRecipe', foreingKey: "recipeId"});
+    Recipe.belongsTo(models.User,{as: "user"});
   };
   return Recipe;
 };

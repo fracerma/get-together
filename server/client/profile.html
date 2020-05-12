@@ -10,6 +10,21 @@ Loggedd innn!
 <script type="text/javascript">
  
     const root= document.getElementById("friend-conteinter");
+    
+    const getFriend=function(){
+        fetch("user/friend", {
+                method: 'GET',
+                credentials: 'include'
+                })
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                buildFriendList(json,root);
+            }).catch((err) => {
+                console.log(err);
+            });
+    }
+    
     const aggiungiAmico=function(e){
         fetch("/user/accept", {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -41,19 +56,6 @@ Loggedd innn!
             rootEl.appendChild(div);
             div.appendChild(accettaBtn);
        }); 
-    }
-    const getFriend=function(){
-        fetch("user/friend", {
-                method: 'GET',
-                credentials: 'include'
-                })
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
-                buildFriendList(json,root);
-            }).catch((err) => {
-                console.log(err);
-            });
     }
     getFriend();
    

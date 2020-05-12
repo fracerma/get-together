@@ -50,7 +50,7 @@ router.post("/login",redirectHome,async (req,res)=>{
             res.redirect('/login.html');
         } else {
             req.session.userId = user.id;
-            res.redirect('/profile.html');
+            res.redirect('/');
         }
     }
     catch(e){
@@ -92,6 +92,9 @@ router.get('/logout', (req, res) => {
         res.redirect('/');
     }
 });
+
+//FIXME temporaneo
+router.get("/recipes.html",redirectLogin);
 
 module.exports.router = router;
 module.exports.redirectLogin = redirectLogin;
