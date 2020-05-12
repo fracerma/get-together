@@ -25,6 +25,12 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false
       },
+      idfb: {
+        type: Sequelize.STRING
+    },
+      accessToken: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
