@@ -1,9 +1,18 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    width: 100vw;
+    overflow-x: hidden;
+}
 nav{
     font-size: 2em;
 }
 #logo-nav{
-    width: 200px;
-    margin-right: calc(50vw - 200px);
+    width: 150px;
+    margin-right: calc(50vw - 150px);
 }
 
 #banner-image{
@@ -12,6 +21,6 @@ nav{
 }
 
 #banner-image img{
-    width: 100vw;
+    width: 100%;
     margin-top: -30vh;
 }

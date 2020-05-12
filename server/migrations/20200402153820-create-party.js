@@ -8,9 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      recipes: {
-        type: Sequelize.JSONB
-      },
       wines: {
         type: Sequelize.JSONB
       },
