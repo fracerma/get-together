@@ -1,29 +1,28 @@
 const express = require("express");
 const router = express.Router();
-var array = require("../index.js");
-console.log("array: ", array);
+let array = require("../controller/session").socketArray;
+console.log(array);
 
 router.get("/", function (req, res) {
-  var io = req.app.get("socket.io");
+  const userId = req.session.userId;
+  let io = res.io;
   res.redirect("/client.html");
+  let i = 0;
+  let dst;
+  let len = array.length;
   console.log(array);
-  //io.on("connection", function (socket) {
-  console.log("Connected succesfully to the socket ...");
-
-  var news = [
-    {
-      type: "friend-request",
-      data: "You have a new request",
-    },
-  ];
-
-  // Send news on the socket
-  io.to(array[0]).emit("friend-request", "ciao");
-
-  socket.on("my other event", function (data) {
-    console.log(data);
+  for (i = 0; i < len; i++) {
+    if (array[i]["clientId"] == userId) {
+      dst = array[i]["socketId"];
+      break;
+    }
+  }
+  console.log(dst);
+  io.on("connection", function (socket) {
+    //socket.emit("friend-request", "Ciao");
+    io.to(dst.toString()).emit("friend-request", "Ciao");
+    console.log("1: ", socket.id);
   });
-  //});
 });
 
 module.exports = router;

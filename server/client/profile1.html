@@ -4,7 +4,18 @@ Loggedd innn!
   <input type="text" name="friendId" id="" placeholder="Id del tuo amico" />
   <input type="submit" value="Aggiungi" />
 </form>
+<script src="socket.io/socket.io.js"></script>
 <script type="text/javascript">
+  var socket = io("http://192.168.1.114:4000");
+
+  socket.on("welcome", function (msg) {
+    document.getElementById("response").innerHTML = msg + "<br/>";
+  });
+
+  socket.on("newFriend", function (msg) {
+    document.getElementById("newFriend").innerHTML = msg + "<br/>";
+  });
+
   const root = document.getElementById("friend-conteinter");
   const aggiungiAmico = function (e) {
     fetch("/user/accept", {
@@ -54,3 +65,21 @@ Loggedd innn!
   };
   getFriend();
 </script>
+<br />
+<h2>Notifiche:</h2>
+<hr />
+<label for="response">Risposta del server:</label>
+<br />
+<div id="response"></div>
+<hr />
+<label for="newFriend">Notifiche di newFriend:</label>
+<br />
+<div id="newFriend"></div>
+<hr />
+<label for="newComment">Notifiche di newComment:</label>
+<br />
+<div id="newComment"></div>
+<hr />
+<label for="newInvitation">Notifiche di newInvitation:</label>
+<br />
+<div id="newInvitation"></div>

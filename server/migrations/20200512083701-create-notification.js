@@ -1,26 +1,27 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('CommentParties', {
+    return queryInterface.createTable('Notifications', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      commentId: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: 'Comments',
-            key: 'id'
-          }
+      source: {
+        type: Sequelize.INTEGER
       },
-      partyId: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: 'Parties',
-            key: 'id'
-          }
+      destination: {
+        type: Sequelize.INTEGER
+      },
+      event: {
+        type: Sequelize.STRING
+      },
+      party: {
+        type: Sequelize.INTEGER
+      },
+      state: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +34,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('CommentParties');
+    return queryInterface.dropTable('Notifications');
   }
 };

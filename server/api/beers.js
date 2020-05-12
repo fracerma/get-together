@@ -17,7 +17,7 @@ router.get("/random",(req,res)=>{
         ids += `${number}|`;
         norepetition[i] = number;
       }
-    } //0bb44bfed5b75152238e7b17eb998d025c4e5fe5
+    } 
     axios
       .get("https://api.punkapi.com/v2/beers" + `?ids=${ids}`)
       .then((response) => {
@@ -81,10 +81,11 @@ router.get("/", function (req, res) {
   }
 });
 
-module.exports = router;
 
 function getRandomIntBetween(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+module.exports = router;

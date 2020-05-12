@@ -8,10 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {});
   Party.associate = function(models) {
-    Party.belongsToMany(models.Comment, {
-      through: "CommentParty",
-      foreingKey: "partyId",
-    });
+    Party.hasMany(models.Comment);
     Party.belongsToMany(models.Recipe, {
       through: "PartyRecipe",
       foreingKey: "partyId",

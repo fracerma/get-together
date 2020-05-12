@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-</head>
-<body>
+  </head>
+  <body>
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+      var socket = io("http://localhost:4000");
+    </script>
     <form action="login" method="post">
-        <label for="email">Email:</label>
-        <input type="text" name="email" id="">
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="">
-        <button type="submit">Login</button>
+      <label for="email">Email:</label>
+      <input type="text" name="email" id="" />
+      <br />
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="" />
+      <button type="submit">Login</button>
     </form>
-    
-</body>
+  </body>
 </html>
