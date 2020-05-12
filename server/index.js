@@ -8,7 +8,9 @@ const http = require("http");
 const server = http.createServer(app);
 const io = require("socket.io")(server);
 var sockets = [];
-module.exports = sockets;
+//require("./notifications/main")(io);
+module.exports.sockets = sockets;
+module.exports.io = io;
 //////////////////////////////////////////
 
 app.use((req, res, next) => {

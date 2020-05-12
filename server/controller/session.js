@@ -2,26 +2,35 @@ const express = require("express");
 const router = express.Router();
 const session = require("express-session");
 const User = require("../models/index").User;
+const sharedsession = require("express-socket.io-session");
+const io = require("../index").io;
 
 //creo la sessione inserendola nel middleware, dandogli un tempo di vita di due ore
 //TODO da studiare la criptazione
+
 const TWO_HOURS = 1000 * 60 * 60 * 2;
 
-router.use(
-  session({
-    //nome del cookie
-    name: "sid",
-    resave: false,
-    saveUninitialized: false,
-    //chiave per la criptazione
-    secret: "ssh!secret",
-    //parametri del cookie
-    cookie: {
-      maxAge: TWO_HOURS,
-      sameSite: true,
-    },
+var sess = session({
+  //nome del cookie
+  name: "sid",
+  resave: false,
+  saveUninitialized: false,
+  //chiave per la criptazione
+  secret: "ssh!secret",
+  //parametri del cookie
+  cookie: {
+    maxAge: TWO_HOURS,
+    sameSite: true,
+  },
+});
+
+io.use(
+  sharedsession(sess, {
+    autoSave: true,
   })
 );
+
+router.use(sess);
 
 //funzione che controlla se vi è una sessione, in caso negativo redirige alla pagina di login
 const redirectLogin = (req, res, next) => {
@@ -45,14 +54,20 @@ router.get("/login.html", redirectHome);
 router.post("/login", redirectHome, async (req, res) => {
   const email = req.body.email,
     password = req.body.password;
-  let io = res.io;
   try {
     const user = await User.findOne({ where: { email: email } });
     if (!user || !user.authenticate(password)) {
       res.redirect("/login.html");
     } else {
       req.session.userId = user.id;
-      res.redirect("/profile1.html");
+      io.on("login", function (msg) {
+        if (msg == "ok") {
+          socket.handshake.session.userId = user.id;
+          socket.handshake.session.save();
+        }
+      });
+      let currentId;
+      res.redirect("/notification");
     }
   } catch (e) {
     const errObj = {
@@ -95,3 +110,4 @@ router.get("/logout", (req, res) => {
 
 module.exports.router = router;
 module.exports.redirectLogin = redirectLogin;
+/////////////////////////////////////////////////////

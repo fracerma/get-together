@@ -12,15 +12,21 @@ router.use("/invitation", invitation);
 module.exports = router;*/
 const express = require("express");
 const router = express.Router();
-let sockets = require("../index");
+let sockets = require("../index").sockets;
 const Notification = require("../models/index").Notification;
+const io = require("../index").io;
 
 router.get("/", function (req, res) {
   let io = res.io;
   res.redirect("/profile1.html");
-  /* io.on("connection", function (socket) {
-    io.to(socket.id).emit("welcome", "Connesso al server in /notification");
-    const currentId = req.session.userId;
+  console.log(req.session.userId);
+});
+
+io.on("connection", function (socket) {
+  if (socket.handshake.session.userId) {
+    currentId = socket.handshake.session.userId;
+    io.to(socket.id).emit("welcome", currentId);
+    //io.to(socket.id).emit("newFriend", currentId);
 
     //controllo se il client e' gia' nell'array di connessioni
     //se ci sta sostituisco l'oggetto con la nuova websocket
@@ -29,13 +35,20 @@ router.get("/", function (req, res) {
     console.log("sockets in connessione/reload---->: ", sockets);
 
     //Controllo se il client che si connette ha notifiche in sospeso e gliele invio.
+
     Notification.findAll({
+      raw: true,
       where: { destination: currentId, state: true },
-    }).then(function (notRead) {
-      console.log("notRead: ------>", notRead);
-      for (n in notRead) {
+    }).then((notRead) => {
+      let i = 0;
+      console.log(notRead);
+      let len = notRead.length;
+      for (i = 0; i < len; i++) {
+        //console.log(n);
+        let n = notRead[i];
         let e = n.event;
-        let notId = n.id;
+
+        var notId = n.id;
         let data = {
           source: n.source,
           destination: currentId,
@@ -45,7 +58,9 @@ router.get("/", function (req, res) {
         };
 
         // Manca ack che il client abbia ricevuto la notifica
+        console.log(socket.id);
         io.to(socket.id).emit(e, data);
+        //console.log("event: ", e);
 
         // Dopo che ho verificato che sia arrivato lo segno come letto
         Notification.findOne({ where: { id: notId } }).then(function (
@@ -53,71 +68,56 @@ router.get("/", function (req, res) {
         ) {
           // Check if record exists in db
           if (notification) {
-            notification
-              .update({
-                state: false,
-              })
-              .success(function () {});
+            notification.update({
+              state: false,
+            });
           }
         });
       }
     });
-
-    io.to(socket.id).emit("newFriend", "Hello");
-
-    //event e' un oggetto JSON che contiene dentro l'identificatore del destinatario
-    io.on("newComment", function (event) {
-      //Creo la notifica e la aggiungo al db e la setto di default a true, ovvero da leggere.
-      try {
-        Notification.create(event);
-      } catch (e) {
-        const errObj = {
-          name: e.name,
-          detail: e.parent.detail,
-          code: e.parent.code,
-        };
-        console.log(errObj);
-        res.status(400).send(errObj);
-      }
-
-      //Controllo che il client sia nell'array di socket e abbia una socket attiva
-      let dst = event.destination;
-      let dstSock = sockets.filter((x) => x.destination == dst).socket;
-
-      //In caso positivo invio la notifica e la aggiorno nel db come false, ovvere non da leggere
-      if (dstSock) {
-        // Manca ack che il client abbia ricevuto la notifica
-        io.to(dstSock.id).emit(event.event, event);
-
-        // Dopo che ho verificato che sia arrivato lo segno come letto
-        Notification.find({ where: { id: notId } }).then(function (
-          notification
-        ) {
-          // Check if record exists in db
-          if (notification) {
-            notification
-              .update({
-                state: false,
-              })
-              .success(function () {});
-          }
-        });
-      }
-    });
-
-    //In caso negativo non faccio nulla e la lascio indicata a true, ovvero da leggere
-
-    io.on("newFriend", function (event) {});
-
-    io.on("newInvitation", function (event) {});
-
     socket.on("disconnect", () => {
       console.log("Prima di disconnessione...---->", sockets);
-      console.log(req.session.userId);
       let currObj = sockets.filter((x) => x.clientId != currentId);
       sockets = currObj;
       console.log("sockets in disconnessione: ---->", sockets);
     });
-  });*/
+
+    //event e' un oggetto JSON che contiene dentro l'identificatore del destinatario
+    socket.on("newFriend", function (event) {
+      console.log(event);
+      //Creo la notifica e la aggiungo al db e la setto di default a true, ovvero da leggere.
+      Notification.create(event).then((toSend) => {
+        //Controllo che il client sia nell'array di socket e abbia una socket attiva
+        console.log("sono dentro newFriend");
+        let dst = event.destination;
+        let dstSock = sockets.filter((x) => x.clientId == dst)[0];
+
+        //In caso positivo invio la notifica e la aggiorno nel db come false, ovvere non da leggere
+        console.log("idDest: ", dstSock);
+        if (dstSock != undefined) {
+          // Manca ack che il client abbia ricevuto la notifica
+          io.to(dstSock.socket.id).emit(event.event, event);
+
+          // Dopo che ho verificato che sia arrivato lo segno come letto
+          Notification.findOne({ where: { id: toSend.id } }).then(function (
+            notification
+          ) {
+            // Check if record exists in db
+            if (notification) {
+              notification.update({
+                state: false,
+              });
+            }
+          });
+        }
+      });
+    });
+    io.on("newComment", function (event) {});
+
+    io.on("newInvitation", function (event) {});
+  }
 });
+
+//In caso negativo non faccio nulla e la lascio indicata a true, ovvero da leggere
+
 module.exports = router;
