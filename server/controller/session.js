@@ -17,13 +17,14 @@ router.use(session({
     cookie: {
         maxAge: TWO_HOURS,
         sameSite: true,
+        httpOnly: false
     }
 }));
 
 //funzione che controlla se vi è una sessione, in caso negativo redirige alla pagina di login
 const redirectLogin = (req,res,next)=>{
     if(!req.session.userId){
-        res.redirect('/login.html');
+        res.redirect('/#/login');
     }
     else next();
 }

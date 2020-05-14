@@ -16,7 +16,7 @@ app.use((req, res, next) => {
       return res.status(200).json({});
     }
     next();
-  });
+});
   
 app.use(bodyParser.json());
 
@@ -35,6 +35,6 @@ app.use("/", express.static(__dirname + "/client/"));
 https.createServer({
   key: fs.readFileSync('server.key'),
   cert: fs.readFileSync('server.cert')
-}, app).listen(4000,"192.168.1.51", () => {
-  console.log('Listening...')
+}, app).listen(4000, () => {
+  console.log('Listening...on https://localhost:4000')
 });

@@ -1,4 +1,4 @@
-Vue.component("beer-component",{
+export default{
     props: ["beer"],
     template: `
     <div class="item-component">
@@ -10,4 +10,4 @@ Vue.component("beer-component",{
         <a class="btn bg-orange" href="#">Add to your party</a>
     </div>
     `
-});
+}

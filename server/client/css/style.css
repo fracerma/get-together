@@ -1,4 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    width: 100vw;
+    overflow-x: hidden;
+}
+nav{
+    font-size: 2em;
+}
+#logo-nav{
+    width: 170px;
+}
+
+#banner-image{
+    overflow: hidden;
+    height: 30vh;
+}
+
+#banner-image img{
+    width: 100%;
+    margin-top: -30vh;
+}
+
+#home-svg{
+    height: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#profile-svg{
+    height: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#navbarNav{
+    display: flex;
+    justify-content: space-between;
+}
 
 .bg-orange{
     background-color: #ff8934;
@@ -47,6 +87,9 @@
     text-align: left;
     align-items: center;
 }
+.high-bar input{
+    font-size:20px;
+}
 
 .content{
     position: relative;
@@ -75,23 +118,21 @@
     background-color: white;
     margin: 1%;
     width: 20%;
-    height: 75vh;
     border-radius: 2%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     font-family: 'Roboto', sans-serif;
-    --lh: 1.3rem;
-    line-height: var(--lh); 
 }
 .item-component div{
-    width: 100%;
-    --max-lines: 9;
-    position: relative;
-    max-height: calc(var(--lh) * var(--max-lines));
-    overflow: hidden;;
+    text-align: center;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    padding: 3px;
     border-top: 2px solid rgb(161, 161, 161);
 }
 .item-component img{
-    height: 30%;
+    height: 15vh;
     width: auto;
 }
 .item-component p{
@@ -105,6 +146,7 @@
     padding: 10px;
     color: white;
     border-radius: 5px;
+    margin: 5px;
 }
 
 @media only screen and (max-width: 1400px) {

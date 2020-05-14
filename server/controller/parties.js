@@ -51,8 +51,8 @@ router.get("/:id/comments",(req,res)=>{
 
 });
 //aggiunge un commento
-router.post("/:id/comments",(req,res)=>{
-
+router.post("/:id_party/comments",(req,res)=>{
+    req.params.id_party
 });
 //visualizza un commento
 router.get("/:party_id/comments/:comment_id",(req,res)=>{
