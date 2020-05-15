@@ -1,6 +1,10 @@
 #VS code
 .vscode
 
+#key and certificate for https
+server.cert
+server.key
+
 config/
 
 # Logs
