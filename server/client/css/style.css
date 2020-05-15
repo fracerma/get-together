@@ -8,12 +8,53 @@ body{
     width: 100vw;
     overflow-x: hidden;
 }
+
+.bg-orange{
+    background-color: #ff8934;
+}
+.bg-blue{
+    background-color: #1c4f57;
+}
+.bg-green{
+    background-color: #35b86c;
+}
+/************
+    NAVBAR
+*************/
 nav{
     font-size: 2em;
 }
 #logo-nav{
     width: 170px;
 }
+
+svg{
+    height: 45px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.right-icon{
+    margin-right: 10px;
+}
+
+.right-icon svg{
+    margin-right: 20px;
+}
+
+.left-icon{
+    margin-left: 30px;
+}
+.fill-orange{
+    fill: #ff9244;
+}
+#navbarNav{
+    display: flex;
+    justify-content: space-between;
+}
+
+/************
+ BANNER IMAGE
+*************/
 
 #banner-image{
     overflow: hidden;
@@ -25,30 +66,9 @@ nav{
     margin-top: -30vh;
 }
 
-#home-svg{
-    height: 40px;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-#profile-svg{
-    height: 40px;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-#navbarNav{
-    display: flex;
-    justify-content: space-between;
-}
-
-.bg-orange{
-    background-color: #ff8934;
-}
-.bg-blue{
-    background-color: #1c4f57;
-}
-.bg-green{
-    background-color: #35b86c;
-}
+/************
+   VUE APP
+*************/
 
 #app{
     width: 100vw;
@@ -63,17 +83,20 @@ nav{
     background: rgba(0, 0, 0,0.7);
 }
 
-.img-recipe:hover{
-    opacity: 0.5;
-}
+/************
+PARTY COMPONENT
+*************/
+
+
+/************
+ITEMS COMPONENT
+*************/
 
 .conteiner-component{
     overflow: hidden;
     width: 100vw;
     text-align: center;
 }
-
-
 
 .high-bar:hover{
     cursor: pointer;
@@ -110,6 +133,9 @@ nav{
     color: white;
 }
 
+/************
+ITEM COMPONENT
+*************/
 
 .item-component{
     display: inline-block;
@@ -141,13 +167,21 @@ nav{
 .item-component h5{
     font-size: 1.5em
 }
-.btn{
+.item-component .btn{
     text-decoration: none;
     padding: 10px;
     color: white;
     border-radius: 5px;
     margin: 5px;
 }
+
+.img-recipe:hover{
+    opacity: 0.5;
+}
+
+/************
+RESPONSIVE STUFF
+*************/
 
 @media only screen and (max-width: 1400px) {
     .item-component{

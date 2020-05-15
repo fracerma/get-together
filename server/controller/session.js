@@ -5,7 +5,7 @@ const User= require("../models/index").User;
 
 //creo la sessione inserendola nel middleware, dandogli un tempo di vita di due ore
 //TODO da studiare la criptazione
-const TWO_HOURS= 1000* 60 * 60 *2;
+const TWO_HOURS= 1000* 60 * 60 *24;
 router.use(session({
     //nome del cookie
     name: "sid",
@@ -21,15 +21,22 @@ router.use(session({
     }
 }));
 
+
+
 //funzione che controlla se vi è una sessione, in caso negativo redirige alla pagina di login
 const redirectLogin = (req,res,next)=>{
     if(!req.session.userId){
-        res.redirect('/#/login');
+        res.redirect('/login.html');
     }
     else next();
 }
-//nel caso di quaunque richiesta al profile.html applico la funzione rediretLogin
-router.get("/profile.html",redirectLogin);
+
+const redirectFrontpage= (req,res,next)=>{
+    if(!req.session.userId){
+        res.redirect('/frontpage.html');
+    }
+    else next();
+}
 
 //funzione che controlla se vi è una sessione, in caso affermativo redirige all'Homepage
 const redirectHome = (req,res,next)=>{
@@ -39,10 +46,12 @@ const redirectHome = (req,res,next)=>{
     else next();
 }
 
-//nel caso di quaunque richiesta al profile.html applico la funzione rediretHome
+//router.get("/",redirectFrontpage);
+
+//nel caso di quaunque richiesta al login.html applico la funzione rediretHome
 router.get("/login.html",redirectHome);
 
-router.post("/login",redirectHome,async (req,res)=>{
+router.post("/login",redirectHome, async (req,res)=>{
     const email = req.body.email,
             password = req.body.password;
     try{
@@ -90,12 +99,10 @@ router.get('/logout', (req, res) => {
     if (req.session.userId) {
         req.session.destroy();
         res.clearCookie("sid");
-        res.redirect('/');
     }
+    res.redirect("/");
 });
 
-//FIXME temporaneo
-router.get("/recipes.html",redirectLogin);
 
 module.exports.router = router;
 module.exports.redirectLogin = redirectLogin;
