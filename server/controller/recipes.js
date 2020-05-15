@@ -1,23 +1,93 @@
 const express= require("express");
 const router= express.Router();
-//ottieni le ricette aggiunte dall'utente corrente
-router.get("/",(req,res)=>{
-
+const User = require("../models/index").User;
+const Recipe = require("../models/index").Recipe;
+const axios= require("axios");
+const { Op } = require("sequelize");
+//ottieni tutte le ricette aggiunte dall'utente corrente
+router.get("/",async (req,res)=>{
+  try{
+    const userId=req.session.userId;
+    const recipes = await (await User.findByPk(userId)).getRecipes();
+    console.log(recipes);
+    res.send(recipes);
+  }catch(e){
+    const errObj={
+        name: e.name,
+        detail: e.parent.detail,
+        code: e.parent.code
+    }
+    console.log(errObj);
+    res.status(400).send(errObj);
+  };
 });
 
-//ottiene tutte le ricette aggiunte dagli utenti
-router.get("/all",(req,res)=>{
-
+//ottiene tutte le ricette aggiunte dai tuoi amici
+router.get("/friends",async (req,res)=>{
+  try{
+    let userFriends= await (await User.findByPk(req.session.userId)).getFriends({attributes:['id']});
+    userFriends = userFriends.map((el)=>{
+      return el.id
+    });
+    console.log("I tuoi amici: ",userFriends);
+    
+    const recipes = await Recipe.findAll({
+      where:{
+        id:{
+          [Op.in]: userFriends
+        } 
+      }
+    });
+    console.log(recipes);
+    res.send(recipes);
+  }catch(e){
+    const errObj={
+        name: e.name,
+        detail: e.parent.detail,
+        code: e.parent.code
+    }
+    console.log(errObj);
+    res.status(400).send(errObj);
+  };
 });
 
 //ottiene una ricetta nel db
-router.get("/:id",(req,res)=>{
+router.get("/:id",async (req,res)=>{
+  try{
+    const recipe=await Recipe.findByPk(req.params.id);
+    res.send(recipe);
+  }catch(e){
+    const errObj={
+        name: e.name,
+        detail: e.parent.detail,
+        code: e.parent.code
+    }
+    console.log(errObj);
+    res.status(400).send(errObj);
+  };
+});
 
+router.delete("/:id",async (req,res)=>{
+  try{
+    const recipe=await Recipe.findByPk(req.params.id);
+    await recipe.delete();
+    res.status(200);
+  }catch(e){
+    const errObj={
+        name: e.name,
+        detail: e.parent.detail,
+        code: e.parent.code
+    }
+    console.log(errObj);
+    res.status(400).send(errObj);
+  };
 });
 
 // Possibilità di aggiungere una ricetta al database:
 //TODO gestione associazione ricetta con utente
 router.post("/",async (req,res)=>{
+  console.log("aggiungo una ricetta");
+  
   //prendi i dati dal body
     let data=req.body;
     //se è una ricetta presa da un sito web
@@ -34,6 +104,7 @@ router.post("/",async (req,res)=>{
           //prendo il risultato e costruisco un oggetto da mettere nel database
           const ricetta= response.data;
           const obj={
+            userId: req.session.userId,
             title: ricetta.title,
             image: ricetta.image,
             readyInMinutes: ricetta.readyInMinutes,
@@ -42,6 +113,7 @@ router.post("/",async (req,res)=>{
             dishTypes: data.dishTypes,
             cuisines: data.cuisines,
             diets: data.diets,
+            //TODO summary
             instructions: ricetta.instructions,
             extendedIngredients: ricetta.extendedIngredients.map((el)=>{ 
               return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
@@ -74,14 +146,15 @@ router.post("/",async (req,res)=>{
       else if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
       else{
         data.type="users_recipe"  
+        data.userId=req.session.userId;
         //TODO summary: su un'unica stringa
-        const ricetta=await Recipe.create(obj);
-        ricetta
+        await Recipe.create(data);
         console.log(data);
         res.status(200).json(data);
       }
     }
   } 
 );
+
 
 module.exports= router;
