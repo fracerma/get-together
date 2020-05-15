@@ -196,7 +196,8 @@ axios
 //works
 router.get("/category", function (req, response) {
   const q = req.query;
-  var num = q.number
+  var num = q.number;
+  console.log(q);
   axios
     .get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=' + q.category
     )

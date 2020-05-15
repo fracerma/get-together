@@ -2,12 +2,12 @@ export default{
     props: ["cocktail"],
     template: `
     <div class="item-component">
-        <h5>{{cocktail.name}}</h5>
-        <img v-bind:src="cocktail.image_url">
+        <h5>{{cocktail.cocktailName}}</h5>
+        <img v-bind:src="cocktail.photo">
         <div>
-            <p>{{cocktail.description}}</p>
+            <p>{{cocktail.instructions}}</p>
         </div>
-        <a class="btn bg-orange" href="#">Add to your party</a>
+        <a class="btn bg-green" href="#">Add to your party</a>
     </div>
     `
 }
