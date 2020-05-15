@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "userId",
     });
     User.hasMany(models.Comment);
+    User.hasMany(models.Recipe,{foreignKey:"userId"});
   };
 
   //class method

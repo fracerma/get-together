@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
           }
         });
         relation.pending=false;
+        await relation.save();
         await Friendship.create({userId: toId,friendId: fromId , pending:false});
       }
       catch(e){
