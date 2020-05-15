@@ -3,11 +3,9 @@ const router = express.Router();
 
 const db= require("../models/index");
 
-const redirectToLogin=require("./session").redirectLogin;
 const bodyParser=require("body-parser");
 const Op=require("sequelize").Op;
 //uso la funzione redirect login presa dal file controller session, per controllare che l'utente sia connesso
-router.use(redirectToLogin);
 router.use(bodyParser.json());
 
 //post che permette di aggiungere un amico passando un id di un utente
@@ -15,6 +13,7 @@ router.post("/friend",async (req,res)=>{
     const userId=req.session.userId;
     try{
         await db.Friendship.friendRequest(userId,req.body.friendId);
+        res.status(200);
     }
     catch(e){
         const errObj={
