@@ -1,4 +1,5 @@
-Vue.component("recipe-component",{
+
+export default{
     props: ["recipe"],
     template: `
     <div class="item-component"> 
@@ -6,14 +7,15 @@ Vue.component("recipe-component",{
         <h5>{{recipe.title}}</h5>
         <img v-bind:src="recipe.image">
         <div>
-            <p><span v-html="recipe.summary"></span></p>
+            <p><span v-html="summary"></span></p>
         </div>
         <a class="btn bg-blue" href="#">Add to your party</a>
     </div>
     `,
     data() {
         return {
-            openInfo: false
+            openInfo: false,
+            summary: this.recipe.summary.split("All things considered")[0]
         }
     }
-});
+}

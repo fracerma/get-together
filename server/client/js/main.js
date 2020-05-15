@@ -1,20 +1,17 @@
-    import beersComponent from "./components/home_logged/beers-component.js";
+    import partyCreator from "./components/home_logged/party/partyCreator-component.js";
     import navBar from "./components/navBar.js"
-    import login from "./components/login/login.js"
-    import profile from "./components/profile/profile.js"
+    import profile from "./components/profile/profile-component.js"
+    import recipes from "./components/recipes/recipes-component.js"
+    import parties from "./components/parties/parties-component.js"
 
     const router = new VueRouter({
         routes:[
-            {path:"/",component: beersComponent},
-            {path:"/login",name:"Login", component: login},
-            {path:"/profile", component: profile},
+            {path:"/",name:"PartyCreator", component:partyCreator },
+            {path:"/profile",name:"Profile", component: profile},
+            {path:"/recipes",name:"Recipes", component: recipes},
+            {path:"/parties",name:"Parties", component: parties}
         ]
-      })
-
-      router.beforeEach((to, from, next) => {
-        if (to.name !== 'Login'&& to.name !== 'Login' && document.cookie.split("=")[0]!="sid") next({ name: 'Login' })
-        else next()
-      })
+      });
 
     var app=new Vue({
         el:"#app",
@@ -22,7 +19,6 @@
             isAuthenticated: false
         },
         components:{
-            "beers-component": beersComponent,
             "nav-bar":navBar
         },
         router
