@@ -16,7 +16,7 @@
     var app=new Vue({
         el:"#app",
         data:{
-            isAuthenticated: false
+            bannerImage:"../image/Principal.jpg"
         },
         components:{
             "nav-bar":navBar
