@@ -3,11 +3,13 @@ export default{
     template: `
     <div class="conteiner-component">
         <div class="high-bar bg-orange" >
-            <span v-on:click="openContent">Select some beers</span>
-            <input v-model="beer_name" placeholder="enter beer name" v-on:change="fetchBeer">
-            <input v-model="food" placeholder="enter food name for pairing" v-on:change="fetchBeer">
-            <input v-model="abv_lt" placeholder="enter alcool max" v-on:change="fetchBeer">
-            <input v-model="abv_gt" placeholder="enter alcool min" v-on:change="fetchBeer">
+            <span v-on:click="openContent">Select beers</span>
+            <div>
+                <input v-model="beer_name" placeholder="beer name" v-on:change="fetchBeer">
+                <input v-model="food" placeholder="food pairing" v-on:change="fetchBeer">
+                <input v-model="abv_lt" placeholder="alcool max" v-on:change="fetchBeer">
+                <input v-model="abv_gt" placeholder="alcool min" v-on:change="fetchBeer">
+            </div>
         </div>
         <transition name="fade">
             <div v-show="focused" class="content">
