@@ -4,8 +4,6 @@ const bodyParser = require("body-parser");
 const https = require('https');
 const fs = require('fs');
 const app = express();
-var https = require('https');
-var fs = require('fs');
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
