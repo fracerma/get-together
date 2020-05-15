@@ -155,7 +155,7 @@ router.get('/logout', (req, res) => {
         res.clearCookie("sid");
     }
     res.redirect("/");
-
+});
 
 module.exports.router = router;
 module.exports.redirectLogin = redirectLogin;
