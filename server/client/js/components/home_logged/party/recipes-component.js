@@ -4,11 +4,25 @@ export default{
     <div class="conteiner-component">
         <div class="high-bar bg-blue" >
             <span v-on:click="openContent">Select recipes</span>
-            <input v-model="query" placeholder="search recipe name" v-on:change="fetchRecipe">
+            <div>
+            <input v-model="query" placeholder="recipe name" v-on:change="fetchRecipe">
             
-            <input v-model="diets" placeholder="diets type" v-on:change="fetchRecipe">
+            <select v-model="diets" v-on:change="fetchRecipe">
+                <option selected hidden>Diets type</option>
+                <option label="None"></option>
+                <option value="Gluten Free">Gluten Free</option>
+                <option value="Ketogenic">Ketogenic</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Lacto-Vegetarian">Lacto-Vegetarian</option>
+                <option value="Ovo-Vegetarian">Ovo-Vegetarian</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Pescetarian">Pescetarian</option>
+                <option value="Paleo">Paleo</option>
+                <option value="Primal">Primal</option>
+                <option value="Whole30">Whole30</option>
+            </select>
             <select v-model="cuisine" v-on:change="fetchRecipe">
-                <option value="" selected disabled hidden>Choose here</option>
+                <option selected hidden>Cuisine type</option>
                 <option label="None"></option>
                 <option value="African">African</option>
                 <option value="American">American</option>
@@ -38,6 +52,8 @@ export default{
                 <option value="Vietnamese">Vietnamese</option>
             </select>
             <select v-model="intolerances" v-on:change="fetchRecipe">
+                <option selected hidden>Intolerance</option>
+                <option label="None"></option>
                 <option value="Dairy">Dairy</option>
                 <option value="Egg">Egg</option>
                 <option value="Gluten">Gluten</option>
@@ -51,6 +67,7 @@ export default{
                 <option value="Tree Nut">Tree Nut</option>
                 <option value="Wheat">Wheat</option>
              </select>
+             </div>
         </div>
         <transition name="fade">
             <div v-show="focused" class="content">
@@ -67,24 +84,29 @@ export default{
     data() {
         return {
             focused: false,
+            first: true,
             recipes: null,
-            query:null,
-            cuisine: null,
-            diets: null,
-            intolerances:null
+            query: null,
+            cuisine: "Cuisine type",
+            diets: "Diets type",
+            intolerances:"Intolerance"
         }
     },
     methods: {
         openContent: function() {
             this.focused=!this.focused;
+            if(this.first){
+                this.first=false;
+                this.fetchRandom();
+            }
         },
         fetchRecipe: function(){
             this.focused=true;
             const url= new URLSearchParams(Object.assign({},
                 this.query?{query:this.query}:null,
-                this.cuisine?{cuisine:this.cuisine}:null,
-                this.diets?{diets:this.diets}:null,
-                this.intolerances?{intolerances:this.intolerances}:null,
+                this.cuisine&&this.cuisine!="Cuisine type"?{cuisine:this.cuisine}:null,
+                this.diets&&this.intolerances!="Diets type"?{diets:this.diets}:null,
+                this.intolerances&&this.intolerances!="Intolerance"?{intolerances:this.intolerances}:null,
                 {number: 4}
                 ));
             fetch(`/api/recipes?`+url.toString())
@@ -93,13 +115,13 @@ export default{
                 console.log(data);
                 this.recipes=data
             });
+        },
+        fetchRandom: function(){
+            fetch('/api/recipes/random?number=4',{
+                method: "GET"
+            }).then(response => response.json())
+            .then(data => this.recipes=data);
         }
-    },
-    beforeCreate() {
-        fetch('/api/recipes/random?number=4',{
-            method: "GET"
-        }).then(response => response.json())
-        .then(data => this.recipes=data);
     },
     components:{
         'recipe-component': recipeComponent

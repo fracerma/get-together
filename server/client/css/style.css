@@ -86,7 +86,48 @@ svg{
 /************
 PARTY COMPONENT
 *************/
+.party-component{
+    display: flex;
+}
+.left-side{
+    width: 80%;
+}
+.right-side{
+    width:20%;
+    border-radius: 5px;
+    margin-left: 10px;
+    border: 3px solid black;
+}
 
+/************
+LIST COMPONENT
+*************/
+.list-component{
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 100px;
+}
+.list-component h4{
+    text-align: center;
+}
+.list-component ul{
+    list-style: none;
+}
+.list-component li{
+    margin-left: 5px;
+}
+.list-component li::before{
+    content: "-";
+}
+.list-component a{
+    color: red;
+    margin-left:20px;
+}
+.list-component a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    color: red;
+}
 
 /************
 ITEMS COMPONENT
@@ -94,24 +135,54 @@ ITEMS COMPONENT
 
 .conteiner-component{
     overflow: hidden;
-    width: 100vw;
+    width: 100%;
     text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.high-bar{
+    position: relative;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    height: 100%;
+    font-size: calc(25px + 1vw) ;
+    text-align: left;
+    align-items: center;
+    border-radius: 20px;
+    margin-left: 10px;
 }
 
 .high-bar:hover{
     cursor: pointer;
 }
 
-.high-bar{
-    position: relative;
-    z-index: 1;
-    height: 10vh;
-    font-size: calc(25px + 1vw) ;
-    text-align: left;
-    align-items: center;
+.high-bar div{
+    width: 60%;
+    text-align: right;
+    margin-right: 20px;
+    margin-bottom: 5px;
 }
+
+.high-bar span{
+    margin-left: 20px;
+    display: block;
+    color: white;
+}
+
 .high-bar input{
     font-size:20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+}
+.high-bar select{
+    font-size:20px;
+    border-radius: 10px;
+    text-align-last: center;
+    width: 20%;
 }
 
 .content{
@@ -128,10 +199,7 @@ ITEMS COMPONENT
     opacity: 0;
 }
 
-.high-bar span{
-    margin: 1em;
-    color: white;
-}
+
 
 /************
 ITEM COMPONENT
@@ -184,14 +252,44 @@ RESPONSIVE STUFF
 *************/
 
 @media only screen and (max-width: 1400px) {
+    #banner-image img{
+        width: 100%;
+        margin-top: 0;
+    }
     .item-component{
-        width: 40vw;
+        width: 30vw;
         margin: 1.5vw;
     }
 }
 @media only screen and (max-width: 700px) {
     .item-component{
-        width: 95vw;
+        width: 60vw;
         margin: 2vw;
+    }
+    .high-bar div{
+        width: 60%;
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+    }
+    .high-bar input{
+        font-size:20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .high-bar select{
+        font-size:20px;
+        border-radius: 10px;
+        text-align-last: center;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .left-side{
+        width: 65%;
+    }
+    .right-side{
+        width:35%;
     }
 }
