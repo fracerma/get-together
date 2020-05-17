@@ -22,16 +22,17 @@ nav{
     display: table;
 }
 #link{
-    /* TODO hover dei link che fa schifo ma non riesco ad inserirlo */
     display: table-cell;
     vertical-align: middle;
     text-decoration: none;
     color:rgb(242, 106, 48);
 }
-#link, #link:hover{
+#login a:hover{
     text-decoration: none;
 }
-
+#register a:hover{
+    text-decoration: none;
+}
 
 /************
     SFONDO
@@ -75,20 +76,22 @@ body{
     color: coral;
     vertical-align: middle;
     font-size: 150%;
-    width: 80% ;
+    width: 40% ;
     margin-left: 0em;
 }
 
 #form{
     margin: auto;
-    width: 70%;
+    width: 50%;
     border: none;
     text-align: center;
+    margin-left: 15px;
+    border-bottom: 0.1px solid grey ;
 }
 #icon{
-    height:  30px; 
-    width:  30px; 
-    margin:  auto;
+    height:  40px; 
+    width:  40px; 
+    margin-left: 0px;
     opacity:  .20; 
     transition:  all .3s ease; 
 }
