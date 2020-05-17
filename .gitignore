@@ -49,3 +49,4 @@ Icon?
 server.cert
 server.key
 
+server/config/config.json

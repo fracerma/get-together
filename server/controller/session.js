@@ -47,8 +47,8 @@ const redirectHome = (req,res,next)=>{
     }
     else next();
 }
-
-router.get("/",redirectFrontpage);
+//FIXME remove comment
+//router.get("/",redirectFrontpage);
 
 //nel caso di quaunque richiesta al login.html applico la funzione rediretHome
 router.get("/login.html",redirectHome);
