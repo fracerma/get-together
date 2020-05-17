@@ -11,12 +11,11 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 
-//ricerco spoonacular
+//ricerco spoonacular cuisine diets intolerances
 router.get('/', function(req, res) {
   const query=req.url;
   axios.get(`https://api.spoonacular.com/recipes/search${query}&instructionsRequired=true&apiKey=${process.env.SPOONACULAR_KEY}`)
   .then((response)=>{
-    console.log(response);
     let result=response.data.results;
     result=result.map((ricetta)=>{return ricetta.id});
     return axios.get(`https://api.spoonacular.com/recipes/informationBulk?ids=${result.toString()}&apiKey=${process.env.SPOONACULAR_KEY}`)
@@ -37,6 +36,7 @@ router.get('/', function(req, res) {
           return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
         }),
         analyzedInstructions:ricetta.analyzedInstructions,
+        summary: ricetta.summary,
         leng: "en",
         type: "api_recipe"
       }
@@ -73,6 +73,7 @@ router.get('/random', function(req, res) {
           return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
         }),
         analyzedInstructions:ricetta.analyzedInstructions,
+        summary: ricetta.summary,
         leng: "en",
         type: "api_recipe"
       }

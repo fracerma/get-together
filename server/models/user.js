@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       lastName: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      idfb: DataTypes.STRING,
+      accessToken: DataTypes.STRING
     },
     {}
   );
@@ -27,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "userId",
     });
     User.hasMany(models.Comment);
+    User.hasMany(models.Recipe,{foreignKey:"userId"});
   };
 
   //class method
