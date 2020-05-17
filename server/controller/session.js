@@ -39,7 +39,7 @@ const redirectLogin = (req, res, next) => {
   } else next();
 };
 //nel caso di quaunque richiesta al profile.html applico la funzione rediretLogin
-router.get("/profile1.html", redirectLogin);
+router.get("/profileNoParty.html", redirectLogin);
 
 //funzione che controlla se vi è una sessione, in caso affermativo redirige all'Homepage
 const redirectHome = (req, res, next) => {
@@ -60,14 +60,8 @@ router.post("/login", redirectHome, async (req, res) => {
       res.redirect("/login.html");
     } else {
       req.session.userId = user.id;
-      io.on("login", function (msg) {
-        if (msg == "ok") {
-          socket.handshake.session.userId = user.id;
-          socket.handshake.session.save();
-        }
-      });
-      let currentId;
-      res.redirect("/notification");
+
+      res.redirect("/profileNoParty.html");
     }
   } catch (e) {
     const errObj = {

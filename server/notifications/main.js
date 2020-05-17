@@ -1,123 +1,209 @@
-/*const express = require("express");
-const router = express.Router();
-
-//const comments = require("./comments");
-//const friend = require("./friend");
-const invitation = require("./invitation");
-
-//router.use("/comments", comments);
-//router.use("/friend", friend);
-router.use("/invitation", invitation);
-
-module.exports = router;*/
 const express = require("express");
 const router = express.Router();
 let sockets = require("../index").sockets;
 const Notification = require("../models/index").Notification;
+const UserParty = require("../models/index").UserParty;
+const User = require("../models/index").User;
+const Party = require("../models/index").Party;
+const Comment = require("../models/index").Comment;
 const io = require("../index").io;
 
-router.get("/", function (req, res) {
-  let io = res.io;
-  res.redirect("/profile1.html");
-  console.log(req.session.userId);
-});
-
 io.on("connection", function (socket) {
+  let currentId;
+  //Manca rifiuto di connessione verso socket.
   if (socket.handshake.session.userId) {
     currentId = socket.handshake.session.userId;
-    io.to(socket.id).emit("welcome", currentId);
-    //io.to(socket.id).emit("newFriend", currentId);
+    check(socket, currentId);
 
-    //controllo se il client e' gia' nell'array di connessioni
-    //se ci sta sostituisco l'oggetto con la nuova websocket
-    sockets.push({ clientId: currentId, socket: socket });
-
-    console.log("sockets in connessione/reload---->: ", sockets);
-
-    //Controllo se il client che si connette ha notifiche in sospeso e gliele invio.
-
-    Notification.findAll({
-      raw: true,
-      where: { destination: currentId, state: true },
-    }).then((notRead) => {
-      let i = 0;
-      console.log(notRead);
-      let len = notRead.length;
-      for (i = 0; i < len; i++) {
-        //console.log(n);
-        let n = notRead[i];
-        let e = n.event;
-
-        var notId = n.id;
-        let data = {
-          source: n.source,
-          destination: currentId,
-          event: e,
-          party: n.party,
-          state: true,
-        };
-
-        // Manca ack che il client abbia ricevuto la notifica
-        console.log(socket.id);
-        io.to(socket.id).emit(e, data);
-        //console.log("event: ", e);
-
-        // Dopo che ho verificato che sia arrivato lo segno come letto
-        Notification.findOne({ where: { id: notId } }).then(function (
-          notification
-        ) {
-          // Check if record exists in db
-          if (notification) {
-            notification.update({
-              state: false,
-            });
-          }
-        });
-      }
+    Notification.findAll({ raw: true }).then((r) => {
+      console.log(r);
     });
+
+    //event e' un oggetto che contiene dentro l'identificatore del destinatario
+    socket.on("newFriend", function (event) {
+      //Creo la notifica e la aggiungo al db e la setto di default a true, ovvero da leggere.
+      let not = {
+        source: event.source,
+        destination: event.destination,
+        event: event.event,
+        party: event.party,
+        state: true,
+      };
+      notificate(not);
+    });
+
+    socket.on("newComment", async function (event) {
+      //Questo oggetto viene creato da event dato hce vi sono anche altre info che non vogliamo
+      let newComm = {
+        text: event.commentTxt,
+        partyId: event.party,
+        userId: event.source,
+      };
+      let not = {
+        source: event.source,
+        destination: 0,
+        event: event.event,
+        party: event.party,
+        state: true,
+      };
+      try {
+        //COME SI AGGIUNGONO ELEMENTI ALLE JOIN TABLE????
+        //let c = await Comment.create(newComm);
+        User.findByPk(event.source).then((user) => {
+          user.setComments(event.party).then((sc) => {
+            console.log(sc);
+          });
+        });
+        //devo aggiungere io.emit(newCommentOn)
+        //e broadcast
+        broadcast(not);
+      } catch (error) {
+        console.error(error);
+      }
+
+      //Questo oggetto viene creato da event dato che vi sono anche altre info che non vogliamo
+
+      //notificate(not);
+    });
+
+    socket.on("newInvitation", function (event) {
+      let not = {
+        source: event.source,
+        destination: event.destination,
+        event: event.event,
+        party: event.party,
+        state: true,
+      };
+      notificate(event);
+    });
+
+    socket.on("joined", function (event) {
+      let partyId = event.party;
+      console.log("Sono dentro joined" + partyId);
+      let userId = event.source;
+      //COME SI AGGIUNGONO ELEMENTI ALLE JOIN TABLE????
+      /*User.findByPk(userId).then((user) => {
+        user.setParties(partyId).then((sc) => {
+          console.log(sc);
+        });
+      });*/
+      //UserParty.create(userId, partyId).then(broadcast(event));
+      broadcast(event);
+    });
+
     socket.on("disconnect", () => {
-      console.log("Prima di disconnessione...---->", sockets);
       let currObj = sockets.filter((x) => x.clientId != currentId);
       sockets = currObj;
-      console.log("sockets in disconnessione: ---->", sockets);
     });
-
-    //event e' un oggetto JSON che contiene dentro l'identificatore del destinatario
-    socket.on("newFriend", function (event) {
-      console.log(event);
-      //Creo la notifica e la aggiungo al db e la setto di default a true, ovvero da leggere.
-      Notification.create(event).then((toSend) => {
-        //Controllo che il client sia nell'array di socket e abbia una socket attiva
-        console.log("sono dentro newFriend");
-        let dst = event.destination;
-        let dstSock = sockets.filter((x) => x.clientId == dst)[0];
-
-        //In caso positivo invio la notifica e la aggiorno nel db come false, ovvere non da leggere
-        console.log("idDest: ", dstSock);
-        if (dstSock != undefined) {
-          // Manca ack che il client abbia ricevuto la notifica
-          io.to(dstSock.socket.id).emit(event.event, event);
-
-          // Dopo che ho verificato che sia arrivato lo segno come letto
-          Notification.findOne({ where: { id: toSend.id } }).then(function (
-            notification
-          ) {
-            // Check if record exists in db
-            if (notification) {
-              notification.update({
-                state: false,
-              });
-            }
-          });
-        }
-      });
-    });
-    io.on("newComment", function (event) {});
-
-    io.on("newInvitation", function (event) {});
   }
 });
 
-//In caso negativo non faccio nulla e la lascio indicata a true, ovvero da leggere
+function notificate(event) {
+  console.log("event---->notficate: ", event);
+  Notification.create(event).then((toSend) => {
+    //Controllo che il client sia nell'array di socket e abbia una socket attiva
+    let dstId = event.destination;
+    let dstSock = sockets.filter((x) => x.clientId == dstId)[0];
+
+    //In caso positivo invio la notifica e la aggiorno nel db come false, ovvere non da leggere
+    if (dstSock != undefined) {
+      // Manca ack che il client abbia ricevuto la notifica
+      io.to(dstSock.socket.id).emit(event.event, event);
+
+      // Dopo che ho verificato che sia arrivato lo segno come letto
+      Notification.findOne({
+        where: { id: toSend.id },
+      }).then(function (notification) {
+        // Check if record exists in db
+        if (notification) {
+          notification.update({
+            state: false,
+          });
+        }
+      });
+    }
+  });
+}
+
+function check(socket, currentId) {
+  io.to(socket.id).emit("welcome", currentId);
+
+  //controllo se il client e' gia' nell'array di connessioni
+  sockets.push({ clientId: currentId, socket: socket });
+
+  console.log("sockets in connessione/reload---->: ", sockets);
+
+  //Controllo se il client che si connette ha notifiche in sospeso e gliele invio.
+
+  Notification.findAll({
+    raw: true,
+    where: { destination: currentId, state: true },
+  }).then((notRead) => {
+    let i = 0;
+    console.log(notRead);
+    let len = notRead.length;
+    for (i = 0; i < len; i++) {
+      let n = notRead[i];
+      let e = n.event;
+      var notId = n.id;
+      let data = {
+        source: n.source,
+        destination: currentId,
+        event: e,
+        party: n.party,
+        state: true,
+      };
+
+      // Manca ack che il client abbia ricevuto la notifica
+      console.log(socket.id);
+      io.to(socket.id).emit(e, data);
+
+      // Dopo che ho verificato che sia arrivato lo segno come letto
+
+      Notification.update({ state: false }, { where: { id: notId } });
+    }
+  });
+}
+
+function broadcast(event) {
+  let partyId = event.party;
+  let userId = event.source;
+  let e = event.type;
+  UserParty.findAll({
+    raw: true,
+    where: { partyId: partyId },
+  }).then((array) => {
+    console.log("array dentro party:--------->" + array);
+
+    for (r in array) {
+      let not = {
+        source: userId,
+        destination: r.userId,
+        event: e,
+        party: partyId,
+        state: true,
+      };
+      notificate(not);
+    }
+  });
+}
+
+/*------- LEGENDA EVENTI---------
+
+1. newComment: ogni qual volta un utente scrive un nuovo messaggio relativo ad un party emette l'evento 
+              che viene inviato in broadcast poi a tutti i componenti del party 
+
+2. newCommentOn: evento che viene generato dal server per tutti coloro che si trovano sulla pagina effettiva del party cosi che possono visualizzare informazioni sul commento in tempo reale 
+
+3. newInvitation: evento che segnala un invito ad un party 
+    3.1 deny: non succede nulla 
+    3.2 joined: l'utente ha deciso di partecipare e quindi viene inviata una notifica in broadcast a tutti i componenti del party 
+
+4. newFriend: evento che si genera quando si invia una richiesta di amicizia
+    4.1 deny: non succede nulla
+    4.2 joined: l'utente ha accettato l'amicizia e quindi viene aggiunto un'amicizia in Friendship
+
+
+*/
 
 module.exports = router;
