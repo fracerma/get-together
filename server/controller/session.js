@@ -80,7 +80,6 @@ router.post("/login",redirectHome, async (req,res)=>{
 router.get("/register.html",redirectHome);
 
 router.post("/register",redirectHome,async (req,res)=>{
-    //TODO controlli vari di registrazione?
     try{
         await User.create(req.body);
         res.redirect("/login.html");
@@ -119,19 +118,18 @@ router.get('/loginfb',redirectHome, async(req,res)=>{
                     req.session.userId = user.id;
                     user.accessToken = actok;
                     await user.save();
-                    res.redirect('/profile.html');
+                    res.redirect('/');
                 }
                 //se non ci sta idfb ma ci sta l'email nel database
                 else{
                     const emailtrovata =(await axios.get(`https://graph.facebook.com/${response.data.user_id}?fields=email&access_token=${actok}`)).data.email;
                     user = await User.findOne({where: {email: emailtrovata}});
                     if(user){
-                        console.log("ciao");
                         req.session.userId = user.id;
                         user.idfb= response.data.user_id;
                         user.accessToken = actok;
                         await user.save();
-                        res.redirect('/profile.html');
+                        res.redirect('/');
                     }
                     //se non ci sta nessuna delle due
                     else{

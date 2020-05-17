@@ -1,10 +1,12 @@
 import recipeComponent from "./recipe-component.js"
 export default{
+    //TODO tipo di portata
     template: `
     <div class="conteiner-component">
         <div class="high-bar bg-blue" >
             <span v-on:click="openContent">Select recipes</span>
             <div>
+            <a v-on:click="resetFilter">Remove filter</a>
             <input v-model="query" placeholder="recipe name" v-on:change="fetchRecipe">
             
             <select v-model="diets" v-on:change="fetchRecipe">
@@ -74,6 +76,7 @@ export default{
                 <recipe-component v-for="(recipeIt, index) in recipes"
                     v-bind:recipe="recipeIt"
                     v-bind:key="index+100"
+                    v-on:addItem="addItem"
                 > </recipe-component>
             </div>
         </transition>
@@ -121,6 +124,32 @@ export default{
                 method: "GET"
             }).then(response => response.json())
             .then(data => this.recipes=data);
+        },
+        resetFilter: function(){
+            this.recipes=null;
+            this.query=null;
+            this.cuisine= "Cuisine type";
+            this.diets="Diets type";
+            this.intolerances= "Intolerance";
+        },
+        addItem: function(value){
+            this.$emit("addRecipe",{
+                analyzedInstructions: value.analyzedInstructions,
+                cuisines: value.cuisines,
+                diets: value.diets,
+                dishTypes: value.dishTypes,
+                extendedIngredients: value.extendedIngredients,
+                id: value.id,
+                image: value.image,
+                leng: value.leng,
+                quantity: value.quantity,
+                readyInMinutes: value.readyInMinutes,
+                servings: value.servings,
+                sourceUrl: value.sourceUrl,
+                summary: value.summary,
+                title: value.title,
+                type: value.type
+            });
         }
     },
     components:{
