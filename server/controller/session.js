@@ -97,13 +97,11 @@ router.post("/register",redirectHome,async (req,res)=>{
 });
 
 router.get('/oauthfb',redirectHome, async(req,res)=>{
-    console.log("sto in /oauth");
     res.redirect(`https://www.facebook.com/v7.0/dialog/oauth?client_id=${process.env.FACEBOOK_CLIENT_ID}&redirect_uri=https://localhost:4000/loginfb&state={st=1234}&scope=email,user_friends`);
 });
 
 
 router.get('/loginfb',redirectHome, async(req,res)=>{
-    console.log(req.url);
     if(req.query.code){
         const actok = (await axios.get(`https://graph.facebook.com/v7.0/oauth/access_token?client_id=${process.env.FACEBOOK_CLIENT_ID}&redirect_uri=https://localhost:4000/loginfb&client_secret=${process.env.FACEBOOK_CLIENT_SECRET}&code=${req.query.code}`)).data.access_token;
     
@@ -119,19 +117,18 @@ router.get('/loginfb',redirectHome, async(req,res)=>{
                     req.session.userId = user.id;
                     user.accessToken = actok;
                     await user.save();
-                    res.redirect('/profile.html');
+                    res.redirect('/');
                 }
                 //se non ci sta idfb ma ci sta l'email nel database
                 else{
                     const emailtrovata =(await axios.get(`https://graph.facebook.com/${response.data.user_id}?fields=email&access_token=${actok}`)).data.email;
                     user = await User.findOne({where: {email: emailtrovata}});
                     if(user){
-                        console.log("ciao");
                         req.session.userId = user.id;
                         user.idfb= response.data.user_id;
                         user.accessToken = actok;
                         await user.save();
-                        res.redirect('/profile.html');
+                        res.redirect('/');
                     }
                     //se non ci sta nessuna delle due
                     else{
