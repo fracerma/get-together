@@ -6,6 +6,7 @@ export default{
         <div class="high-bar bg-green" >
             <span v-on:click="openContent">Select cocktails</span>
             <div>
+                <a v-on:click="resetFilter">Remove filter</a>
                 <input v-model="name" placeholder="cocktail name" v-on:change="fetchCocktail">
                 <select v-model="category" v-on:change="fetchCocktail">
                     <option selected>Category</option>
@@ -137,6 +138,7 @@ export default{
                 <cocktailComponent v-for="(cocktail, index) in cocktails"
                 v-bind:cocktail="cocktail"
                 v-bind:key="cocktail.cocktailID"
+                v-on:addItem="addItem"
                 > </cocktailComponent>
             </div>
         </transition>
@@ -187,7 +189,6 @@ export default{
             else alert("You can't select more then 1 filter for cocktail search")
         },
         checkOk: function(){
-            console.log(this.category,this.type,this.name,this.ingredient);
             let num=0;
             if(this.category!=="Category")num++;
             if(this.name!==null) num++;
@@ -195,6 +196,24 @@ export default{
             if(this.ingredient!=="Ingredient")num++;
             if(num==1)return true;
             else false;
+        },
+        resetFilter: function(){
+            this.name= null;
+            this.category="Category";
+            this.ingredient= "Ingredient";
+            this.type= "Alcoholic Filter";
+        },
+        addItem: function(value){
+            this.$emit("addCocktail",{
+                Ingredients: value.Ingredients,
+                Quantity: value.Quantity,
+                cocktailCat: value.cocktailCat,
+                cocktailID: value.cocktailID,
+                cocktailName: value.cocktailName,
+                cocktailType: value.cocktailType,
+                instructions: value.instructions,
+                photo: value.photo,
+            });
         }
     },
     beforeCreate() {

@@ -7,7 +7,7 @@ export default{
     },
     template: `
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div id="navbarNav">
         <div class="left-icon">
             <router-link v-on:click.native="selected='/'" to="/">
                 <svg version="1.1" v-bind:class="{ 'fill-orange': (selected=='/') }" id="home-svg" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">

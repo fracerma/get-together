@@ -12,6 +12,6 @@ const redirectToLogin=require("./session").redirectLogin;
 router.use("/", session);
 router.use("/user", redirectToLogin, user);
 router.use("/recipes", redirectToLogin, recipes);
-router.use("/parties", redirectToLogin, parties);
+router.use("/parties", /*redirectToLogin,*/ parties);
 
 module.exports= router;

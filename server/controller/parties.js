@@ -1,7 +1,7 @@
 const express= require("express");
 const router= express.Router();
 const User = require("../models/index").User;
-const Party = require("../models/index").Pary;
+const Party = require("../models/index").Party;
 //ritorna tutti i party dell'utente corrente
 router.get("/",(req,res)=>{
 
@@ -12,7 +12,7 @@ router.post("/",async (req,res)=>{
     //questo deve avere un array di partecipanti, di id di ricette che sono già state aggiunte al db?
     //di birre, vini e cocktails
     try{
-        const party= await Party.new({
+        const party= await Party.create({
             wines: req.body.wines,
             cocktails: req.body.cocktails,
             beers: req.body.beers
@@ -25,9 +25,7 @@ router.post("/",async (req,res)=>{
         await party.save();
     }catch(e){
         const errObj={
-            name: e.name,
-            detail: e.parent.detail,
-            code: e.parent.code
+            name: e
         }
         console.log(errObj);
         res.status(400).send(errObj);
