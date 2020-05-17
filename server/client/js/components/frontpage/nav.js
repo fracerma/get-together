@@ -8,7 +8,7 @@ export default {
     <div class="collapse navbar-collapse" id="navbarNav">
         
         <div id="register">
-            <a href="../../../register.html"> <p id=link> REGISTER </p> </a>
+            <a href="../../../register.html"> <p id="link"> REGISTER </p> </a>
         </div>
     
         <div id="navbar-brand">
@@ -18,7 +18,7 @@ export default {
         </div>
 
         <div id="login">
-            <a href="../../../login.html"> <p id=link> LOG IN </p> </a>
+            <a href="../../../login.html"> <p id="link"> LOG IN </p> </a>
        </div>
     </div>
     </nav>
