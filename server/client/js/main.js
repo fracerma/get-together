@@ -8,6 +8,7 @@
     const router = new VueRouter({
         routes:[
             {path:"/",name:"Home", component: homeComponent },
+            {path:"/_=_",redirect: '/'},
             {path:"/profile",name:"Profile", component: profile},
             {path:"/recipes",name:"Recipes", component: recipes},
             {path:"/parties",name:"Parties", component: parties}
@@ -22,10 +23,5 @@
         components:{
             "nav-bar":navBar
         },
-        router,
-        created() {
-            if (window.location.hash && window.location.hash == '/#/_=_') {
-                window.location.hash = '';
-            }
-        },
+        router
     });
