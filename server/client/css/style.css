@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.bg-orange{
+    background-color: #ff8934;
+}
+.bg-blue{
+    background-color: #1c4f57;
+}
+.bg-green{
+    background-color: #35b86c;
+}
+/************
+    NAVBAR
+*************/
+nav{
+    font-size: 2em;
+}
+#logo-nav{
+    width: 170px;
+}
+
+svg{
+    height: 45px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.right-icon{
+    margin-right: 10px;
+}
+
+.right-icon svg{
+    margin-right: 20px;
+}
+
+.left-icon{
+    margin-left: 30px;
+}
+.fill-orange{
+    fill: #ff9244;
+}
+#navbarNav{
+    display: flex;
+    justify-content: space-between;
+}
+
+/************
+ BANNER IMAGE
+*************/
+
+#banner-image{
+    overflow: hidden;
+    height: 30vh;
+}
+
+#banner-image img{
+    width: 100%;
+    margin-top: -30vh;
+}
+
+/************
+   VUE APP
+*************/
+
+#app{
+    width: 100vw;
+}
+#overlay{
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0,0.7);
+}
+
+/************
+PARTY COMPONENT
+*************/
+.party-component{
+    display: flex;
+}
+.left-side{
+    width: 80%;
+}
+.right-side{
+    width:20%;
+    border-radius: 5px;
+    margin-left: 10px;
+    border: 3px solid black;
+}
+
+/************
+LIST COMPONENT
+*************/
+.list-component{
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 100px;
+}
+.list-component h4{
+    text-align: center;
+}
+.list-component ul{
+    list-style: none;
+}
+.list-component li{
+    margin-left: 5px;
+}
+.list-component li::before{
+    content: "-";
+}
+.list-component a{
+    color: red;
+    margin-left:20px;
+}
+.list-component a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    color: red;
+}
+
+/************
+ITEMS COMPONENT
+*************/
+
+.conteiner-component{
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.high-bar{
+    position: relative;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    height: 100%;
+    font-size: calc(25px + 1vw) ;
+    text-align: left;
+    align-items: center;
+    border-radius: 20px;
+    margin-left: 10px;
+}
+
+.high-bar:hover{
+    cursor: pointer;
+}
+
+.high-bar div{
+    width: 60%;
+    text-align: right;
+    margin-right: 20px;
+    margin-bottom: 5px;
+}
+
+.high-bar span{
+    margin-left: 20px;
+    display: block;
+    color: white;
+}
+
+.high-bar input{
+    font-size:20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+}
+.high-bar select{
+    font-size:20px;
+    border-radius: 10px;
+    text-align-last: center;
+    width: 20%;
+}
+
+.content{
+    position: relative;
+    z-index: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: transform .5s ease-in-out, opacity .2s;
+}
+
+.fade-enter, .fade-leave-to {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+
+
+/************
+ITEM COMPONENT
+*************/
+
+.item-component{
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    background-color: white;
+    margin: 1%;
+    width: 20%;
+    border-radius: 2%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-family: 'Roboto', sans-serif;
+}
+.item-component div{
+    text-align: center;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    padding: 3px;
+    border-top: 2px solid rgb(161, 161, 161);
+}
+.item-component img{
+    height: 15vh;
+    width: auto;
+}
+.item-component p{
+    font-size: 1.1em;
+}
+.item-component h5{
+    font-size: 1.5em
+}
+.item-component .btn{
+    text-decoration: none;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.img-recipe:hover{
+    opacity: 0.5;
+}
+
+/************
+RESPONSIVE STUFF
+*************/
+
+@media only screen and (max-width: 1400px) {
+    #banner-image img{
+        width: 100%;
+        margin-top: 0;
+    }
+    .item-component{
+        width: 30vw;
+        margin: 1.5vw;
+    }
+}
+@media only screen and (max-width: 700px) {
+    .item-component{
+        width: 60vw;
+        margin: 2vw;
+    }
+    .high-bar div{
+        width: 60%;
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+    }
+    .high-bar input{
+        font-size:20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .high-bar select{
+        font-size:20px;
+        border-radius: 10px;
+        text-align-last: center;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .left-side{
+        width: 65%;
+    }
+    .right-side{
+        width:35%;
+    }
+}
