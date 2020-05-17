@@ -27,6 +27,13 @@ nav{
     color:rgb(242, 106, 48);
     text-decoration: none;
 }
+
+#login a:hover{
+    text-decoration: none;
+}
+#register a:hover{
+    text-decoration: none;
+}
 /************
     SFONDO
 ************/
