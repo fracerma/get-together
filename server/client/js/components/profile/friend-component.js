@@ -7,7 +7,7 @@ export default{
                 <div>
                     <p></p>
                 </div>
-                <a class="btn bg-blue" v-on:click="emitAdd">Invite party</a>
+                <a class="btn bg-blue" v-on:click="">Invite party</a>
             </div>
         </div>
     `,

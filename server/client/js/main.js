@@ -14,7 +14,8 @@
             {path:"/parties",name:"Parties", component: parties}
         ]
       });
-
+      
+Vue.use(DatePicker);
 var app = new Vue({
   el: "#app",
   data: {

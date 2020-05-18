@@ -4,15 +4,9 @@
     margin: 0;
 }
 
-html{
-    width: 100vw;
-    height: 100vh;
-}
-
 body{
     width: 100%;
     height: 100%;
-    position: absolute;
     overflow-x: hidden;
 }
 
@@ -107,8 +101,23 @@ PARTY PROGRAM COMPONENT
 *************/
 
 .partyProgram-component{
-    width: 90%;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    text-align: center;
 }
+.partyProgram-component .high-bar{
+    height: 20%;
+    margin: 20px;
+}
+.settingParty-component{
+    width: 50%;
+}
+.friends-component{
+    width: 50%;
+}
+
 
 /************
 PARTY ITEMS COMPONENT
