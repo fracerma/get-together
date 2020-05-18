@@ -1,10 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/index").User;
+const UserParty = require("../models/index").UserParty;
+const Recipe = require("../models/index").Recipe;
+const Friendship = require("../models/index").Friendship;
 const Party = require("../models/index").Party;
 const Comment = require("../models/index").Comment;
 const notificate = require("../notifications/main").notificate;
 const broadcast = require("../notifications/main").broadcast;
+const bodyParser = require("body-parser");
+
+router.use(bodyParser.json());
+router.use(bodyParser.json({ type: "application/vnd.api+json" }));
+//router.use(bodyParser.urlencoded({ extended: false }));
+
 //ritorna tutti i party dell'utente corrente
 router.get("/", (req, res) => {
   console.log("ciao");
@@ -49,23 +58,28 @@ router.get("/:id", async function (req, res) {
   try {
     //const comments = []; //await Party.getComments(partyId); //Devo fare una chiamata al db che ritorna tutti i commenti relativi ad un party
 
-    const comments = await Party.findAll({
+    const party = await Party.findAll({
+      //raw: true,
+      where: { id: partyId },
       include: [
         {
           // Notice `include` takes an ARRAY
           model: User,
-          include: [Comment],
+          attributes: ["firstName", "id", "email"],
+          include: [
+            {
+              model: Comment,
+              attributes: ["id", "userId", "text", "createdAt"],
+            },
+          ],
         },
       ],
-      raw: true,
-      where: { partyId: partyId },
+      //
     });
 
-    const partecipants = []; //await Party.getUsers(partyId); //Trova tutti i partecipanti relativi ad un party ?? non e' sicuro
-    const party = []; //await Party.find({ raw: true, where: { id: partyId } }); //trova il party e invialo ??? non e' sicuro
+    console.log(JSON.stringify(party));
+
     let response = {
-      comments: comments, //controlla se effettivamente viene ricevuto gia' un array o no
-      partecipants: partecipants,
       party: party,
     };
     res.send(response);
@@ -84,16 +98,16 @@ router.get("/:id/comments", (req, res) => {
 
 //aggiunge un commento
 router.post("/:id/comment", async function (req, res) {
-  const sourceId = req.session.userId;
+  const sourceId = req.body.userId;
   const commentTxt = req.body.commentTxt;
-  const partyId = req.body.id;
-
+  const partyId = req.params.id;
   let newCommObj = {
     text: commentTxt,
     partyId: partyId,
     userId: sourceId,
   };
 
+  console.log(newCommObj);
   try {
     //COME SI AGGIUNGONO ELEMENTI ALLE JOIN TABLE???
     const newComm = await Comment.create(newCommObj);
@@ -104,6 +118,7 @@ router.post("/:id/comment", async function (req, res) {
       comment: newComm.id,
       state: true,
     };
+    console.log(not);
     broadcast(not);
   } catch (error) {
     console.error(error);
@@ -131,6 +146,7 @@ router.post(":id/invitation/", async function (req, res) {
         event: "newInvitation",
         state: true,
       };
+      console.log(not);
       notificate(not);
     } catch (error) {
       console.error(error);
