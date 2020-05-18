@@ -11,14 +11,14 @@ module.exports = {
       text: {
         type: Sequelize.TEXT
       },
-      partyId: {
+      PartyId: {
         type: Sequelize.INTEGER,
         references: {
             model: 'Parties',
             key: 'id'
           }
       },
-      userId: {
+      UserId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
