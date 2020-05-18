@@ -7,6 +7,7 @@ import listComponent from "./list-component.js"
 export default{
     template: `
     <div class="party-component">
+        <v-date-picker mode='single' v-model='party.date' />
         <div class="left-side">
             <recipesComponent v-on:addRecipe="addRecipe"></recipesComponent>
             <winesComponent v-on:addWine="addWine"></winesComponent>
@@ -21,6 +22,7 @@ export default{
     data() {
         return {
             party:{
+                date:null,
                 recipes:[],
                 wines: [],
                 cocktails: [],

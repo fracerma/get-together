@@ -2,12 +2,9 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/index").User;
 const Party = require("../models/index").Party;
-<<<<<<< HEAD
-=======
 const Comment = require("../models/index").Comment;
 const notificate = require("../notifications/main").notificate;
 const broadcast = require("../notifications/main").broadcast;
->>>>>>> 1f40b7de03f3cb4c5babde23ba92c5ba16f378e1
 //ritorna tutti i party dell'utente corrente
 router.get("/", (req, res) => {
   console.log("ciao");

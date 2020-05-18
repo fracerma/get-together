@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Party.belongsToMany(models.User, {
       through: "UserParty",
-      foreingKey: "userId",
+      foreingKey: "partyId",
     });
   };
   return Party;
