@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const UserParty = sequelize.define(
     "UserParty",
     {
-      userId: DataTypes.INTEGER,
-      partyId: DataTypes.INTEGER,
+      UserId: DataTypes.INTEGER,
+      PartyId: DataTypes.INTEGER,
     },
     {}
   );
@@ -14,15 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     UserParty.belongsTo(models.Party);
   };
   this.newInvitation = async function (user, party) {
-    return await this.create({ userId: user, partyId: party }); // combina build e save( che la carica nel db)
+    return await this.create({ UserId: user, PartyId: party }); // combina build e save( che la carica nel db)
   }
 
 
   this.refuse = async function (user, party) {
     let tuple = this.findAll({
       where: {
-        userId: user,
-        partyId: party
+        UserId: user,
+        PartyId: party
       }
     });
     return await tuple.destroy();

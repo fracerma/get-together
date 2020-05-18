@@ -17,23 +17,27 @@ body{
 }
 
 .bg-orange{
-    background-color: #ff8934;
+    background-color: coral;
 }
 
 .fill-orange{
-    fill: #ff9244;
+    fill: coral;
 }
+
 .bg-yellow{
-    background-color: #fad400;
+    /*background-color: #fad400;*/
+    background-color: rgb(223, 163, 10);
+
 }
 .bg-blue{
-    background-color: #1c4f57;
+    background-color: #21535b;
 }
 .bg-green{
-    background-color: #35b86c;
+    /*background-color: #35b86c;*/
+    background-color: rgb(114, 148, 47);
 }
 .bg-red{
-    background-color: #a12828f1;
+    background-color: #a42e2ef1;
 }
 /************
     NAVBAR

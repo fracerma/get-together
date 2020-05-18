@@ -5,7 +5,6 @@ require("dotenv").config();
 const Recipe= require("../models/index").Recipe;
 const User= require("../models/index").User;
 
-
 const router = express.Router();
 
 router.use(bodyParser.json());
