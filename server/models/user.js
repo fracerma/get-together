@@ -1,8 +1,8 @@
 "use strict";
-const bcrypt=require("bcrypt");
-
+const bcrypt = require("bcrypt");
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define("User",
+  const User = sequelize.define(
+    "User",
     {
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
@@ -27,23 +27,24 @@ module.exports = (sequelize, DataTypes) => {
     });
     User.belongsToMany(models.Party, {
       through: "UserParty",
-      foreignKey: "userId",
+      foreignKey: "partyId",
     });
-    User.hasMany(models.Comment);
-    User.hasMany(models.Recipe,{foreignKey:"userId"});
+    User.hasMany(models.Comment, { foreignKey: "userId" });
+    User.hasMany(models.Recipe, { foreignKey: "userId" });
   };
 
   //class method
-  User.addHook('beforeCreate', (user, options) => {
-    const salt= bcrypt.genSaltSync();
-    user.password = bcrypt.hashSync(user.password,salt);
+  User.addHook("beforeCreate", (user, options) => {
+    const salt = bcrypt.genSaltSync();
+    user.password = bcrypt.hashSync(user.password, salt);
   });
 
   //instance Methods
-  //funzione per l'autenticazione della password
-  User.prototype.authenticate = function(password){
+  User.prototype.authenticate = function (password) {
     return bcrypt.compareSync(password, this.password);
-  }
-  
+  };
+  User.prototype.stringa = function () {
+    return this.firstName;
+  };
   return User;
 };
