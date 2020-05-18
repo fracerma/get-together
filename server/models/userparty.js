@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const UserParty = sequelize.define("UserParty", {}, {});
   UserParty.associate = function (models) {
     // associations can be defined here
-    UserParty.belongsTo(models.User);
-    UserParty.belongsTo(models.Party);
+    UserParty.belongsTo(models.User, { foreignKey: "userId" });
+    UserParty.belongsTo(models.Party, { foreignKey: "partyId" });
   };
   this.newInvitation = async function (user, party) {
     return await this.create({ userId: user, partyId: party }); // combina build e save( che la carica nel db)

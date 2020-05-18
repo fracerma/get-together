@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       idfb: DataTypes.STRING,
-      accessToken: DataTypes.STRING
+      accessToken: DataTypes.STRING,
     },
     {}
   );
@@ -26,10 +26,10 @@ module.exports = (sequelize, DataTypes) => {
     });
     User.belongsToMany(models.Party, {
       through: "UserParty",
-      foreignKey: "userId",
+      foreignKey: "partyId",
     });
-    User.hasMany(models.Comment);
-    User.hasMany(models.Recipe,{foreignKey:"userId"});
+    User.hasMany(models.Comment, { foreignKey: "userId" });
+    User.hasMany(models.Recipe, { foreignKey: "userId" });
   };
 
   //class method
