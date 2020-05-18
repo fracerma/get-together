@@ -4,6 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     "Comment",
     {
       text: DataTypes.TEXT,
+      UserId: DataTypes.INTEGER,
+      PartyId: DataTypes.INTEGER
     },
     {}
   );
