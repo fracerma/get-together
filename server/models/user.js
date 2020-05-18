@@ -18,19 +18,19 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(User, {
       as: "friends",
       through: "Friendships",
-      foreignKey: "userId",
+      foreignKey: "UserId",
     });
     User.belongsToMany(models.Recipe, {
       as: "favourites",
       through: "Favourites",
-      foreignKey: "userId",
+      foreignKey: "UserId",
     });
     User.belongsToMany(models.Party, {
       through: "UserParty",
-      foreignKey: "userId"
+      foreignKey: "UserId",
     });
-    User.hasMany(models.Comment, { foreignKey: "userId" });
-    User.hasMany(models.Recipe, { foreignKey: "userId" });
+    User.hasMany(models.Comment);
+    User.hasMany(models.Recipe,{foreignKey:"UserId"});
   };
 
   //class method
