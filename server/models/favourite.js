@@ -1,8 +1,8 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
   const Favourite = sequelize.define('Favourite', {
-    userId: DataTypes.INTEGER,
-    recipeId: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER,
+    RecipeId: DataTypes.INTEGER
   }, {});
   Favourite.associate = function(models) {
     Favourite.belongsTo(models.User);

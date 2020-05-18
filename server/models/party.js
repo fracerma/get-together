@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     Party.hasMany(models.Comment);
     Party.belongsToMany(models.Recipe, {
       through: "PartyRecipe",
-      foreingKey: "partyId",
+      foreingKey: "PartyId",
     });
     Party.belongsToMany(models.User, {
       through: "UserParty",
-      foreingKey: "partyId",
+      foreingKey: "PartyId",
     });
   }
   return Party;

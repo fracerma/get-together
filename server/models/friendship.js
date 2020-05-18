@@ -1,18 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
     const Friendship = sequelize.define('Friendship', {
-      userId: {
+      UserId: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
-      friendId: {
+      FriendId: {
         type: DataTypes.INTEGER,
         primaryKey: true
       },
       pending: DataTypes.BOOLEAN
     }, {});
     Friendship.associate = function(models) {
-      Friendship.belongsTo(models.User,{foreignKey:"userId"});
-      Friendship.belongsTo(models.User,{foreignKey:"friendId"});
+      Friendship.belongsTo(models.User,{foreignKey:"UserId"});
+      Friendship.belongsTo(models.User,{foreignKey:"FriendId"});
     };
     //funzione per aggiungere un amico
     Friendship.friendRequest = async function(fromId,toId){
@@ -29,13 +29,13 @@ module.exports = (sequelize, DataTypes) => {
       try{
         const relation=await Friendship.findOne({
           where:{
-            userId: fromId,
-            friendId: toId
+            UserId: fromId,
+            FriendId: toId
           }
         });
         relation.pending=false;
         await relation.save();
-        await Friendship.create({userId: toId,friendId: fromId , pending:false});
+        await Friendship.create({UserId: toId,FriendId: fromId , pending:false});
       }
       catch(e){
         throw e;
