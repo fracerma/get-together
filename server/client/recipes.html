@@ -1,74 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Users Recipe</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Your recipes</h1>
-    <div id="mine">
-
-    </div>
+    <div id="mine"></div>
     <h1>Others recipes</h1>
-    <div id="others">
-
-    </div>
+    <div id="others"></div>
     <h1>Add your recipe:</h1>
     <form action="/recipes" method="post">
-        Url:<input type="text" name="sourceUrl" id="">
-        Tipo:<select name="dishTypes" id="">
-            <option value="main course">Primo</option>
-            <option value="appetaizer">Stuzzichino</option>
-        </select>
-        Cucina:<select name="cuisines" id="">
-            <option value="italian">Italiana</option>
-            <option value="american">Americana</option>
-        </select>
-        Dieta:<select name="diets" id="">
-            <option value="vegetarian">Vegetariano</option>
-        </select>
-        Lingua: <input type="text" name="leng" id="">
-        <input type="submit" value="Aggiungi">
+      Url:<input type="text" name="sourceUrl" id="" /> Tipo:<select
+        name="dishTypes"
+        id=""
+      >
+        <option value="main course">Primo</option>
+        <option value="appetaizer">Stuzzichino</option>
+      </select>
+      Cucina:<select name="cuisines" id="">
+        <option value="italian">Italiana</option>
+        <option value="american">Americana</option>
+      </select>
+      Dieta:<select name="diets" id="">
+        <option value="vegetarian">Vegetariano</option>
+      </select>
+      Lingua: <input type="text" name="leng" id="" />
+      <input type="submit" value="Aggiungi" />
     </form>
-</body>
-<script type="text/javascript">
-    const buildRecipeList=function(data,root){
-        data.forEach((el)=>{
-            let div=document.createElement("div");
-            div.innerHTML=`
+  </body>
+  <script type="text/javascript">
+    const buildRecipeList = function (data, root) {
+      data.forEach((el) => {
+        let div = document.createElement("div");
+        div.innerHTML = `
                 <h5> ${el.title} </h5>
             `;
-            root.appendChild(div);
-        });
-    }
-    const mine=document.getElementById("mine");
-    const others=document.getElementById("others");
+        root.appendChild(div);
+      });
+    };
+    const mine = document.getElementById("mine");
+    const others = document.getElementById("others");
 
+    fetch("/recipes", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        buildRecipeList(json, mine);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-     fetch("/recipes", {
-            method: 'GET',
-            credentials: 'include'
-            })
-        .then((response) => response.json())
-        .then((json) => {
-            console.log(json);
-            buildRecipeList(json,mine);
-        }).catch((err) => {
-             console.log(err);
-        });
-
-        fetch("/recipes/all", {
-            method: 'GET',
-            credentials: 'include'
-            })
-        .then((response) => response.json())
-        .then((json) => {
-            console.log(json);
-            buildRecipeList(json,others);
-        }).catch((err) => {
-             console.log(err);
-        });   
-    
-</script>
+    fetch("/recipes/all", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        buildRecipeList(json, others);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  </script>
 </html>

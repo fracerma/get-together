@@ -15,13 +15,13 @@
         ]
       });
 
-    var app=new Vue({
-        el:"#app",
-        data:{
-            bannerImage:"../image/Principal.jpg"
-        },
-        components:{
-            "nav-bar":navBar
-        },
-        router
-    });
+var app = new Vue({
+  el: "#app",
+  data: {
+    bannerImage: "../image/Principal.jpg",
+  },
+  components: {
+    "nav-bar": navBar,
+  },
+  router,
+});
