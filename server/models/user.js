@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     User.belongsToMany(models.Party, {
       through: "UserParty",
-      foreignKey: "partyId",
+      foreingKey: "UserId",
     });
     User.hasMany(models.Comment, { foreignKey: "userId" });
     User.hasMany(models.Recipe, { foreignKey: "userId" });

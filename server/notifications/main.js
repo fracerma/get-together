@@ -93,7 +93,7 @@ async function notificate(event) {
     const not = await createNotification(event);
     //Creo un oggetto da inviare come notifica che non contiene gli Id
     //ma solo il nome della source e altre info
-
+    console.log("Final not:  ", not);
     //  SE LA NOTIFCA NON E' RELATIVA AD UN PARTY COSA SUCCEDE??? IL PARTY NON SI TROVA E...???
     Notification.create(event).then((toSend) => {
       //Controllo che il client sia nell'array di socket e abbia una socket attiva
@@ -164,17 +164,20 @@ function broadcast(event) {
   let e = event.event;
   UserParty.findAll({
     raw: true,
-    where: { partyId: partyId },
+    where: { PartyId: partyId },
   }).then((array) => {
-    for (r in array) {
+    console.log("array: ", array);
+    let i;
+    for (i = 0; i < array.length; i++) {
       let not = {
         source: userId,
-        destination: r.userId,
+        destination: array[i].UserId,
         event: e,
         comment: event.comment,
         party: partyId,
         state: true,
       };
+      console.log(array[i]);
       notificate(not);
     }
   });
@@ -208,10 +211,18 @@ function broadcast(event) {
 
 async function createNotification(event) {
   try {
-    const user = await User.find({ raw: true, where: { id: event.source } });
-    const party = await Party.find({ raw: true, where: { id: event.source } });
+    const user = await User.findOne({
+      raw: true,
+      where: { id: event.source },
+      attributes: ["id", "firstName", "email"],
+    });
+    const party = await Party.findOne({
+      raw: true,
+      where: { id: event.source },
+      attributes: ["id", "createdAt"],
+    });
     // Se l'evento riguardo un commento, mi prendo l'oggetto relativo al commento e lo invio
-    const comment = await Comment.find({
+    const comment = await Comment.findOne({
       raw: true,
       where: { id: event.comment },
     });
@@ -230,5 +241,5 @@ async function createNotification(event) {
 
 //module.exports.socketArray = sockets;
 module.exports = router;
-//module.exports.notificate = notificate;
-//module.exports.broadcast = broadcast;
+module.exports.notificate = notificate;
+module.exports.broadcast = broadcast;
