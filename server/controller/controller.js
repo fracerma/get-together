@@ -8,7 +8,7 @@ const parties = require("./parties");
 
 const redirectToLogin = require("./session").redirectLogin;
 
-router.use("/", parties);
+router.use("/", session);
 router.use("/user", redirectToLogin, user);
 router.use("/recipes", redirectToLogin, recipes);
 //FIXME remove comment

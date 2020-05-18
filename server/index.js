@@ -52,8 +52,6 @@ app.use(function (req, res, next) {
 app.use("/api", api);
 app.use("/", controller);
 
-app.use("/", express.static(__dirname + "/client/"));
-
 //////////////////////////////////////////////////
 const nots = require("./notifications/main");
 app.use("/notification", nots);

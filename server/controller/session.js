@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const session = require("express-session");
+const axios= require("axios");
 const User = require("../models/index").User;
 const sharedsession = require("express-socket.io-session");
 const io = require("../index").io;
@@ -83,8 +84,8 @@ router.post("/login",redirectHome, async (req,res)=>{
         res.status(400).send(errObj);
     };
 });
-
-router.get("/", redirectFrontpage);
+//FIXME decomment
+//router.get("/", redirectFrontpage);
 
 router.post("/register",redirectHome,async (req,res)=>{
     try{
