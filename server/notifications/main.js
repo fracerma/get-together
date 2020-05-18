@@ -10,8 +10,8 @@ const io = require("../index").io;
 
 io.on("connection", function (socket) {
   let currentId;
-  //Manca rifiuto di connessione verso socket.
-  if (socket.handshake.session.userId) {
+  if (!socket.handshake.session.userId) socket.close();
+  else {
     currentId = socket.handshake.session.userId;
     check(socket, currentId);
 
@@ -34,18 +34,6 @@ io.on("connection", function (socket) {
 
     socket.on("newComment", async function (event) {
       //Questo oggetto viene creato da event dato hce vi sono anche altre info che non vogliamo
-      let newComm = {
-        text: event.commentTxt,
-        partyId: event.party,
-        userId: event.source,
-      };
-      let not = {
-        source: event.source,
-        destination: 0,
-        event: event.event,
-        party: event.party,
-        state: true,
-      };
       try {
         //COME SI AGGIUNGONO ELEMENTI ALLE JOIN TABLE????
         //let c = await Comment.create(newComm);
@@ -98,34 +86,44 @@ io.on("connection", function (socket) {
   }
 });
 
-function notificate(event) {
+async function notificate(event) {
   console.log("event---->notficate: ", event);
-  Notification.create(event).then((toSend) => {
-    //Controllo che il client sia nell'array di socket e abbia una socket attiva
-    let dstId = event.destination;
-    let dstSock = sockets.filter((x) => x.clientId == dstId)[0];
+  try {
+    //Mi trovo il nome della sorgente della notifica
+    const not = await createNotification(event);
+    //Creo un oggetto da inviare come notifica che non contiene gli Id
+    //ma solo il nome della source e altre info
 
-    //In caso positivo invio la notifica e la aggiorno nel db come false, ovvere non da leggere
-    if (dstSock != undefined) {
-      // Manca ack che il client abbia ricevuto la notifica
-      io.to(dstSock.socket.id).emit(event.event, event);
+    //  SE LA NOTIFCA NON E' RELATIVA AD UN PARTY COSA SUCCEDE??? IL PARTY NON SI TROVA E...???
+    Notification.create(event).then((toSend) => {
+      //Controllo che il client sia nell'array di socket e abbia una socket attiva
+      let dstId = event.destination;
+      let dstSock = sockets.filter((x) => x.clientId == dstId)[0];
 
-      // Dopo che ho verificato che sia arrivato lo segno come letto
-      Notification.findOne({
-        where: { id: toSend.id },
-      }).then(function (notification) {
-        // Check if record exists in db
-        if (notification) {
-          notification.update({
-            state: false,
-          });
-        }
-      });
-    }
-  });
+      //In caso positivo invio la notifica e la aggiorno nel db come false, ovvere non da leggere
+      if (dstSock != undefined) {
+        // Manca ack che il client abbia ricevuto la notifica
+        io.to(dstSock.socket.id).emit(not.event, not);
+
+        // Dopo che ho verificato che sia arrivato lo segno come letto
+        Notification.findOne({
+          where: { id: toSend.id },
+        }).then(function (notification) {
+          // Check if record exists in db
+          if (notification) {
+            notification.update({
+              state: false,
+            });
+          }
+        });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-function check(socket, currentId) {
+async function check(socket, currentId) {
   io.to(socket.id).emit("welcome", currentId);
 
   //controllo se il client e' gia' nell'array di connessioni
@@ -134,11 +132,11 @@ function check(socket, currentId) {
   console.log("sockets in connessione/reload---->: ", sockets);
 
   //Controllo se il client che si connette ha notifiche in sospeso e gliele invio.
-
-  Notification.findAll({
-    raw: true,
-    where: { destination: currentId, state: true },
-  }).then((notRead) => {
+  try {
+    const notRead = await Notification.findAll({
+      raw: true,
+      where: { destination: currentId, state: true },
+    });
     let i = 0;
     console.log(notRead);
     let len = notRead.length;
@@ -146,40 +144,34 @@ function check(socket, currentId) {
       let n = notRead[i];
       let e = n.event;
       var notId = n.id;
-      let data = {
-        source: n.source,
-        destination: currentId,
-        event: e,
-        party: n.party,
-        state: true,
-      };
-
+      // Mi devo prendere il nome del party e della sorgente del commento:
+      const not = await createNotification(n);
       // Manca ack che il client abbia ricevuto la notifica
       console.log(socket.id);
-      io.to(socket.id).emit(e, data);
+      io.to(socket.id).emit(e, not);
 
       // Dopo che ho verificato che sia arrivato lo segno come letto
-
-      Notification.update({ state: false }, { where: { id: notId } });
+      await Notification.update({ state: false }, { where: { id: notId } });
     }
-  });
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function broadcast(event) {
   let partyId = event.party;
   let userId = event.source;
-  let e = event.type;
+  let e = event.event;
   UserParty.findAll({
     raw: true,
     where: { partyId: partyId },
   }).then((array) => {
-    console.log("array dentro party:--------->" + array);
-
     for (r in array) {
       let not = {
         source: userId,
         destination: r.userId,
         event: e,
+        comment: event.comment,
         party: partyId,
         state: true,
       };
@@ -204,6 +196,39 @@ function broadcast(event) {
     4.2 joined: l'utente ha accettato l'amicizia e quindi viene aggiunto un'amicizia in Friendship
 
 
+    let data = {
+        source: n.source,
+        destination: currentId,
+        event: e,
+        party: n.party,
+        state: true,
+      };
+
 */
 
+async function createNotification(event) {
+  try {
+    const user = await User.find({ raw: true, where: { id: event.source } });
+    const party = await Party.find({ raw: true, where: { id: event.source } });
+    // Se l'evento riguardo un commento, mi prendo l'oggetto relativo al commento e lo invio
+    const comment = await Comment.find({
+      raw: true,
+      where: { id: event.comment },
+    });
+    const not = {
+      source: user,
+      party: party,
+      comment: comment,
+      event: event.event,
+      state: true,
+    };
+    return not;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+//module.exports.socketArray = sockets;
 module.exports = router;
+//module.exports.notificate = notificate;
+//module.exports.broadcast = broadcast;

@@ -1,13 +1,23 @@
 //Requiring all needed modules
 const express = require("express");
 const bodyParser = require("body-parser");
-const https = require('https');
-const fs = require('fs');
+const https = require("https");
+const fs = require("fs");
 const app = express();
 
 ////////////////////////////////////////
-const http = require("http");
-const server = http.createServer(app);
+
+const server = https
+  .createServer(
+    {
+      key: fs.readFileSync("server.key"),
+      cert: fs.readFileSync("server.cert"),
+    },
+    app
+  )
+  .listen(4000, function () {
+    console.log("Go to https://localhost:4000/");
+  });
 const io = require("socket.io")(server);
 var sockets = [];
 //require("./notifications/main")(io);
@@ -51,13 +61,4 @@ app.use("/notification", nots);
 //console.log(array);
 
 ////////////////////////////////////////////////////
-server.listen(4000, "192.168.1.114");
 app.use("/", express.static(__dirname + "/client/"));
-
-https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
-}, app)
-.listen(4000, function () {
-  console.log('Go to https://localhost:4000/')
-})

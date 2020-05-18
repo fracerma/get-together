@@ -26,12 +26,9 @@
     "exports": "0.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-<<<<<<< HEAD
     "express-socket.io-session": "^1.3.5",
-=======
     "fs": "0.0.1-security",
     "https": "^1.0.0",
->>>>>>> b6926573811083410a249533263c5f54a209680f
     "nodemon": "^2.0.3",
     "pg": "^8.0.3",
     "request": "^2.88.2",
