@@ -53,7 +53,7 @@ app.use("/api", api);
 app.use("/", controller);
 
 //////////////////////////////////////////////////
-const nots = require("./notifications/main");
+const nots = require("./controller/notifications");
 app.use("/notification", nots);
 
 //console.log(array);

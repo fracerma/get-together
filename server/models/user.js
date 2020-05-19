@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       idfb: DataTypes.STRING,
       accessToken: DataTypes.STRING,
-      image: DataTypes.STRING
+      image: DataTypes.STRING,
     },
     {}
   );
@@ -29,8 +29,9 @@ module.exports = (sequelize, DataTypes) => {
       through: "UserParty",
       foreignKey: "UserId",
     });
-    User.hasMany(models.Comment);
-    User.hasMany(models.Recipe,{foreignKey:"UserId"});
+    //User.hasMany(models.Party, { foreignKey: "owner" });
+    User.hasMany(models.Comment, { foreignKey: "UserId" });
+    User.hasMany(models.Recipe, { foreignKey: "UserId" });
   };
 
   //class method

@@ -111,7 +111,6 @@ router.post("/register",redirectHome,async (req,res)=>{
 
 
 router.get("/oauthfb", redirectHome, async (req, res) => {
-  console.log("sto in /oauth");
   res.redirect(
     `https://www.facebook.com/v7.0/dialog/oauth?client_id=${process.env.FACEBOOK_CLIENT_ID}&redirect_uri=https://localhost:4000/loginfb&state={st=1234}&scope=email,user_friends`
   );

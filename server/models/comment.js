@@ -5,14 +5,14 @@ module.exports = (sequelize, DataTypes) => {
     {
       text: DataTypes.TEXT,
       UserId: DataTypes.INTEGER,
-      PartyId: DataTypes.INTEGER
+      PartyId: DataTypes.INTEGER,
     },
     {}
   );
   Comment.associate = function (models) {
     // associations can be defined here
-    Comment.belongsTo(models.Party, { foreignKey: "partyId" });
-    Comment.belongsTo(models.User, { foreignKey: "userId" });
+    Comment.belongsTo(models.Party, { foreignKey: "PartyId" });
+    Comment.belongsTo(models.User, { foreignKey: "UserId" });
   };
 
   return Comment;
