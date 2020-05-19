@@ -6,8 +6,8 @@ const Recipe = require("../models/index").Recipe;
 const Friendship = require("../models/index").Friendship;
 const Party = require("../models/index").Party;
 const Comment = require("../models/index").Comment;
-const notificate = require("../notifications/main").notificate;
-const broadcast = require("../notifications/main").broadcast;
+const notificate = require("./notifications").notificate;
+const broadcast = require("./notifications").broadcast;
 const bodyParser = require("body-parser");
 
 router.use(bodyParser.json());
