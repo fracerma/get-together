@@ -9,13 +9,18 @@ export default{
         <div>
             <p><span v-html="summary"></span></p>
         </div>
-        <a class="btn bg-blue" href="#">Add to your party</a>
+        <a class="btn bg-blue" v-on:click="emitAdd">Add to your party</a>
     </div>
     `,
     data() {
         return {
             openInfo: false,
             summary: this.recipe.summary.split("All things considered")[0]
+        }
+    },
+    methods: {
+        emitAdd: function(){
+            this.$emit("addItem",this.recipe);
         }
     }
 }

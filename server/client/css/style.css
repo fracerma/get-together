@@ -4,25 +4,50 @@
     margin: 0;
 }
 
-body{
+html{
     width: 100vw;
+    height: 100vh;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    position: absolute;
     overflow-x: hidden;
 }
 
 .bg-orange{
-    background-color: #ff8934;
+    background-color: coral;
+}
+
+.fill-orange{
+    fill: coral;
+}
+
+.bg-yellow{
+    /*background-color: #fad400;*/
+    background-color: rgb(223, 163, 10);
+
 }
 .bg-blue{
-    background-color: #1c4f57;
+    background-color: #21535b;
 }
 .bg-green{
-    background-color: #35b86c;
+    /*background-color: #35b86c;*/
+    background-color: rgb(114, 148, 47);
+}
+.bg-red{
+    background-color: #a42e2ef1;
 }
 /************
     NAVBAR
 *************/
 nav{
     font-size: 2em;
+}
+.navbar-brand{
+    margin-right: 0;
+    margin-left: 170px;
 }
 #logo-nav{
     width: 170px;
@@ -44,11 +69,10 @@ svg{
 .left-icon{
     margin-left: 30px;
 }
-.fill-orange{
-    fill: #ff9244;
-}
 #navbarNav{
     display: flex;
+    align-items: center;
+    flex-basis: 100%;
     justify-content: space-between;
 }
 
@@ -82,30 +106,43 @@ svg{
     top: 0;
     background: rgba(0, 0, 0,0.7);
 }
+/************
+PARTY PROGRAM COMPONENT
+*************/
+
+.partyProgram-component{
+    width: 90%;
+}
 
 /************
-PARTY COMPONENT
+PARTY ITEMS COMPONENT
 *************/
 .party-component{
     display: flex;
+    margin: 20px;
 }
 .left-side{
     width: 80%;
+    margin-right: 10px;
 }
 .right-side{
     width:20%;
     border-radius: 5px;
     margin-left: 10px;
-    border: 3px solid black;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+    border-bottom: 3px solid black;
 }
 
 /************
 LIST COMPONENT
 *************/
 .list-component{
+border-top: 3px solid black;
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 100px;
+  padding: 10px;
 }
 .list-component h4{
     text-align: center;
@@ -128,6 +165,19 @@ LIST COMPONENT
     cursor: pointer;
     color: red;
 }
+.btn-create{
+    margin-top: 40px;    
+    margin-bottom: 40px;    
+    width: 100%;
+    text-align: center;
+}
+.btn-create a{
+    color: white;
+}
+.btn-create a:hover{
+    text-decoration: none;
+    color: black;
+}
 
 /************
 ITEMS COMPONENT
@@ -141,6 +191,10 @@ ITEMS COMPONENT
     margin-bottom: 5px;
 }
 
+/************
+   HIGH BAR
+*************/
+
 .high-bar{
     position: relative;
     padding: 10px;
@@ -148,11 +202,9 @@ ITEMS COMPONENT
     justify-content: space-between;
     z-index: 1;
     height: 100%;
-    font-size: calc(25px + 1vw) ;
     text-align: left;
     align-items: center;
     border-radius: 20px;
-    margin-left: 10px;
 }
 
 .high-bar:hover{
@@ -166,7 +218,13 @@ ITEMS COMPONENT
     margin-bottom: 5px;
 }
 
+.high-bar a{
+    color: white;
+
+}
+
 .high-bar span{
+    font-size: calc(25px + 1vw) ;
     margin-left: 20px;
     display: block;
     color: white;
@@ -260,8 +318,18 @@ RESPONSIVE STUFF
         width: 30vw;
         margin: 1.5vw;
     }
+    .high-bar input{
+        width: 30%;
+    }
+    .high-bar select{
+        width: 30%;
+    }
 }
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 880px) {
+    .right-icon{
+        display: flex;
+        flex-direction: column;
+    }
     .item-component{
         width: 60vw;
         margin: 2vw;
@@ -287,9 +355,10 @@ RESPONSIVE STUFF
         margin-top: 5px;
     }
     .left-side{
-        width: 65%;
+        width: 100%;
     }
     .right-side{
+        display: none;
         width:35%;
     }
 }

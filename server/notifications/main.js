@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { Op } = require("sequelize");
 let sockets = require("../index").sockets;
 const Notification = require("../models/index").Notification;
 const UserParty = require("../models/index").UserParty;
@@ -13,70 +14,21 @@ io.on("connection", function (socket) {
   if (!socket.handshake.session.userId) socket.close();
   else {
     currentId = socket.handshake.session.userId;
+
     check(socket, currentId);
 
-    Notification.findAll({ raw: true }).then((r) => {
-      console.log(r);
-    });
-
-    //event e' un oggetto che contiene dentro l'identificatore del destinatario
-    socket.on("newFriend", function (event) {
-      //Creo la notifica e la aggiungo al db e la setto di default a true, ovvero da leggere.
-      let not = {
-        source: event.source,
-        destination: event.destination,
-        event: event.event,
-        party: event.party,
-        state: true,
-      };
-      notificate(not);
-    });
-
-    socket.on("newComment", async function (event) {
-      //Questo oggetto viene creato da event dato hce vi sono anche altre info che non vogliamo
-      try {
-        //COME SI AGGIUNGONO ELEMENTI ALLE JOIN TABLE????
-        //let c = await Comment.create(newComm);
-        User.findByPk(event.source).then((user) => {
-          user.setComments(event.party).then((sc) => {
-            console.log(sc);
+    socket.on("ack", function (event) {
+      let notId = event.notificationId;
+      Notification.findOne({
+        where: { id: notId },
+      }).then(function (notification) {
+        // Check if record exists in db
+        if (notification) {
+          notification.update({
+            state: false,
           });
-        });
-        //devo aggiungere io.emit(newCommentOn)
-        //e broadcast
-        broadcast(not);
-      } catch (error) {
-        console.error(error);
-      }
-
-      //Questo oggetto viene creato da event dato che vi sono anche altre info che non vogliamo
-
-      //notificate(not);
-    });
-
-    socket.on("newInvitation", function (event) {
-      let not = {
-        source: event.source,
-        destination: event.destination,
-        event: event.event,
-        party: event.party,
-        state: true,
-      };
-      notificate(event);
-    });
-
-    socket.on("joined", function (event) {
-      let partyId = event.party;
-      console.log("Sono dentro joined" + partyId);
-      let userId = event.source;
-      //COME SI AGGIUNGONO ELEMENTI ALLE JOIN TABLE????
-      /*User.findByPk(userId).then((user) => {
-        user.setParties(partyId).then((sc) => {
-          console.log(sc);
-        });
-      });*/
-      //UserParty.create(userId, partyId).then(broadcast(event));
-      broadcast(event);
+        }
+      });
     });
 
     socket.on("disconnect", () => {
@@ -94,28 +46,22 @@ async function notificate(event) {
     //Creo un oggetto da inviare come notifica che non contiene gli Id
     //ma solo il nome della source e altre info
     console.log("Final not:  ", not);
+
     //  SE LA NOTIFCA NON E' RELATIVA AD UN PARTY COSA SUCCEDE??? IL PARTY NON SI TROVA E...???
     Notification.create(event).then((toSend) => {
       //Controllo che il client sia nell'array di socket e abbia una socket attiva
+
+      not.notificationId = toSend.id;
+
       let dstId = event.destination;
       let dstSock = sockets.filter((x) => x.clientId == dstId)[0];
-
+      console.log("dstId:  ", dstId);
       //In caso positivo invio la notifica e la aggiorno nel db come false, ovvere non da leggere
       if (dstSock != undefined) {
         // Manca ack che il client abbia ricevuto la notifica
         io.to(dstSock.socket.id).emit(not.event, not);
-
+        console.log("dstId:  ", dstId);
         // Dopo che ho verificato che sia arrivato lo segno come letto
-        Notification.findOne({
-          where: { id: toSend.id },
-        }).then(function (notification) {
-          // Check if record exists in db
-          if (notification) {
-            notification.update({
-              state: false,
-            });
-          }
-        });
       }
     });
   } catch (error) {
@@ -138,7 +84,7 @@ async function check(socket, currentId) {
       where: { destination: currentId, state: true },
     });
     let i = 0;
-    console.log(notRead);
+    //console.log(notRead);
     let len = notRead.length;
     for (i = 0; i < len; i++) {
       let n = notRead[i];
@@ -164,7 +110,11 @@ function broadcast(event) {
   let e = event.event;
   UserParty.findAll({
     raw: true,
-    where: { PartyId: partyId },
+    where: {
+      PartyId: partyId,
+      UserId: { [Op.ne]: userId },
+      status: "accepted",
+    },
   }).then((array) => {
     console.log("array: ", array);
     let i;
@@ -177,7 +127,7 @@ function broadcast(event) {
         party: partyId,
         state: true,
       };
-      console.log(array[i]);
+      //console.log(array[i]);
       notificate(not);
     }
   });
@@ -218,8 +168,8 @@ async function createNotification(event) {
     });
     const party = await Party.findOne({
       raw: true,
-      where: { id: event.source },
-      attributes: ["id", "createdAt"],
+      where: { id: event.party },
+      attributes: ["id", "name", "createdAt"],
     });
     // Se l'evento riguardo un commento, mi prendo l'oggetto relativo al commento e lo invio
     const comment = await Comment.findOne({

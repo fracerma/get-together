@@ -2,9 +2,10 @@ import beerComponent from "./beer-component.js"
 export default{
     template: `
     <div class="conteiner-component">
-        <div class="high-bar bg-orange" >
+        <div class="high-bar bg-yellow" >
             <span v-on:click="openContent">Select beers</span>
             <div>
+                <a v-on:click="resetFilter">Remove filter</a>
                 <input v-model="beer_name" placeholder="beer name" v-on:change="fetchBeer">
                 <input v-model="food" placeholder="food pairing" v-on:change="fetchBeer">
                 <input v-model="abv_lt" placeholder="alcool max" v-on:change="fetchBeer">
@@ -16,6 +17,7 @@ export default{
                 <beerComponent v-for="(beerIt, index) in beers"
                 v-bind:beer="beerIt"
                 v-bind:key="index"
+                v-on:addItem="addItem"
                 > </beerComponent>
             </div>
         </transition>
@@ -48,6 +50,21 @@ export default{
             fetch(`/api/beers?`+url.toString())
             .then(response => response.json())
             .then(data => this.beers=data.slice(0,4));
+        },
+        resetFilter: function(){
+            this.beer_name= null;
+            this.food= null;
+            this.abv_gt= null;
+            this.abv_lt= null;        
+        },
+        addItem: function(value){
+            this.$emit("addBeer",{
+                id: value.id,
+                name:value.name,
+                abv:value.abv,
+                image_url:value.image_url,
+                description:value.description,
+            });
         }
     },
     beforeCreate() {

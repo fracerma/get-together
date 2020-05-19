@@ -7,7 +7,12 @@ export default{
         <div>
             <p>{{beer.description}}</p>
         </div>
-        <a class="btn bg-orange" href="#">Add to your party</a>
+        <a class="btn bg-yellow" v-on:click="emitAdd">Add to your party</a>
     </div>
-    `
+    `,
+    methods: {
+        emitAdd: function(){
+            this.$emit("addItem",this.beer);
+        }
+    },
 }
