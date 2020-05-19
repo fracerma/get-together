@@ -7,7 +7,12 @@ export default{
         <div>
             <p>{{cocktail.instructions}}</p>
         </div>
-        <a class="btn bg-green" href="#">Add to your party</a>
+        <a class="btn bg-green" v-on:click="addItem">Add to your party</a>
     </div>
-    `
+    `,
+    methods: {
+        addItem: function(){
+            this.$emit("addItem",this.cocktail)
+        }
+    },
 }

@@ -27,8 +27,11 @@ module.exports = {
       },
       idfb: {
         type: Sequelize.STRING
-    },
+      },
       accessToken: {
+        type: Sequelize.STRING
+      },
+      image: {
         type: Sequelize.STRING
       },
       createdAt: {

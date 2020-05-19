@@ -23,7 +23,7 @@ export default{
                     console.log(err);
                 });
         },
-        //TODO bene
+        //TODO da fare bene
         aggiungiAmico: function(){
             fetch("/user/accept", {
                 method: 'POST', // *GET, POST, PUT, DELETE, etc.

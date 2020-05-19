@@ -2,7 +2,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Friendships', {
-      userId: {
+      UserId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
@@ -11,7 +11,7 @@ module.exports = {
           key: 'id'
         }
       },
-      friendId: {
+      FriendId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,

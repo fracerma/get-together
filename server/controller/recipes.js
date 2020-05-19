@@ -84,7 +84,6 @@ router.delete("/:id",async (req,res)=>{
 });
 
 // Possibilità di aggiungere una ricetta al database:
-//TODO gestione associazione ricetta con utente
 router.post("/",async (req,res)=>{
   console.log("aggiungo una ricetta");
   

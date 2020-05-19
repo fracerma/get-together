@@ -3,6 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Party = sequelize.define(
     "Party",
     {
+      owner: DataTypes.INTEGER,
+      name: DataTypes.STRING,
       wines: DataTypes.JSONB,
       beers: DataTypes.JSONB,
       cocktails: DataTypes.JSONB,
@@ -10,16 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Party.associate = function (models) {
-    Party.hasMany(models.Comment, { foreignKey: "partyId" });
+    Party.hasMany(models.Comment, { foreignKey: "PartyId" });
+    //Party.belongsTo(models.User, { foreingKey: "owner" });
     Party.belongsToMany(models.Recipe, {
       through: "PartyRecipe",
-      foreingKey: "partyId",
+      foreingKey: "PartyId",
     });
     Party.belongsToMany(models.User, {
       through: "UserParty",
       foreingKey: "PartyId",
-      //targetKey: "partyId",
-      //otherKey: "userId",
     });
   };
   return Party;

@@ -24,6 +24,7 @@ router.get("/random",(req,res)=>{
         let allrandom = response.data;
         allrandom = allrandom.map((obj) => {
           return {
+            id: obj.id,
             name: obj.name,
             description: obj.description,
             image_url: obj.image_url,
@@ -60,6 +61,7 @@ router.get("/", function (req, res) {
         let alldata = response.data;
         alldata = alldata.map((obj) => {
           return {
+            id: obj.id,
             name: obj.name,
             description: obj.description,
             image_url: obj.image_url,

@@ -1,10 +1,32 @@
 const express= require("express");
 const router = express.Router();
+const axios=require("axios");
 
 router.get('/pairing', function(req, res) {
-  axios.get(`https://api.spoonacular.com/food/wine/pairing${query}&apiKey=${process.env.SPOONACULAR_KEY}`)
+  const query=req.url;
+  axios.get(`https://api.spoonacular.com/food/wine${query}&apiKey=${process.env.SPOONACULAR_KEY}`)
   .then((response)=>{
-    res.send(response.data);
+    const result=response.data;
+    const obj={
+      pairingText: result.pairingText,
+      wines: result.productMatches
+    }
+    res.send(obj);
+  }).catch(e=>{
+      console.log(e);
+      
+  });
+});
+router.get('/recommendation', function(req, res) {
+  const query=req.url;
+  axios.get(`https://api.spoonacular.com/food/wine${query}&apiKey=${process.env.SPOONACULAR_KEY}`)
+  .then((response)=>{
+    let result=response.data;
+    const obj={
+      pairingText: null,
+      wines: result.recommendedWines
+    }
+    res.send(obj);
   });
 });
 

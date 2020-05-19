@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       idfb: DataTypes.STRING,
       accessToken: DataTypes.STRING,
+      image: DataTypes.STRING,
     },
     {}
   );
@@ -17,19 +18,20 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(User, {
       as: "friends",
       through: "Friendships",
-      foreignKey: "userId",
+      foreignKey: "UserId",
     });
     User.belongsToMany(models.Recipe, {
       as: "favourites",
       through: "Favourites",
-      foreignKey: "userId",
+      foreignKey: "UserId",
     });
     User.belongsToMany(models.Party, {
       through: "UserParty",
-      foreingKey: "UserId",
+      foreignKey: "UserId",
     });
-    User.hasMany(models.Comment, { foreignKey: "userId" });
-    User.hasMany(models.Recipe, { foreignKey: "userId" });
+    //User.hasMany(models.Party, { foreignKey: "owner" });
+    User.hasMany(models.Comment, { foreignKey: "UserId" });
+    User.hasMany(models.Recipe, { foreignKey: "UserId" });
   };
 
   //class method
