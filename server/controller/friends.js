@@ -16,7 +16,7 @@ router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 router.get("/", function (req, res) {});
 
 router.post("/", async function (req, res) {
-  const sourceId = req.body.userId;
+  const sourceId = req.session.userId;
   console.log(sourceId);
   const dstId = req.body.dstId;
 
@@ -48,7 +48,7 @@ router.post("/", async function (req, res) {
 });
 
 router.post("/response", async function (req, res) {
-  const sourceId = req.body.userId;
+  const sourceId = req.session.userId;
   const dstId = req.body.dstId;
   const decision = req.body.decision;
   try {
