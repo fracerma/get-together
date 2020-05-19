@@ -1,33 +1,41 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Parties', {
+    return queryInterface.createTable("Parties", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+      },
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      owner: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
       },
       wines: {
-        type: Sequelize.JSONB
+        type: Sequelize.JSONB,
       },
       beers: {
-        type: Sequelize.JSONB
+        type: Sequelize.JSONB,
       },
       cocktails: {
-        type: Sequelize.JSONB
+        type: Sequelize.JSONB,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Parties');
-  }
+    return queryInterface.dropTable("Parties");
+  },
 };

@@ -1,39 +1,64 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/index").User;
+const UserParty = require("../models/index").UserParty;
+const Recipe = require("../models/index").Recipe;
+const Friendship = require("../models/index").Friendship;
 const Party = require("../models/index").Party;
 const Comment = require("../models/index").Comment;
-const notificate = require("../notifications/main").notificate;
-const broadcast = require("../notifications/main").broadcast;
+const notificate = require("./notifications").notificate;
+const broadcast = require("./notifications").broadcast;
+const bodyParser = require("body-parser");
+
+router.use(bodyParser.json());
+router.use(bodyParser.json({ type: "application/vnd.api+json" }));
+//router.use(bodyParser.urlencoded({ extended: false }));
+
 //ritorna tutti i party dell'utente corrente
 router.get("/", (req, res) => {
   console.log("ciao");
   res.send({ ciao: "hello" });
 });
 
-//aggiungi un party NON FUNZIONA
+//aggiungi un party
 router.post("/", async (req, res) => {
   //questo deve avere un array di partecipanti, di id di ricette che sono già state aggiunte al db?
   //di birre, vini e cocktails
+  sourceId = req.session.userId;
   try {
-    console.log("ok");
-    const party = await Party.new({
+    const ownerObj = await User.findOne({ where: { id: sourceId } });
+    const party = await Party.create({
+      name: req.body.name,
+      owner: sourceId, //da cambiare con session
       wines: req.body.wines,
       cocktails: req.body.cocktails,
       beers: req.body.beers,
     });
-    req.body.partecipants.forEach(async (el) => {
-      const friend = await User.find({ raw: true, where: { id: el } });
-      await party.setUser(friend);
-    });
-    // await party.setUser(req.session.userId);
-    //da sostituire
-    await party.setUser(req.body.userId);
-    await party.save();
+    let people = req.body.partecipants;
+    //req.body.partecipants.forEach(async (el) => {
+    let i = 0;
+    await party.addUser(ownerObj, { through: { status: "accepted" } });
+    for (; i < people.length; i++) {
+      console.log(people[i]);
+      const friend = await User.findOne({ where: { id: people[i] } });
+      await party.addUser(friend, { through: { status: "pending" } });
+    }
+    for (i = 0; i < people.length; i++) {
+      let not = {
+        source: sourceId,
+        destination: people[i],
+        party: party.id,
+        event: "newInvitation",
+        comment: 0,
+        state: true,
+      };
+      notificate(not);
+    }
+    // /broadcast(not);
     res.send(party);
   } catch (e) {
     const errObj = {
-      //name: e.name,
+      name: e.name,
       //detail: e.parent.detail,
       //code: e.parent.code,
     };
@@ -49,23 +74,27 @@ router.get("/:id", async function (req, res) {
   try {
     //const comments = []; //await Party.getComments(partyId); //Devo fare una chiamata al db che ritorna tutti i commenti relativi ad un party
 
-    const comments = await Party.findAll({
+    const party = await Party.findAll({
+      //raw: true,
+      where: { id: partyId },
       include: [
         {
           // Notice `include` takes an ARRAY
           model: User,
-          include: [Comment],
+          attributes: ["firstName", "id", "email"],
+        },
+        {
+          model: Comment,
+          //where: { PartyId: partyId },
+          attributes: ["id", "UserId", "text", "createdAt"],
         },
       ],
-      raw: true,
-      where: { partyId: partyId },
+      //
     });
 
-    const partecipants = []; //await Party.getUsers(partyId); //Trova tutti i partecipanti relativi ad un party ?? non e' sicuro
-    const party = []; //await Party.find({ raw: true, where: { id: partyId } }); //trova il party e invialo ??? non e' sicuro
+    console.log(JSON.stringify(party));
+
     let response = {
-      comments: comments, //controlla se effettivamente viene ricevuto gia' un array o no
-      partecipants: partecipants,
       party: party,
     };
     res.send(response);
@@ -78,22 +107,18 @@ router.put("/:id", (req, res) => {});
 //elimina il party d'id
 router.delete("/:id", (req, res) => {});
 
-router.get("/:id/comments", (req, res) => {
-  //Aggiungere richiesta al db
-});
-
 //aggiunge un commento
 router.post("/:id/comment", async function (req, res) {
   const sourceId = req.session.userId;
   const commentTxt = req.body.commentTxt;
-  const partyId = req.body.id;
-
+  const partyId = req.params.id;
   let newCommObj = {
     text: commentTxt,
-    partyId: partyId,
-    userId: sourceId,
+    PartyId: partyId,
+    UserId: sourceId,
   };
 
+  console.log(newCommObj);
   try {
     //COME SI AGGIUNGONO ELEMENTI ALLE JOIN TABLE???
     const newComm = await Comment.create(newCommObj);
@@ -104,58 +129,39 @@ router.post("/:id/comment", async function (req, res) {
       comment: newComm.id,
       state: true,
     };
+    console.log(not);
     broadcast(not);
   } catch (error) {
     console.error(error);
   }
 });
 
-router.post(":id/invitation/", async function (req, res) {
-  //L'id di colui che invita lo prendo dalla session
-  //  :email sara' un array che contiene le mail degli invitati
-  //fai un ciclo dove notifichi ad uno ad uno tutti i [artecipanti con notificate()
-
-  const inviterId = req.sessione.userId;
-  const invited = req.body.email;
-  const partyId = req.id;
-
-  for (email in invited) {
-    try {
-      const user = await User.find({ raw: true, where: { email: email } });
-      const invitedId = user.id;
-      let not = {
-        source: inviterId,
-        destination: invitedId,
-        party: partyId,
-        comment: 0,
-        event: "newInvitation",
-        state: true,
-      };
-      notificate(not);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-});
-
-router.post("/:id/joined", async function (req, res) {
-  const partyId = req.body.id;
-  const partecipantId = req.body.session.userId;
-
-  //Aggiungo il parctecipante all'evento
-  // ???????? UserParty
-  //Aggiungi colonna pending, rejected accepted nella UserParty
-
-  const not = {
-    source: partecipantId,
-    party: partyId,
-    event: "joined",
-    comment: [],
-    state: true,
-  };
-
+router.post("/:id/response", async function (req, res) {
+  const partyId = req.params.id;
+  const partecipantId = req.session.userId;
+  const decision = req.body.decision;
   try {
-    await broadcast(not);
+    const person = await UserParty.findOne({
+      //raw: true,
+      where: { UserId: partecipantId, PartyId: partyId },
+    });
+    // Check if record exists in db
+    console.log(person);
+    if (person.status == "pending") {
+      person.status = decision;
+      person.save().then(function () {});
+      if (decision == "accepted") {
+        const not = {
+          source: partecipantId,
+          party: partyId,
+          event: "joined",
+          comment: [],
+          state: true,
+        };
+        console.log(decision);
+        await broadcast(not);
+      }
+    }
   } catch (error) {
     console.error(error);
   }
