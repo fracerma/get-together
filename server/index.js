@@ -55,7 +55,7 @@ app.use("/", controller);
 app.use("/", express.static(__dirname + "/client/"));
 
 //////////////////////////////////////////////////
-const nots = require("./notifications/main");
+const nots = require("./controller/notifications");
 app.use("/notification", nots);
 
 //console.log(array);
