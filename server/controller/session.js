@@ -84,43 +84,31 @@ router.post("/login",redirectHome, async (req,res)=>{
         res.status(400).send(errObj);
     };
 });
+
+
+//nel caso di quaunque richiesta al register.html applico la funzione rediretHome
+router.get("/register.html", redirectHome);
 //FIXME decomment
-//router.get("/", redirectFrontpage);
+router.get("/", redirectFrontpage);
 
 router.post("/register",redirectHome,async (req,res)=>{
     try{
-        await User.create(req.body);
-        res.redirect("/login.html");
+      req.body.image= (await axios.get("https://source.unsplash.com/featured/?recipe,food")).request.ClientRequest.responseUrl;
+      console.log(req.body.image);
+      await User.create(req.body);
+      res.redirect("/login.html");
     }
     catch(e){
         const errObj={
-            name: e.name,
-            detail: e.parent.detail,
-            code: e.parent.code
+            name: e
         }
         console.log(errObj);
         res.status(400).send(errObj);
     }
 });
 
-//nel caso di quaunque richiesta al register.html applico la funzione rediretHome
-router.get("/register.html", redirectHome);
 
-router.post("/register", redirectHome, async (req, res) => {
-  //TODO controlli vari di registrazione?
-  try {
-    await User.create(req.body);
-    res.redirect("/login.html");
-  } catch (e) {
-    const errObj = {
-      name: e.name,
-      detail: e.parent.detail,
-      code: e.parent.code,
-    };
-    console.log(errObj);
-    res.status(400).send(errObj);
-  }
-});
+
 
 router.get("/oauthfb", redirectHome, async (req, res) => {
   console.log("sto in /oauth");
@@ -148,11 +136,14 @@ router.get('/loginfb',redirectHome, async(req,res)=>{
                 }
                 //se non ci sta idfb ma ci sta l'email nel database
                 else{
-                    const emailtrovata =(await axios.get(`https://graph.facebook.com/${response.data.user_id}?fields=email&access_token=${actok}`)).data.email;
+                    const emailtrovata =(await axios.get(`https://graph.facebook.com/${response.data.user_id}?fields=email,picture&access_token=${actok}`)).data.email;
+                    const image_url =(await axios.get(`https://graph.facebook.com/${response.data.user_id}/picture?redirect=0&height=400&width=400&type=large`)).data.data.url;
                     user = await User.findOne({where: {email: emailtrovata}});
                     if(user){
+                      console.log(image_url);
                         req.session.userId = user.id;
                         user.idfb= response.data.user_id;
+                        user.image= image_url;
                         user.accessToken = actok;
                         await user.save();
                         res.redirect('/');

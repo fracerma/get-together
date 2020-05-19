@@ -30,7 +30,7 @@ router.get("/friend", async (req, res) => {
   try {
     let friends = await db.Friendship.findAll({
       where: {
-        userId: userId,
+        UserId: userId,
       },
       include: db.User,
     });
@@ -41,15 +41,14 @@ router.get("/friend", async (req, res) => {
           firstName: el.User.firstName,
           lastName: el.User.lastName,
           email: el.User.email,
+          image: el.User.image,
           pending: el.pending,
         };
       })
     );
-  } catch {
+  } catch(e) {
     const errObj = {
-      name: e.name,
-      detail: e.parent.detail,
-      code: e.parent.code,
+      name: e
     };
     console.log(errObj);
     res.status(400).send(errObj);

@@ -10,6 +10,8 @@ body{
     overflow-x: hidden;
 }
 
+
+
 .bg-orange{
     background-color: coral;
 }
@@ -111,6 +113,7 @@ PARTY PROGRAM COMPONENT
     display: flex;
     text-align: center;
 }
+
 .partyProgram-component .high-bar{
     height: 20%;
     margin: 20px;
@@ -118,6 +121,30 @@ PARTY PROGRAM COMPONENT
 .settingParty-component{
     width: 50%;
 }
+.label{
+    margin: 10px;
+    font-size: 1.5em;
+    font-weight: 400;
+
+}
+#name_party{
+    width: 300px;
+}
+
+.select-date{
+    border-top: 2px solid lightgrey;
+    margin-top: 30px;
+    margin-left: 200px;
+    margin-right: 200px;
+    padding-top: 20px;
+}
+
+.settingParty-component a{
+    color: white;
+    width: 20%;
+    margin: 20px;
+}
+
 .friends-component{
     width: 50%;
 }
@@ -127,8 +154,11 @@ PARTY PROGRAM COMPONENT
 PARTY ITEMS COMPONENT
 *************/
 .party-component{
-    display: flex;
     margin: 20px;
+}
+.items-conteiner{
+    display: flex;
+    margin-top: 10px;
 }
 .left-side{
     width: 80%;
