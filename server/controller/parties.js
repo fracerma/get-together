@@ -24,7 +24,7 @@ router.get("/", (req, res) => {
 router.post("/", async (req, res) => {
   //questo deve avere un array di partecipanti, di id di ricette che sono già state aggiunte al db?
   //di birre, vini e cocktails
-  sourceId = req.body.userId;
+  sourceId = req.session.userId;
   try {
     const ownerObj = await User.findOne({ where: { id: sourceId } });
     const party = await Party.create({
@@ -109,7 +109,7 @@ router.delete("/:id", (req, res) => {});
 
 //aggiunge un commento
 router.post("/:id/comment", async function (req, res) {
-  const sourceId = req.body.userId;
+  const sourceId = req.session.userId;
   const commentTxt = req.body.commentTxt;
   const partyId = req.params.id;
   let newCommObj = {
@@ -138,7 +138,7 @@ router.post("/:id/comment", async function (req, res) {
 
 router.post("/:id/response", async function (req, res) {
   const partyId = req.params.id;
-  const partecipantId = req.body.userId;
+  const partecipantId = req.session.userId;
   const decision = req.body.decision;
   try {
     const person = await UserParty.findOne({
