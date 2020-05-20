@@ -18,6 +18,12 @@ export default{
             Lingua: <input type="text" name="leng" id="">
             <input type="submit" value="Aggiungi">
         </form>
+        <recipe-component v-for="recipe in myRecipes"
+                    v-bind:recipe="recipe"
+                    type="user"
+                    v-bind:key="recipe.id"
+                    v-on:addItem="addItem"
+        ></recipe-component>
     </div>
     `,
     data() {
@@ -34,7 +40,7 @@ export default{
                 })
             .then((response) => response.json())
             .then((json) => {
-                this.recipes=json;
+                this.myRecipes=json;
             }).catch((err) => {
                  console.log(err);
             });
@@ -52,7 +58,7 @@ export default{
             }); 
         }
     },
-     
-
-        
+    beforeCreate() {
+        this.fetchMyRecipes();
+    }   
 }
