@@ -128,7 +128,7 @@ router.get('/loginfb',redirectHome, async(req,res)=>{
                     req.session.userId = user.id;
                     user.accessToken = actok;
                     await user.save();
-                    res.redirect('/index.html');
+                    res.redirect('/');
                 }
                 //se non ci sta idfb ma ci sta l'email nel database
                 else{
@@ -142,7 +142,7 @@ router.get('/loginfb',redirectHome, async(req,res)=>{
                         user.image= image_url;
                         user.accessToken = actok;
                         await user.save();
-                        res.redirect('/index.html');
+                        res.redirect('/');
                     }
                     //se non ci sta nessuna delle due
                     else{
