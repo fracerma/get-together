@@ -40,7 +40,10 @@ export default{
         }
     },
     beforeCreate() {
-        fetch(`/user/friend`)
+        fetch(`/user/friend`,{
+            method: "GET",
+            credentials: "include"
+        })
             .then(response => response.json())
             .then(data => {
                 console.log(data);

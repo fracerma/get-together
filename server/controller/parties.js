@@ -15,16 +15,18 @@ router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 //router.use(bodyParser.urlencoded({ extended: false }));
 
 //ritorna tutti i party dell'utente corrente
-router.get("/", (req, res) => {
-  console.log("ciao");
-  res.send({ ciao: "hello" });
+router.get("/", async (req, res) => {
+  const user= await User.findByPk(req.session.userId);
+  const party= await user.getParties();
+  res.send(party);
 });
 
 //aggiungi un party
 router.post("/", async (req, res) => {
-  //questo deve avere un array di partecipanti, di id di ricette che sono già state aggiunte al db?
+  //questo deve avere un array di partecipanti, di id di mie ricette che sono già state aggiunte al db?
   //di birre, vini e cocktails
   sourceId = req.session.userId;
+  console.log(req.body);
   try {
     const ownerObj = await User.findOne({ where: { id: sourceId } });
     const party = await Party.create({
@@ -58,7 +60,7 @@ router.post("/", async (req, res) => {
     res.send(party);
   } catch (e) {
     const errObj = {
-      name: e.name,
+      name: e
       //detail: e.parent.detail,
       //code: e.parent.code,
     };

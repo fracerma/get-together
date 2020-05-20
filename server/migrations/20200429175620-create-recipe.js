@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userId: {
+      UserId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -29,6 +29,7 @@ module.exports = {
       dishTypes: { type: Sequelize.JSONB }, //arary json
       cuisines: { type: Sequelize.JSONB }, //array json
       diets: { type: Sequelize.JSONB }, //array json
+      summary: {type: Sequelize.JSONB},
       extendedIngredients: { type: Sequelize.JSONB }, //array di json
       analyzedInstructions: { type: Sequelize.JSONB },
       leng: { type: Sequelize.STRING },
