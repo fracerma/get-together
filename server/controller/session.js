@@ -91,8 +91,6 @@ router.get("/register.html", redirectHome);
 
 router.post("/register",redirectHome,async (req,res)=>{
     try{
-      req.body.image= (await axios.get("https://source.unsplash.com/featured/?recipe,food")).request.ClientRequest.responseUrl;
-      console.log(req.body.image);
       await User.create(req.body);
       res.redirect("/login.html");
     }

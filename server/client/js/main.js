@@ -11,7 +11,7 @@
             {path:"/_=_",redirect: '/'},
             {path:"/profile",name:"Profile", component: profile},
             {path:"/recipes",name:"Recipes", component: recipes},
-            {path:"/recipes/:id",name:"RecipeInfo", component: recipeInfo},
+            {path:"/recipes/:id",name:"recipeInfo", component: recipeInfo},
             {path:"/parties",name:"Parties", component: parties}
         ]
       });
