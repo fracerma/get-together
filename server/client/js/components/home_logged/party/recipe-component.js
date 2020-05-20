@@ -1,9 +1,11 @@
 export default{
-    props: ["recipe"],
+    props: ["recipe","type"],
     template: `
     <div class="item-component"> 
         <div v-if="openInfo" id="overlay"></div>
-        <h5>{{recipe.title}}</h5>
+        <router-link :to="link">
+            <h5>{{recipe.title}}</h5>
+        </router-link>
         <img v-bind:src="recipe.image">
         <div>
             <p>
@@ -20,7 +22,8 @@ export default{
             openInfo: false,
             summaryShort: this.recipe.summary.substring(0,300)+this.recipe.summary.substring(300).split(".")[0]+".",
             summary: this.recipe.summary,
-            show:false
+            show:false,
+            link:"/recipes/"+this.recipe.id+"?type="+this.type
         }
     },
     methods: {

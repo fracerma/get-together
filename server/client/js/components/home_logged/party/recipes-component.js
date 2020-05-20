@@ -77,6 +77,7 @@ export default{
                 <recipe-component v-for="recipe in recipes"
                     v-bind:recipe="recipe"
                     v-bind:key="recipe.id"
+                    type="api"
                     v-on:addItem="addItem"
                 > </recipe-component>
                 <div class="separator"> 
@@ -85,6 +86,7 @@ export default{
                  </div>
                 <recipe-component v-for="recipe in myRecipes"
                     v-bind:recipe="recipe"
+                    type="user"
                     v-bind:key="recipe.id"
                     v-on:addItem="addItem"
                 ></recipe-component>
