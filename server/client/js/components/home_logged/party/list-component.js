@@ -56,7 +56,20 @@ export default{
             }
         },
         create: function(){
-            console.log(this.list);
+            console.log(JSON.stringify(this.list));
+            fetch("/parties",{
+                method:"POST",
+                credentials: 'include', // include, *same-origin, omit
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(this.list) 
+            }).then(response=>{
+                return response.json()
+            }).then(data=>{
+                console.log(data);
+                this.$router.push('/parties/'+data.id);
+            });
         }
     },
 

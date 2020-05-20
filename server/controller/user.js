@@ -42,7 +42,7 @@ router.get("/friend", async (req, res) => {
           lastName: el.User.lastName,
           email: el.User.email,
           image: el.User.image,
-          pending: el.pending,
+          status: el.status,
         };
       })
     );

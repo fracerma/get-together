@@ -1,4 +1,3 @@
-
 export default{
     props: ["recipe"],
     template: `
@@ -7,7 +6,11 @@ export default{
         <h5>{{recipe.title}}</h5>
         <img v-bind:src="recipe.image">
         <div>
-            <p><span v-html="summary"></span></p>
+            <p>
+            <span v-if="!show" v-html="summaryShort"></span>
+            <span class="show" v-if="!show" v-on:click="show=!show">(...)</span>
+            <span v-if="show" v-html="summary"></span>
+            </p>
         </div>
         <a class="btn bg-blue" v-on:click="emitAdd">Add to your party</a>
     </div>
@@ -15,7 +18,9 @@ export default{
     data() {
         return {
             openInfo: false,
-            summary: this.recipe.summary.split("All things considered")[0]
+            summaryShort: this.recipe.summary.substring(0,300)+this.recipe.summary.substring(300).split(".")[0]+".",
+            summary: this.recipe.summary,
+            show:false
         }
     },
     methods: {

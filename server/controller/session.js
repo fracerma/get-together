@@ -57,7 +57,7 @@ const redirectHome = (req,res,next)=>{
     else next();
 }
 //FIXME remove comment
-//router.get("/",redirectFrontpage);
+router.get("/",redirectFrontpage);
 
 //nel caso di quaunque richiesta al login.html applico la funzione rediretHome
 router.get("/login.html",redirectHome);
@@ -88,8 +88,6 @@ router.post("/login",redirectHome, async (req,res)=>{
 
 //nel caso di quaunque richiesta al register.html applico la funzione rediretHome
 router.get("/register.html", redirectHome);
-//FIXME decomment
-router.get("/", redirectFrontpage);
 
 router.post("/register",redirectHome,async (req,res)=>{
     try{
@@ -124,14 +122,13 @@ router.get('/loginfb',redirectHome, async(req,res)=>{
             const response= (await axios.get(`https://graph.facebook.com/v7.0/debug_token?input_token=${actok}&access_token=${apptoken.data.access_token}`)).data;
             if(response.data.is_valid){
                 console.log('access token verificato !! ');
-
                 //se ci sta l'idfb nel database
                 let user = await User.findOne({where: {idfb: response.data.user_id}});
                 if(user){
                     req.session.userId = user.id;
                     user.accessToken = actok;
                     await user.save();
-                    res.redirect('/');
+                    res.redirect('/index.html');
                 }
                 //se non ci sta idfb ma ci sta l'email nel database
                 else{
@@ -145,14 +142,13 @@ router.get('/loginfb',redirectHome, async(req,res)=>{
                         user.image= image_url;
                         user.accessToken = actok;
                         await user.save();
-                        res.redirect('/');
+                        res.redirect('/index.html');
                     }
                     //se non ci sta nessuna delle due
                     else{
                         res.redirect('/register.html');
                     }
                 }
-                
             }
         } catch (err) {
       console.log(err);
