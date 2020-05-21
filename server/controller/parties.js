@@ -12,13 +12,19 @@ const bodyParser = require("body-parser");
 
 router.use(bodyParser.json());
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
-//router.use(bodyParser.urlencoded({ extended: false }));
 
 //ritorna tutti i party dell'utente corrente
 router.get("/", async (req, res) => {
-  const user= await User.findByPk(req.session.userId);
-  const party= await user.getParties();
-  res.send(party);
+  try{
+    const user= await User.findByPk(req.session.userId);
+    const party= await user.getParties({raw: true});
+    console.log(party);
+    res.send(party);
+  }
+  catch(e){
+    console.log(e);
+  }
+  
 });
 
 //aggiungi un party
@@ -26,16 +32,28 @@ router.post("/", async (req, res) => {
   //questo deve avere un array di partecipanti, di id di mie ricette che sono già state aggiunte al db?
   //di birre, vini e cocktails
   sourceId = req.session.userId;
-  console.log(req.body);
   try {
     const ownerObj = await User.findOne({ where: { id: sourceId } });
+    const apiRecipes=req.body.recipes.filter(el=>el.type==="api_recipe");
+    const userRecipes=req.body.recipes.filter(el=>el.type==="user_recipe");
+    console.log(apiRecipes,userRecipes);
+    
     const party = await Party.create({
       name: req.body.name,
-      owner: sourceId, //da cambiare con session
+      owner: sourceId,
       wines: req.body.wines,
       cocktails: req.body.cocktails,
-      beers: req.body.beers,
+      //FIXME date
+      startDate: req.body.startDate,
+      finishDate: req.body.finishDate,
+      apiRecipes: apiRecipes,
+      beers: req.body.beers
     });
+    userRecipes.forEach(async el=>{
+        const recipe= await Recipe.findByPk(el.id);
+        await party.addUserRecipe(recipe);
+    });
+
     let people = req.body.partecipants;
     //req.body.partecipants.forEach(async (el) => {
     let i = 0;
@@ -90,6 +108,11 @@ router.get("/:id", async function (req, res) {
           //where: { PartyId: partyId },
           attributes: ["id", "UserId", "text", "createdAt"],
         },
+        {
+          model: Recipe,
+          as:"userRecipes",
+          attributes: { exclude: ['PartyRecipe'] }
+        }
       ],
       //
     });

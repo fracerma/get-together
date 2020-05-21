@@ -1,39 +1,199 @@
+import recipeComponent from "../home_logged/party/recipe-component.js"
 export default{
+    name:"recipesPage",
     template:`
-    <div>
-        <h1>Add your recipe:</h1>
-        <form action="/recipes" method="post">
-            Url:<input type="text" name="sourceUrl" id="">
-            Tipo:<select name="dishTypes" id="">
-                <option value="main course">Primo</option>
-                <option value="appetaizer">Stuzzichino</option>
-            </select>
-            Cucina:<select name="cuisines" id="">
-                <option value="italian">Italiana</option>
-                <option value="american">Americana</option>
-            </select>
-            Dieta:<select name="diets" id="">
-                <option value="vegetarian">Vegetariano</option>
-            </select>
-            Lingua: <input type="text" name="leng" id="">
-            <input type="submit" value="Aggiungi">
-        </form>
-        <recipe-component v-for="recipe in myRecipes"
-                    v-bind:recipe="recipe"
-                    type="user"
-                    v-bind:key="recipe.id"
-                    v-on:addItem="addItem"
-        ></recipe-component>
+    <div class="recipePage-component">
+        <div class="recipe-add">
+            <div class="high-bar bg-green"> 
+                <span>Add your recipe:</span>
+            </div>
+            <form 
+                @submit="addRecipe"
+                method="post">
+                <div>   
+                    <p class="label">Recipe Url:</p>
+                    <input v-model="data.sourceUrl" class="mx-input" type="text" placeholder="URL of recipe">
+                    <span class="error"style="color:red;">{{errors.sourceUrl}}</span>
+                </div>
+                <div>   
+                    <p class="label">Dish Type:</p>
+                    <select v-model="data.dishTypes" class="mx-input"">
+                        <option value="main course">Main Course</option>
+                        <option value="side dish">Side Dish</option>
+                        <option value="dessert">Dessert</option>
+                        <option value="appetizer">Appetizer</option>
+                        <option value="salad">Salad</option>
+                        <option value="bread">Bread</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="soup">Soup</option>
+                        <option value="beverage">Beverage</option>
+                        <option value="sauce">Sauce</option>
+                        <option value="marinade">Marinade</option>
+                        <option value="fingerfood">Fingerfood</option>
+                        <option value="snack">Snack</option>
+                        <option value="drink">Drink</option>
+                    </select>
+                    <span class="error"style="color:red;">{{errors.dishTypes}}</span>
+                </div>
+                <div>   
+                    <p class="label">Cuisines:</p>
+                    <select v-model="data.cuisines" class="mx-input">
+                        <option value="African">African</option>
+                        <option value="American">American</option>
+                        <option value="British">British</option>
+                        <option value="Cajun">Cajun</option>
+                        <option value="Caribbean">Caribbean</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Eastern European">Eastern European</option>
+                        <option value="European">European</option>
+                        <option value="French">French</option>
+                        <option value="German">German</option>
+                        <option value="Greek">Greek</option>
+                        <option value="Indian">Indian</option>
+                        <option value="Irish">Irish</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Jewish">Jewish</option>
+                        <option value="Korean">Korean</option>
+                        <option value="Latin American">Latin American</option>
+                        <option value="Mediterranean">Mediterranean</option>
+                        <option value="Mexican">Mexican</option>
+                        <option value="Middle Eastern">Middle Eastern</option>
+                        <option value="Nordic">Nordic</option>
+                        <option value="Southern">Southern</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Thai">Thai</option>
+                        <option value="Vietnamese">Vietnamese</option>
+                    </select>
+                    <span class="error"style="color:red;">{{errors.cuisines}}</span>
+                </div>
+                <div>
+                    <p class="label">Diets:</p>
+                    <select v-model="data.diets" class="mx-input">
+                        <option value="Whole30">Whole30</option>
+                        <option value="Gluten Free">Gluten Free</option>
+                        <option value="Ketogenic">Ketogenic</option>
+                        <option value="Vegetarian">Vegetarian</option>
+                        <option value="Lacto-Vegetarian">Lacto-Vegetarian</option>
+                        <option value="Ovo-Vegetarian">Ovo-Vegetarian</option>
+                        <option value="Vegan">Vegan</option>
+                        <option value="Pescetarian">Pescetarian</option>
+                        <option value="Paleo">Paleo</option>
+                        <option value="Primal">Primal</option> 
+                    </select>
+                    <span class="error"style="color:red;">{{errors.diets}}</span>
+                </div>
+                <div>
+                    <p class="label">Lenguage:</p>
+                    <select v-model="data.leng" class="mx-input">
+                        <option value="en">English</option>
+                        <option value="it">Italian</option>
+                        <option value="es">Spanish</option>
+                        <option value="zh">Chinese</option>
+                    </select>
+                    <span class="error"style="color:red;">{{errors.leng}}</span>
+                </div>
+                <input type="submit" id="add-recipe" class="btn bg-green" value="Add recipe">
+            </form>
+        </div>
+        <div class="user-recipes">
+            <div class="high-bar bg-blue"> 
+                <span>Your Recipes:</span>
+            </div>
+            <div class="content">
+                <recipe-component v-for="recipe in myRecipes"
+                            v-bind:recipe="recipe"
+                            v-bind:key="recipe.id"
+                            v-on:removeItem="removeRecipe"
+                            type="user"
+                            btn="remove"
+                ></recipe-component>
+            </div>
+        </div>
     </div>
     `,
     data() {
         return {
             myRecipes:[],
-            othersRecipes: []
+            data: {
+                sourceUrl: "",
+                dishTypes:null,
+                cuisines: null,
+                diets: null,
+                leng: null
+            },
+            errors:{
+                occure: false,
+                sourceUrl: null,
+                dishTypes:null,
+                cuisines: null,
+                diets: null,
+                leng: null
+            }
+               
         }
     },
+    components:{
+        "recipe-component": recipeComponent
+    },
     methods: {
-        fetchMyRecipes: function(){
+        addError(key,message){
+            this.errors.occure=true;
+            this.errors[key]=message;
+        },
+        resetErrors(){
+            this.errors.occure=false;
+            this.errors.sourceUrl= null;
+            this.errors.dishTypes=null;
+            this.errors.cuisines= null;
+            this.errors.diets= null;
+            this.errors.leng=null;
+        },
+        addRecipe(e){
+            e.preventDefault();
+            this.resetErrors();
+            if(this.data.sourceUrl==="") this.addError("sourceUrl","Source url is required");
+            if(this.data.dishTypes==null) this.addError("dishTypes","Dysh Type is required");
+            if(this.data.cuisines==null) this.addError("cuisines","Cuisines is required");
+            if(this.data.diets==null) this.addError("diets","Diets is required");
+            if(this.data.leng==null) this.addError("leng","Lenguage is required");
+            if(!this.errors.occure){
+                fetch("/recipes",{
+                    method: "POST",
+                    credentials:"include",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.data)
+                })
+                .then(async response=>{
+                    if(response.status==204){
+                        const data=await response.json();
+                        this.$router.push("/recipes/"+data.id+"?type=user");
+                    }
+                    else{
+                        this.resetErrors();
+                        this.errors.sourceUrl("Ricetta già presente");
+                    }
+                }).catch(e=>console.error(e));
+            }
+        },
+        removeRecipe(recipe){
+            fetch("/recipes/"+recipe.id,{
+                method: "DELETE",
+                credentials:"include"
+            })
+            .then(response=>{
+                if(response.status==200){
+                    console.log("Reloding");
+                    this.fetchRecipes();
+                }
+                else {
+                    console.error("error");
+                }
+            }).catch(e=>console.error(e));
+        },
+        fetchRecipes(){
             fetch("/recipes", {
                 method: 'GET',
                 credentials: 'include'
@@ -44,21 +204,9 @@ export default{
             }).catch((err) => {
                  console.log(err);
             });
-        },
-        fetchOtherRecipes: function(){
-            fetch("/recipes/all", {
-                method: 'GET',
-                credentials: 'include'
-                })
-            .then((response) => response.json())
-            .then((json) => {
-                this.othersRecipes=json;
-            }).catch((err) => {
-                 console.log(err);
-            }); 
         }
     },
-    beforeCreate() {
-        this.fetchMyRecipes();
+    beforeMount() {
+        this.fetchRecipes();
     }   
 }

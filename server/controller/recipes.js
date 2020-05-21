@@ -9,7 +9,6 @@ router.get("/",async (req,res)=>{
   try{
     const userId=req.session.userId;
     const recipes = await (await User.findByPk(userId)).getRecipes();
-    console.log(recipes);
     res.send(recipes);
   }catch(e){
     const errObj={
@@ -69,17 +68,16 @@ router.get("/:id",async (req,res)=>{
 
 router.delete("/:id",async (req,res)=>{
   try{
-    const recipe=await Recipe.findByPk(req.params.id);
-    await recipe.delete();
-    res.status(200);
+    await Recipe.destroy({
+      where:{
+        id:req.params.id
+      }
+    });
+    res.status(200).end();
   }catch(e){
-    const errObj={
-        name: e.name,
-        detail: e.parent.detail,
-        code: e.parent.code
-    }
-    console.log(errObj);
-    res.status(400).send(errObj);
+    console.error(e);
+    
+    res.status(400).send(e);
   };
 });
 
@@ -119,16 +117,19 @@ router.post("/",async (req,res)=>{
             }),
             analyzedInstructions: ricetta.analyzedInstructions,
             leng: data.leng,
-            type: "users_recipe_url"
+            type: "user_recipe"
           }
-          const recipe=await Recipe.create(obj);
+          const recipe=await Recipe.build(obj);
+          recipe.UserId=req.session.userId;
+          await recipe.save();
           const curr_user=await User.findByPk(req.session.userId);
-          await curr_user.setRecipes(recipe);
+          await curr_user.addRecipe(recipe);
           //ritorno quello che ho aggiunto
-          res.json(obj);
+          res.status(204).json(recipe);
         })
         .catch((error)=>{
-          console.error(error);
+          console.error(error.parent.code);
+          res.status(400).send(error.parent.code);
         });
       }
     }
@@ -146,7 +147,7 @@ router.post("/",async (req,res)=>{
       else if(!data.analyzedInstructions) res.status(400).send({message:"missing analyzedInstructions params"}).end();
       else if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
       else{
-        data.type="users_recipe"  
+        data.type="user_recipe"  
         data.UserId=req.session.userId;
         //TODO summary: su un'unica stringa
         await Recipe.create(data);

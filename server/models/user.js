@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       through: "UserParty",
       foreignKey: "UserId",
     });
-    //User.hasMany(models.Party, { foreignKey: "owner" });
+    //User.hasMany(models.Party, { foreignKey: "owner" }); SI!
     User.hasMany(models.Comment, { foreignKey: "UserId" });
     User.hasMany(models.Recipe, { foreignKey: "UserId" });
   };

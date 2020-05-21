@@ -11,7 +11,6 @@ export default{
             
             <select v-model="diets" v-on:change="fetchRecipe">
                 <option selected hidden>Diets type</option>
-                <option label="None"></option>
                 <option value="Gluten Free">Gluten Free</option>
                 <option value="Ketogenic">Ketogenic</option>
                 <option value="Vegetarian">Vegetarian</option>
@@ -25,7 +24,6 @@ export default{
             </select>
             <select v-model="cuisine" v-on:change="fetchRecipe">
                 <option selected hidden>Cuisine type</option>
-                <option label="None"></option>
                 <option value="African">African</option>
                 <option value="American">American</option>
                 <option value="British">British</option>
@@ -78,6 +76,7 @@ export default{
                     v-bind:recipe="recipe"
                     v-bind:key="recipe.id"
                     type="api"
+                    btn="add"
                     v-on:addItem="addItem"
                 > </recipe-component>
                 <div class="separator"> 
@@ -87,6 +86,7 @@ export default{
                 <recipe-component v-for="recipe in myRecipes"
                     v-bind:recipe="recipe"
                     type="user"
+                    btn="add"
                     v-bind:key="recipe.id"
                     v-on:addItem="addItem"
                 ></recipe-component>

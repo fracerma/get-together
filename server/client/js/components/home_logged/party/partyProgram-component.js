@@ -20,9 +20,8 @@ export default{
     methods: {
         nextStep: function(name,date,startTime,finishTime){
             this.party.name=name;
-            this.party.date=date;
-            this.party.startTime=startTime;
-            this.party.finishTime=finishTime;
+            this.party.startDate=date;
+            this.party.finishDate=date;
             this.$emit("next");
         }
     }
