@@ -28,9 +28,9 @@
       <div id="banner-image">
         <img :src="bannerImage">
       </div>
-      <keep-alive exclude="recipeInfo">
+      <keep-alive v-bind:exclude="regexPat">
       <router-view></router-view>
-    </keep-alive>
+      </keep-alive>
     </div>
 
     <script type="module" src="js/main.js" type="text/javascript"></script>

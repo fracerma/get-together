@@ -12,9 +12,8 @@ export default{
             state:true,
             party:{
                 name:null,
-                date:null,
-                startTime: null,
-                finishTime: null,
+                startDate:null,
+                finishDate: null,
                 recipes:[],
                 wines: [],
                 cocktails: [],

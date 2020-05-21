@@ -22,7 +22,7 @@ var sess = session({
   cookie: {
     maxAge: TWO_HOURS,
     sameSite: true,
-  },
+  }
 });
 
 io.use(
@@ -62,11 +62,11 @@ router.get("/",redirectFrontpage);
 //nel caso di quaunque richiesta al login.html applico la funzione rediretHome
 router.get("/login.html",redirectHome);
 
-router.post("/login",redirectHome, async (req,res)=>{
+router.post("/login", redirectHome, async (req,res)=>{
     const email = req.body.email,
             password = req.body.password;
     try{
-        const user = await User.findOne({ where: { email: email } })            
+        const user = await User.findOne({ where: { email: email } });         
         if (!user||!user.authenticate(password)) {
             res.redirect('/login.html');
         } else {
@@ -84,7 +84,6 @@ router.post("/login",redirectHome, async (req,res)=>{
         res.status(400).send(errObj);
     };
 });
-
 
 //nel caso di quaunque richiesta al register.html applico la funzione rediretHome
 router.get("/register.html", redirectHome);

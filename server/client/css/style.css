@@ -343,8 +343,42 @@ ITEM COMPONENT
 .img-recipe:hover{
     opacity: 0.5;
 }
+
 /************
- RECIPES PAGE
+ RECIPE PAGE
+*************/
+
+.recipePage-component{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.recipePage-component .high-bar{
+    height: 13vh;
+}
+.recipe-add{
+    width: 30%;
+    margin:20px;
+    text-align: center;
+}
+.user-recipes{
+    width: 70%;
+    margin:20px;
+    text-align: center;
+}
+
+#add-recipe{
+    margin: 20px;
+    color:white;
+}
+#add-recipe:hover{
+    color:black;
+}
+
+
+
+/************
+ RECIPE INFO VIEW
 *************/
 .recipeInfo-component{
     width: 90%;

@@ -2,14 +2,9 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Favourites', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
       UserId: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         references: {
           model: 'Users',
           key: 'id'
@@ -17,6 +12,7 @@ module.exports = {
       },
       RecipeId: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         references: {
           model: 'Recipes',
           key: 'id'

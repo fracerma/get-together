@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
       wines: DataTypes.JSONB,
       beers: DataTypes.JSONB,
       cocktails: DataTypes.JSONB,
+      apiRecipes: DataTypes.JSONB,
+      startDate: DataTypes.DATE,
+      finishDate: DataTypes.DATE
     },
     {}
   );
@@ -15,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     Party.hasMany(models.Comment, { foreignKey: "PartyId" });
     //Party.belongsTo(models.User, { foreingKey: "owner" });
     Party.belongsToMany(models.Recipe, {
+      as: "userRecipes",
       through: "PartyRecipe",
       foreingKey: "PartyId",
     });

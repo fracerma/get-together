@@ -27,7 +27,6 @@ export default{
     methods: {
         addInvited: function(id){
             this.partecipants.push(id);
-            console.log(this.partecipants);
         },
         removeInvited: function(id){
             const index=this.partecipants.findIndex((o)=>{
@@ -46,7 +45,6 @@ export default{
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                     this.friends=data;
             }).catch(e=>{
                 console.log(e);
