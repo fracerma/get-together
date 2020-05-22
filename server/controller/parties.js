@@ -24,7 +24,25 @@ router.get("/", async (req, res) => {
   catch(e){
     console.log(e);
   }
-  
+});
+
+//ritorna tutti i parties a cui l'utente è stato invitato
+router.get("/other", async (req, res) => {
+  try{
+    const user= await User.findByPk(req.session.userId);
+    const party= await user.getParties({
+      raw: true,
+      where: {
+        owner:{$ne:req.session.userId}
+      }
+    }
+    );
+    console.log(party);
+    res.send(party);
+  }
+  catch(e){
+    console.log(e);
+  }
 });
 
 //aggiungi un party
