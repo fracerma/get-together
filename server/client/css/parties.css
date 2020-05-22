@@ -1,0 +1,56 @@
+#yourparties, #otherparties {
+    margin: 8px;
+    height: 50%;
+}
+
+#create-party{
+    margin-top:0.5%;
+    margin-left:0.5%;
+}
+
+.line{
+    display: flex;
+}
+
+.container-parties{
+    width: 50%;
+}
+.parties-elements{
+    margin-top: 3%;
+    width: 80%;
+    margin: auto;
+    padding: 3%;
+    font-size:150%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#link{
+    color: black;
+    width: 40%;
+}
+
+.title{
+    margin: auto;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: coral;
+    text-align: center;
+    font-size: 100px;
+}
+.principalcontent{
+    margin-top: 2%;
+    width: 60%;
+    font-weight: bold;
+    margin-left: 10%;
+}
+#about{
+    font-weight: bolder;  
+    text-underline-position: below;
+    font-size: 30px;
+
+}
+
+#value{
+    font-style: oblique;
+    font-size: 20px;
+}
