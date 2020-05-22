@@ -4,7 +4,7 @@ import recipesPage from "./components/recipes/recipesPage-component.js"
 import recipeInfo from "./components/recipes/recipeInfo-component.js"
 import parties from "./components/parties/parties-component.js"
 import homeComponent from "./components/home_logged/home-component.js";
-import PartyInfo from "./components/parties/party-component.js";
+import party from "./components/parties/party-component.js";
 
 const router = new VueRouter({
 		routes:[
@@ -14,7 +14,7 @@ const router = new VueRouter({
 				{path:"/recipes",name:"recipesPage", component: recipesPage},
 				{path:"/recipes/:id",name:"recipeInfo", component: recipeInfo},
 				{path:"/parties",name:"Parties", component: parties},
-				{path:"/parties/:id",name:"PartyInfo", component: PartyInfo}
+				{path:"/parties/:id",name:"PartyInfo", component: party}
 		]
 	});
 
@@ -23,7 +23,7 @@ var app = new Vue({
 el: "#app",
 data: {
 bannerImage: "../image/Principal.jpg",
-regexPat: /(recipesPage|recipeInfo)/
+regexPat: /(recipesPage|recipeInfo|parties|party)/
 },
 components: {
 "nav-bar": navBar,
