@@ -1,32 +1,30 @@
 
 export default{
-    name: "parties-component",
+    name: "parties",
     template:`
     <div class="parties-component">
-        <router-link to="/" id="create-party" class="btn bg-orange" style="color: white;"> Create Party </router-link>
+        <router-link to="/" id="lateralbutton" class="btn bg-orange" style="color: white;"> Create Party </router-link>
         <div class="line">
-
             <div class="container-parties">
-                <div id="yourparties" class="high-bar bg-yellow" >
+                <div id="bar" class="high-bar bg-yellow" >
                     <span> Your parties </span>
                 </div>
                 <div>
                     <div v-for="party in yourparties" class="parties-elements">
-                        <router-link to="/parties/1" id="link">
+                        <router-link :to='"/parties/"+party.id' id="link">
                             <li> "{{party.name}}" on {{party.startDate.split("T")[0]}}</li>
                         </router-link>
                     </div>
                 </div>
-
             </div>
 
             <div class="container-parties">
-                <div id="otherparties" class="high-bar bg-red" >
+                <div id="bar" class="high-bar bg-red" >
                     <span> Parties you have been invited to </span>
                 </div>
                 <div>
-                    <div v-for="party in yourparties" class="parties-elements">
-                            <router-link to='"/parties/"+party.id' id="link">
+                    <div v-for="party in otherparties" class="parties-elements">
+                            <router-link :to='"/parties/"+party.id' id="link">
                                 <li> "{{party.name}}" on {{party.startDate.split("T")[0]}}</li>
                             </router-link>
                     </div>
@@ -51,7 +49,7 @@ export default{
         }).then(response => response.json())
         .then(data => this.yourparties=data);
 
-        fetch('/parties',{
+        fetch('/parties/other',{
             method: "GET",
             credentials: "include"
         }).then(response => response.json())
