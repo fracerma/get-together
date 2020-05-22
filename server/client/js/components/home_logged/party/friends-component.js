@@ -1,13 +1,16 @@
 import friendComponent from "../../profile/friend-component.js"
 export default{
-    props:["partecipants"],
+    props:["partecipants","error"],
     template:`
     <div class="friends-component">
         <div class="high-bar bg-blue">
                 <span v-on:click="">Select your friends</span>
         </div>
+        <p class="error">{{error}}</p>
         <div class="content">
+            
                 <friendComponent v-for="user in friends"
+                    v-bind:key="user.id"
                     v-bind:user="user"
                     v-on:invited="addInvited"
                     v-on:uninvited="removeInvited"
@@ -49,5 +52,10 @@ export default{
             }).catch(e=>{
                 console.log(e);
             });
-    }
+    },
+    watch: {
+        error:function(val){
+            this.errorText=val;
+        }
+    },  
 }

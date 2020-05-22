@@ -67,7 +67,7 @@ export default{
             }).then(response=>{
                 return response.json()
             }).then(data=>{
-                console.log(data);
+                this.$emit("reload");
                 this.$router.push('/parties/'+data.id);
             });
         }

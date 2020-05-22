@@ -19,7 +19,7 @@ export default{
                 <cocktailsComponent v-on:addCocktail="addCocktail"></cocktailsComponent>
             </div>
             <div class="right-side">
-                <listComponent v-bind:list="party"> </listComponent>
+                <listComponent v-bind:list="party" v-on:reload="$emit('reload')"> </listComponent>
             </div>
         </div>
     </div>

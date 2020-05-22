@@ -35,6 +35,11 @@ body{
 .bg-red{
     background-color: #a42e2ef1;
 }
+
+.error{
+    color: red;
+    font-style: italic;
+}
 /************
     NAVBAR
 *************/
