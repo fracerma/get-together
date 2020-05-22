@@ -126,6 +126,9 @@ PARTY PROGRAM COMPONENT
 .settingParty-component{
     width: 50%;
 }
+.friends-component{
+    width: 50%;
+}
 .label{
     margin: 10px;
     font-size: 1.5em;
@@ -138,10 +141,10 @@ PARTY PROGRAM COMPONENT
 
 .select-date{
     border-top: 2px solid lightgrey;
-    margin-top: 30px;
-    margin-left: 200px;
-    margin-right: 200px;
-    padding-top: 20px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
 }
 
 .settingParty-component a{
@@ -149,10 +152,14 @@ PARTY PROGRAM COMPONENT
     width: 20%;
     margin: 20px;
 }
-
-.friends-component{
-    width: 50%;
+.btn{
+    color: white;
 }
+.settingParty-component .btn{
+    margin: 20px;
+    width: 100px;
+}
+
 
 
 /************
@@ -337,6 +344,7 @@ ITEM COMPONENT
 .item-component h5{
     font-size: 1.5em
 }
+
 .item-component .btn{
     text-decoration: none;
     padding: 10px;
@@ -380,6 +388,11 @@ ITEM COMPONENT
     color:black;
 }
 
+.description-info{
+    width: 60%;
+    margin: auto;
+    margin-top: 5px;
+}
 
 
 /************
@@ -453,6 +466,30 @@ RESPONSIVE STUFF
 *************/
 
 @media only screen and (max-width: 1400px) {
+    nav{
+        font-size: 1.6em;
+    }
+    .navbar-brand{
+        margin-right: 0;
+        margin-left: 0;
+    }
+    #logo-nav{
+        width: 130px;
+    }
+    svg{
+        height: 35px;
+    }
+    .right-icon{
+        margin-right: 0px;
+    }
+    
+    .right-icon svg{
+        margin-right: 0px;
+    }
+    
+    .left-icon{
+        margin-left: 0px;
+    }
     #banner-image img{
         width: 100%;
         margin-top: 0;
@@ -467,8 +504,26 @@ RESPONSIVE STUFF
     .high-bar select{
         width: 30%;
     }
+    .recipePage-component{
+        display: block;
+    }
+    .recipe-add{
+        width: 90%;
+    }
+    .user-recipes{
+        width: 90%;
+    }
 }
 @media only screen and (max-width: 880px) {
+    .partyProgram-component{
+        display: block;
+    }
+    .settingParty-component{
+        width: 100%;
+    }
+    .friends-component{
+        width: 100%;
+    }
     .right-icon{
         display: flex;
         flex-direction: column;
