@@ -12,6 +12,7 @@ export default{
                 method="post">
                 <div>   
                     <p class="label">Recipe Url:</p>
+                    <div class="description-info">Insert here the url of your favorite recipes finded on the most famous recipes site </div>
                     <input v-model="data.sourceUrl" class="mx-input" type="text" placeholder="URL of recipe">
                     <span class="error">{{errors.sourceUrl}}</span>
                 </div>
@@ -69,6 +70,7 @@ export default{
                 </div>
                 <div>
                     <p class="label">Diets:</p>
+                    <div class="description-info">Insert here the diets type of your recipes, if you are not sure leave it blank.<br>For more <a href="https://en.wikipedia.org/wiki/List_of_diets" target="_blank">info. </a> </div>
                     <select v-model="data.diets" class="mx-input">
                         <option value="Whole30">Whole30</option>
                         <option value="Gluten Free">Gluten Free</option>
@@ -81,7 +83,6 @@ export default{
                         <option value="Paleo">Paleo</option>
                         <option value="Primal">Primal</option> 
                     </select>
-                    <span class="error">{{errors.diets}}</span>
                 </div>
                 <div>
                     <p class="label">Lenguage:</p>
@@ -127,7 +128,6 @@ export default{
                 sourceUrl: null,
                 dishTypes:null,
                 cuisines: null,
-                diets: null,
                 leng: null
             }
                
@@ -155,7 +155,6 @@ export default{
             if(this.data.sourceUrl==="") this.addError("sourceUrl","Source url is required");
             if(this.data.dishTypes==null) this.addError("dishTypes","Dysh Type is required");
             if(this.data.cuisines==null) this.addError("cuisines","Cuisines is required");
-            if(this.data.diets==null) this.addError("diets","Diets is required");
             if(this.data.leng==null) this.addError("leng","Lenguage is required");
             if(!this.errors.occure){
                 fetch("/recipes",{
@@ -167,13 +166,15 @@ export default{
                     body: JSON.stringify(this.data)
                 })
                 .then(async response=>{
-                    if(response.status==204){
+                    console.log(response.status);
+                    
+                    if(response.status==200){
                         const data=await response.json();
                         this.$router.push("/recipes/"+data.id+"?type=user");
                     }
                     else{
                         this.resetErrors();
-                        this.errors.sourceUrl("Ricetta già presente");
+                        this.errors.sourceUrl="Errore inserimento ricetta";
                     }
                 }).catch(e=>console.error(e));
             }

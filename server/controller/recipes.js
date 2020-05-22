@@ -91,9 +91,8 @@ router.post("/",async (req,res)=>{
     if(data.sourceUrl){
       //controllo che siano presenti alcuni campi obbligatori
       if(!data.dishTypes) res.status(400).send({message:"missing dishTypes params"}).end();
-      if(!data.cuisines) res.status(400).send({message:"missing cuisines params"}).end();
-      if(!data.diets) res.status(400).send({message:"missing diets params"}).end();
-      if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
+      else if(!data.cuisines) res.status(400).send({message:"missing cuisines params"}).end();
+      else if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
       else{
         //faccio una richiesta a spoonacular per fare il parsing della ricetta
         axios.get(`https://api.spoonacular.com/recipes/extract?apiKey=${process.env.SPOONACULAR_KEY}&url=${data.sourceUrl}&forceExtraction=true`)
@@ -113,7 +112,7 @@ router.post("/",async (req,res)=>{
             summary: (ricetta.summary!=null)?ricetta.summary:(ricetta.instructions),
             instructions: ricetta.instructions,
             extendedIngredients: ricetta.extendedIngredients.map((el)=>{ 
-              return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
+              return {originalString: el.originalString, amount: el.amount,  unit: el.unit, measures: el.measures}
             }),
             analyzedInstructions: ricetta.analyzedInstructions,
             leng: data.leng,
@@ -125,11 +124,11 @@ router.post("/",async (req,res)=>{
           const curr_user=await User.findByPk(req.session.userId);
           await curr_user.addRecipe(recipe);
           //ritorno quello che ho aggiunto
-          res.status(204).json(recipe);
+          res.json(recipe);
         })
         .catch((error)=>{
-          console.error(error.parent.code);
-          res.status(400).send(error.parent.code);
+          console.error(error);
+          res.status(400).send(error);
         });
       }
     }
