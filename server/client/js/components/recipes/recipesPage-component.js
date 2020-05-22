@@ -13,7 +13,7 @@ export default{
                 <div>   
                     <p class="label">Recipe Url:</p>
                     <input v-model="data.sourceUrl" class="mx-input" type="text" placeholder="URL of recipe">
-                    <span class="error"style="color:red;">{{errors.sourceUrl}}</span>
+                    <span class="error">{{errors.sourceUrl}}</span>
                 </div>
                 <div>   
                     <p class="label">Dish Type:</p>
@@ -33,7 +33,7 @@ export default{
                         <option value="snack">Snack</option>
                         <option value="drink">Drink</option>
                     </select>
-                    <span class="error"style="color:red;">{{errors.dishTypes}}</span>
+                    <span class="error">{{errors.dishTypes}}</span>
                 </div>
                 <div>   
                     <p class="label">Cuisines:</p>
@@ -65,7 +65,7 @@ export default{
                         <option value="Thai">Thai</option>
                         <option value="Vietnamese">Vietnamese</option>
                     </select>
-                    <span class="error"style="color:red;">{{errors.cuisines}}</span>
+                    <span class="error">{{errors.cuisines}}</span>
                 </div>
                 <div>
                     <p class="label">Diets:</p>
@@ -81,7 +81,7 @@ export default{
                         <option value="Paleo">Paleo</option>
                         <option value="Primal">Primal</option> 
                     </select>
-                    <span class="error"style="color:red;">{{errors.diets}}</span>
+                    <span class="error">{{errors.diets}}</span>
                 </div>
                 <div>
                     <p class="label">Lenguage:</p>
@@ -91,7 +91,7 @@ export default{
                         <option value="es">Spanish</option>
                         <option value="zh">Chinese</option>
                     </select>
-                    <span class="error"style="color:red;">{{errors.leng}}</span>
+                    <span class="error">{{errors.leng}}</span>
                 </div>
                 <input type="submit" id="add-recipe" class="btn bg-green" value="Add recipe">
             </form>

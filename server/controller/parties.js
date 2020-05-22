@@ -94,7 +94,7 @@ router.get("/:id", async function (req, res) {
   try {
     //const comments = []; //await Party.getComments(partyId); //Devo fare una chiamata al db che ritorna tutti i commenti relativi ad un party
 
-    const party = await Party.findAll({
+    const party = await Party.findOne({
       //raw: true,
       where: { id: partyId },
       include: [
@@ -119,9 +119,7 @@ router.get("/:id", async function (req, res) {
 
     console.log(JSON.stringify(party));
 
-    let response = {
-      party: party,
-    };
+    let response = party;
     res.send(response);
   } catch (error) {
     console.log(error);
