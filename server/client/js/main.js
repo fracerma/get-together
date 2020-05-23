@@ -5,6 +5,9 @@ import recipeInfo from "./components/recipes/recipeInfo-component.js"
 import parties from "./components/parties/parties-component.js"
 import homeComponent from "./components/home_logged/home-component.js";
 import party from "./components/parties/party-component.js";
+import wineInfo from "./components/wines/wineInfo-component.js";
+import beerInfo from "./components/beers/beerInfo-component.js";
+import cocktailInfo from "./components/cocktails/cocktailInfo-component.js";
 
 const router = new VueRouter({
 		routes:[
@@ -14,7 +17,10 @@ const router = new VueRouter({
 				{path:"/recipes",name:"recipesPage", component: recipesPage},
 				{path:"/recipes/:id",name:"recipeInfo", component: recipeInfo},
 				{path:"/parties",name:"Parties", component: parties},
-				{path:"/parties/:id",name:"PartyInfo", component: party}
+				{path:"/parties/:id",name:"PartyInfo", component: party},
+				{path:"/wines/:id",name:"wineInfo", component: wineInfo},
+				{path:"/beers/:id",name:"wineInfo", component: beerInfo},
+				{path:"/cocktails/:id",name:"wineInfo", component: cocktailInfo},
 		]
 	});
 
@@ -23,7 +29,7 @@ var app = new Vue({
 el: "#app",
 data: {
 bannerImage: "../image/Principal.jpg",
-regexPat: /(recipesPage|recipeInfo|parties|party)/
+regexPat: /(recipesPage|recipeInfo|parties|party|wineInfo|beerInfo|cocktailInfo)/
 },
 components: {
 "nav-bar": navBar,

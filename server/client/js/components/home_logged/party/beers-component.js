@@ -16,7 +16,7 @@ export default{
             <div v-show="focused" class="content">
                 <beerComponent v-for="(beerIt, index) in beers"
                     v-bind:beer="beerIt"
-                    v-bind:key="index"
+                    v-bind:key="beerIt.id"
                     btn="add"
                     v-on:addItem="addItem"
                 > </beerComponent>
@@ -50,7 +50,7 @@ export default{
             
             fetch(`/api/beers?`+url.toString())
             .then(response => response.json())
-            .then(data => this.beers=data.slice(0,4));
+            .then(data => this.beers=data.slice(0,8));
         },
         resetFilter: function(){
             this.beer_name= null;
@@ -69,7 +69,7 @@ export default{
         }
     },
     beforeCreate() {
-        fetch('/api/beers/random?number=4',{
+        fetch('/api/beers/random?number=8',{
             method: "GET"
         }).then(response => response.json())
         .then(data => this.beers=data);
