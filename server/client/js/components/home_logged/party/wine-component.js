@@ -1,5 +1,5 @@
 export default{
-    props: ["wine"],
+    props: ["wine","btn"],
     template: `
     <div class="item-component">
         <h5>{{wine.title}}</h5>
@@ -17,7 +17,9 @@ export default{
             </p>
             
         </div>
-        <a class="btn bg-red" v-on:click="addItem">Add to your party</a>
+        <a v-if="btn=='add'" class="btn bg-red" v-on:click="addItem">Add to your party</a>
+        <a v-if="btn=='remove'" class="btn bg-red" v-on:click="addItem">Delete wine</a>
+        
     </div>
     `,
     data() {
@@ -30,6 +32,9 @@ export default{
     methods: {
         addItem: function(){
             this.$emit("addItem",this.wine);
+        },
+        emitRemove: function(){
+            this.$emit("removeItem",this.wine);
         }
     },
 }

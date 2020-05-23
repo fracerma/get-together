@@ -138,6 +138,7 @@ export default{
                 <cocktailComponent v-for="(cocktail, index) in cocktails"
                 v-bind:cocktail="cocktail"
                 v-bind:key="cocktail.cocktailID"
+                btn="add"
                 v-on:addItem="addItem"
                 > </cocktailComponent>
             </div>
