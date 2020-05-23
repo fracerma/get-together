@@ -29,7 +29,7 @@ router.get('/', function(req, res) {
         diets: ricetta.diets,
         instructions: ricetta.instructions,
         // extendedIngredients: ricetta.extendedIngredients.map((el)=>{ 
-        //   return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
+        //   return {originalString: el.originalString, amount: el.amount,  unit: el.unit, measures: el.measures}
         // }),
         analyzedInstructions:ricetta.analyzedInstructions,
         summary: ricetta.summary,
@@ -67,7 +67,7 @@ router.get('/random', function(req, res) {
         cuisines: ricetta.cuisines,
         diets: ricetta.diets,
         extendedIngredients: ricetta.extendedIngredients.map((el)=>{ 
-          return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
+          return {originalString: el.originalString, amount: el.amount,  unit: el.unit, measures: el.measures}
         }),
         analyzedInstructions:ricetta.analyzedInstructions,
         summary: ricetta.summary,
@@ -101,7 +101,7 @@ router.get('/:id', function(req, res) {
       cuisines: ricetta.cuisines,
       diets: ricetta.diets,
       extendedIngredients: ricetta.extendedIngredients.map((el)=>{ 
-        return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
+        return {originalString: el.originalString, amount: el.amount,  unit: el.unit, measures: el.measures}
       }),
       analyzedInstructions:ricetta.analyzedInstructions,
       summary: ricetta.summary,

@@ -10,7 +10,7 @@ export default{
     `,
     data() {
         return {
-            state:true,
+            state:false,
             party:{
                 name:null,
                 startDate:null,

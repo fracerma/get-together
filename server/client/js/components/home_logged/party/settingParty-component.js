@@ -72,7 +72,6 @@ export default{
                 if(this.name==null) this.addError("name","Name is required");
                 if(this.date==null) this.addError("date","Date is required");
                 if(this.startTime==null) this.addError("startTime","Starting time is required");
-                if(this.startTime>this.finishTime) this.addError("startTime","Starting time has to be before finish time");
                 if(!this.errors.occure){
                     this.$emit("next",this.name,this.date,this.startTime,this.finishTime);
                 }
