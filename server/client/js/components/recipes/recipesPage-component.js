@@ -105,7 +105,7 @@ export default{
                 <recipe-component v-for="recipe in myRecipes"
                             v-bind:recipe="recipe"
                             v-bind:key="recipe.id"
-                            v-on:removeItem="removeRecipe"
+                            v-on:removeRecipe="removeRecipe"
                             type="user"
                             btn="remove"
                 ></recipe-component>
