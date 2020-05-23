@@ -106,7 +106,7 @@ router.post("/",async (req,res)=>{
             readyInMinutes: ricetta.readyInMinutes,
             servings: ricetta.servings,
             sourceUrl: ricetta.sourceUrl,
-            dishTypes: data.dishTypes,
+            dishTypes: new Array(data.dishTypes),
             cuisines: data.cuisines,
             diets: data.diets,
             summary: (ricetta.summary!=null)?ricetta.summary:(ricetta.instructions),

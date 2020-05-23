@@ -30,4 +30,22 @@ router.get('/recommendation', function(req, res) {
   });
 });
 
+router.get("/:id",(req,res)=>{
+  if(parseInt(req.params.id)!=NaN){
+    axios.get(`https://api.spoonacular.com/food/products/${req.params.id}?apiKey=${process.env.SPOONACULAR_KEY}`)
+    .then((response)=>{
+    let result=response.data;
+    const obj={
+        id: result.id,
+        title: result.title,
+        price: result.price,
+        nutrition: result.nutrition,
+        description: result.description,
+        image: result.images[1]
+      }
+      res.send(obj);
+    }).catch(e=>console.log(e));
+  }
+});
+
 module.exports = router;

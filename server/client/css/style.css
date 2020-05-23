@@ -331,7 +331,7 @@ ITEM COMPONENT
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     font-family: 'Roboto', sans-serif;
 }
-.item-component div{
+.item-component .info-item-component{
     text-align: center;
     width: 80%;
     margin-left: auto;
@@ -340,6 +340,19 @@ ITEM COMPONENT
     padding: 3px;
     border-top: 2px solid rgb(161, 161, 161);
 }
+
+.info-item-component svg{
+    width: 30px;
+}
+.info-item-component div{
+    margin-top: 0px;
+    margin-bottom: 0;
+    padding: 0;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .item-component img{
     height: 15vh;
     width: auto;
@@ -357,6 +370,7 @@ ITEM COMPONENT
     color: white;
     border-radius: 5px;
     margin: 5px;
+    margin-top: 15px;
 }
 
 .img-recipe:hover{
@@ -404,7 +418,7 @@ ITEM COMPONENT
 /************
  RECIPE INFO VIEW
 *************/
-.recipeInfo-component{
+.itemInfo-component{
     width: 90%;
     height: 90%;
     margin: auto;
@@ -412,58 +426,69 @@ ITEM COMPONENT
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.recipeInfo-conteiner{
+.itemInfo-conteiner{
     display: flex;
 }
-.recipe-title{
+.item-title{
     width: 100%;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.recipe-left{
+.item-left{
     width: 30%;
     margin-right: 10px;
     padding: 10px;
 }
-.recipe-ingredients{
+.item-ingredients{
     text-align: center;
 }
-.recipe-ingredients ul{
+.item-ingredients ul{
     list-style: none;
 }
-.recipe-image{
+.item-image{
     width:100%;
     border-radius: 20px;
     overflow: hidden;
+    text-align: center;
 }
-.recipe-image img{
+.item-image img{
     width:100%;
     height: auto;
 }
 
-.recipe-right{
+#beer_img{
+    height: 200px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+.item-right{
     width: 70%;
     margin-left: 10px;
 }
 
-.recipe-specific{
+.item-specific{
     display: flex;
 }
-.recipe-field{
+.item-field{
     margin: 10px;
 }
-.recipe-field svg{
+.item-field svg{
     height: 30px;
+    width: 30px;
 }
 .recipe-source-btn{
     margin-top: 30px;
 }
 
-.recipe-instructions{
+.item-more-info{
     margin: 20px;
 }
-.recipe-instructions li{
+.item-more-info li{
     margin: 20px;
 }
 
