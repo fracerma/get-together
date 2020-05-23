@@ -36,7 +36,7 @@ export default{
             this.$emit("addItem",this.recipe);
         },
         emitRemove: function(){
-            this.$emit("removeItem",this.recipe);
+            this.$emit("removeRecipe",this.recipe);
         }
     }
 }

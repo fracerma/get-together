@@ -4,9 +4,10 @@ const bodyParser = require("body-parser");
 const https = require("https");
 const fs = require("fs");
 const app = express();
+require("dotenv").config();
 
 ////////////////////////////////////////
-
+const PORT=process.env.PORT || 4000;
 const server = https
   .createServer(
     {
@@ -15,8 +16,8 @@ const server = https
     },
     app
   )
-  .listen(4000, function () {
-    console.log("Go to https://localhost:4000/");
+  .listen(PORT, function () {
+    console.log("Go to https://localhost:"+PORT);
   });
 const io = require("socket.io")(server);
 var sockets = [];

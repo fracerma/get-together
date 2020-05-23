@@ -103,8 +103,6 @@ export default{
                 </div>
             </div>
 
-
-
             <div class="down">
                 <div class="high-bar bg-lightsalmon" id="bar" > <span>Comments: </span></div>
             </div>
