@@ -61,7 +61,6 @@ router.post("/", async (req, res) => {
     const apiRecipes=req.body.recipes.filter(el=>el.type==="api_recipe");
     const userRecipes=req.body.recipes.filter(el=>el.type==="user_recipe");
     console.log(apiRecipes,userRecipes);
-    
     const party = await Party.create({
       name: req.body.name,
       owner: sourceId,
@@ -117,10 +116,11 @@ router.get("/:id", async function (req, res) {
   console.log(partyId);
   try {
     //const comments = []; //await Party.getComments(partyId); //Devo fare una chiamata al db che ritorna tutti i commenti relativi ad un party
-
     const party = await Party.findOne({
       //raw: true,
-      where: { id: partyId },
+      where: { 
+        id: partyId
+      },
       include: [
         {
           // Notice `include` takes an ARRAY
@@ -141,7 +141,14 @@ router.get("/:id", async function (req, res) {
       //
     });
 
-    console.log(JSON.stringify(party));
+
+    let isOwner = false;
+    if(req.session.userId == party.owner){
+      isOwner=true;
+    } 
+
+    party["dataValues"]["isOwner"] = isOwner;
+    console.log(party);
 
     let response = party;
     res.send(response);
