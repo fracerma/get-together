@@ -15,9 +15,10 @@ export default{
         <transition name="fade">
             <div v-show="focused" class="content">
                 <beerComponent v-for="(beerIt, index) in beers"
-                v-bind:beer="beerIt"
-                v-bind:key="index"
-                v-on:addItem="addItem"
+                    v-bind:beer="beerIt"
+                    v-bind:key="index"
+                    btn="add"
+                    v-on:addItem="addItem"
                 > </beerComponent>
             </div>
         </transition>

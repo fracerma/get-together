@@ -51,6 +51,7 @@ export default{
                 <wineComponent v-for="(wine, index) in wines"
                 v-bind:wine="wine"
                 v-bind:key="wines.id"
+                btn="add"
                 v-on:addItem="addItem"
                 > </wineComponent>
             </div>

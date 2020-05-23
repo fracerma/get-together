@@ -9,6 +9,7 @@ const Comment = require("../models/index").Comment;
 const notificate = require("./notifications").notificate;
 const broadcast = require("./notifications").broadcast;
 const bodyParser = require("body-parser");
+const { Op } = require("sequelize");
 
 router.use(bodyParser.json());
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
@@ -17,7 +18,13 @@ router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 router.get("/", async (req, res) => {
   try{
     const user= await User.findByPk(req.session.userId);
-    const party= await user.getParties({raw: true});
+    const party= await user.getParties({
+      raw: true,
+      where: {
+        owner: req.session.userId
+      }
+    
+    });
     console.log(party);
     res.send(party);
   }
@@ -33,10 +40,9 @@ router.get("/other", async (req, res) => {
     const party= await user.getParties({
       raw: true,
       where: {
-        owner:{$ne:req.session.userId}
+        owner: {[Op.ne]: req.session.userId}
       }
-    }
-    );
+    });
     console.log(party);
     res.send(party);
   }
