@@ -66,7 +66,6 @@ router.post("/", async (req, res) => {
       owner: sourceId,
       wines: req.body.wines,
       cocktails: req.body.cocktails,
-      //FIXME date
       startDate: req.body.startDate,
       finishDate: req.body.finishDate,
       apiRecipes: apiRecipes,

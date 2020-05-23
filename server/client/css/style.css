@@ -132,6 +132,9 @@ PARTY PROGRAM COMPONENT
 .settingParty-component{
     width: 50%;
 }
+.friends-component{
+    width: 50%;
+}
 .label{
     margin: 10px;
     font-size: 1.5em;
@@ -144,10 +147,10 @@ PARTY PROGRAM COMPONENT
 
 .select-date{
     border-top: 2px solid lightgrey;
-    margin-top: 30px;
-    margin-left: 200px;
-    margin-right: 200px;
-    padding-top: 20px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
 }
 
 .settingParty-component a{
@@ -155,10 +158,14 @@ PARTY PROGRAM COMPONENT
     width: 20%;
     margin: 20px;
 }
-
-.friends-component{
-    width: 50%;
+.btn{
+    color: white;
 }
+.settingParty-component .btn{
+    margin: 20px;
+    width: 100px;
+}
+
 
 
 /************
@@ -324,7 +331,7 @@ ITEM COMPONENT
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     font-family: 'Roboto', sans-serif;
 }
-.item-component div{
+.item-component .info-item-component{
     text-align: center;
     width: 80%;
     margin-left: auto;
@@ -333,6 +340,19 @@ ITEM COMPONENT
     padding: 3px;
     border-top: 2px solid rgb(161, 161, 161);
 }
+
+.info-item-component svg{
+    width: 30px;
+}
+.info-item-component div{
+    margin-top: 0px;
+    margin-bottom: 0;
+    padding: 0;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .item-component img{
     height: 15vh;
     width: auto;
@@ -343,12 +363,14 @@ ITEM COMPONENT
 .item-component h5{
     font-size: 1.5em
 }
+
 .item-component .btn{
     text-decoration: none;
     padding: 10px;
     color: white;
     border-radius: 5px;
     margin: 5px;
+    margin-top: 15px;
 }
 
 .img-recipe:hover{
@@ -386,12 +408,17 @@ ITEM COMPONENT
     color:black;
 }
 
+.description-info{
+    width: 60%;
+    margin: auto;
+    margin-top: 5px;
+}
 
 
 /************
  RECIPE INFO VIEW
 *************/
-.recipeInfo-component{
+.itemInfo-component{
     width: 90%;
     height: 90%;
     margin: auto;
@@ -399,58 +426,69 @@ ITEM COMPONENT
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.recipeInfo-conteiner{
+.itemInfo-conteiner{
     display: flex;
 }
-.recipe-title{
+.item-title{
     width: 100%;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.recipe-left{
+.item-left{
     width: 30%;
     margin-right: 10px;
     padding: 10px;
 }
-.recipe-ingredients{
+.item-ingredients{
     text-align: center;
 }
-.recipe-ingredients ul{
+.item-ingredients ul{
     list-style: none;
 }
-.recipe-image{
+.item-image{
     width:100%;
     border-radius: 20px;
     overflow: hidden;
+    text-align: center;
 }
-.recipe-image img{
+.item-image img{
     width:100%;
     height: auto;
 }
 
-.recipe-right{
+#beer_img{
+    height: 200px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+.item-right{
     width: 70%;
     margin-left: 10px;
 }
 
-.recipe-specific{
+.item-specific{
     display: flex;
 }
-.recipe-field{
+.item-field{
     margin: 10px;
 }
-.recipe-field svg{
+.item-field svg{
     height: 30px;
+    width: 30px;
 }
 .recipe-source-btn{
     margin-top: 30px;
 }
 
-.recipe-instructions{
+.item-more-info{
     margin: 20px;
 }
-.recipe-instructions li{
+.item-more-info li{
     margin: 20px;
 }
 
@@ -459,6 +497,30 @@ RESPONSIVE STUFF
 *************/
 
 @media only screen and (max-width: 1400px) {
+    nav{
+        font-size: 1.6em;
+    }
+    .navbar-brand{
+        margin-right: 0;
+        margin-left: 0;
+    }
+    #logo-nav{
+        width: 130px;
+    }
+    svg{
+        height: 35px;
+    }
+    .right-icon{
+        margin-right: 0px;
+    }
+    
+    .right-icon svg{
+        margin-right: 0px;
+    }
+    
+    .left-icon{
+        margin-left: 0px;
+    }
     #banner-image img{
         width: 100%;
         margin-top: 0;
@@ -473,8 +535,26 @@ RESPONSIVE STUFF
     .high-bar select{
         width: 30%;
     }
+    .recipePage-component{
+        display: block;
+    }
+    .recipe-add{
+        width: 90%;
+    }
+    .user-recipes{
+        width: 90%;
+    }
 }
 @media only screen and (max-width: 880px) {
+    .partyProgram-component{
+        display: block;
+    }
+    .settingParty-component{
+        width: 100%;
+    }
+    .friends-component{
+        width: 100%;
+    }
     .right-icon{
         display: flex;
         flex-direction: column;

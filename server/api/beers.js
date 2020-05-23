@@ -5,6 +5,8 @@ const axios = require("axios");
 
 router.use(bodyParser.json());
 
+
+
 router.get("/random",(req,res)=>{
   if(req.query.number&&/[0-9]+/.test(req.query.number)){
     let ids = "";
@@ -26,9 +28,10 @@ router.get("/random",(req,res)=>{
           return {
             id: obj.id,
             name: obj.name,
+            tagline: obj.tagline,
             description: obj.description,
             image_url: obj.image_url,
-            abv: obj.abv,
+            abv: obj.abv
           };
         });
         res.send(allrandom);
@@ -43,6 +46,20 @@ router.get("/random",(req,res)=>{
       .send(
         "ERROR: missing searching parameter random: an integer");
     }
+});
+router.get("/:id",(req,res)=>{
+  if(parseInt(req.params.id)!=NaN){
+    axios
+    .get("https://api.punkapi.com/v2/beers/"+req.params.id)
+    .then((response) => {
+      const obj = response.data[0];
+      res.send(obj);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+  else res.status(400);
 });
 
 // ricerca birre
@@ -63,6 +80,7 @@ router.get("/", function (req, res) {
           return {
             id: obj.id,
             name: obj.name,
+            tagline: obj.tagline,
             description: obj.description,
             image_url: obj.image_url,
             abv: obj.abv,

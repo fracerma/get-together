@@ -40,8 +40,8 @@ function cleaner(rawData, max) {
 
   let cnt = 0;
   for (; cnt < limit; cnt++) {
-    Ingredient = {};
-    Quantity = {};
+    Ingredient = [];
+    Quantity = [];
     let picked = numbers[cnt];
     let allRaw = rawData.drinks[picked];
 
@@ -50,7 +50,7 @@ function cleaner(rawData, max) {
     let i = 0;
     for (property in allRaw) {
       if (property.substring(0, 13) === regex && allRaw[property] != null) {
-        Ingredient["i" + i] = allRaw[property];
+        Ingredient.push(allRaw[property]);
         i++;
       }
     }
@@ -61,7 +61,7 @@ function cleaner(rawData, max) {
     i = 0;
     for (property in allRaw) {
       if (property.substring(0, 10) === regex && allRaw[property] != null) {
-        Quantity["q" + i] = allRaw[property];
+        Quantity.push(allRaw[property]);
         i++;
       }
     }
@@ -306,6 +306,25 @@ router.get("/ingredient", function (req, response) {
       console.error(error);
     })
     .finally(function (final) {});
+});
+
+router.get("/:id", function (req, response) {
+  if(parseInt(req.params.id)!=NaN){
+    axios
+      .get("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + req.params.id)
+      .then(function (res) {
+        if(res.data.drinks!=null){
+          let result = cleaner(res.data, 1);
+          response.send(result);
+        }
+        else response.status(400).end();
+      })
+      .catch(function (error) {
+        console.error(error);
+        response.status(400).end();
+      })
+      .finally(function (final) {});
+    }else response.status(400).end();
 });
 
 module.exports = router;

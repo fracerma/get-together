@@ -142,6 +142,8 @@ export default{
                 credentials: "include"
             }).then(response => response.json())
             .then(data =>{
+                console.log(data);
+                
                 this.myRecipes=data;
             });
         },

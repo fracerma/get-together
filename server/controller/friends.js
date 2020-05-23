@@ -10,7 +10,6 @@ const notificate = require("./notifications").notificate;
 const broadcast = require("./notifications").broadcast;
 const bodyParser = require("body-parser");
 
-router.use(bodyParser.json());
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 router.get("/", function (req, res) {});
