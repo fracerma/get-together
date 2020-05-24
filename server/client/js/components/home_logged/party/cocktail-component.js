@@ -17,8 +17,9 @@ export default{
                 {{cocktail.cocktailType}}
             </div>
         </div>
+        <span v-if="cocktail.quantity">x {{cocktail.quantity}} </span>
         <a v-if="btn=='add'" class="btn bg-green" v-on:click="addItem">Add to your party</a>
-        <a v-if="btn=='remove'" class="btn bg-green" v-on:click="addItem">Delete cocktail</a>
+        <a v-if="btn=='remove'" class="btn bg-green" v-on:click="emitRemove">Delete cocktail</a>
     </div>
     `,
     data() {
@@ -31,7 +32,7 @@ export default{
             this.$emit("addItem",this.cocktail)
         },
         emitRemove: function(){
-            this.$emit("removeItem",this.cocktail);
+            this.$emit("removeCocktail",this.cocktail);
         }
     },
 }
