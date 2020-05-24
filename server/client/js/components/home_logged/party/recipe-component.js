@@ -23,6 +23,7 @@ export default{
         </div>
         <a v-if="btn=='add'" class="btn bg-blue" v-on:click="emitAdd">Add to your party</a>
         <a v-if="btn=='remove'" class="btn bg-blue" v-on:click="emitRemove">Delete recipe</a>
+        <span v-if="recipe.quantity">x {{recipe.quantity}} </span>
     </div>
     `,
     data() {
@@ -36,7 +37,7 @@ export default{
             this.$emit("addItem",this.recipe);
         },
         emitRemove: function(){
-            this.$emit("removeItem",this.recipe);
+            this.$emit("removeRecipe",this.recipe);
         }
     }
 }

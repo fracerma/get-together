@@ -1,18 +1,17 @@
-#bar {
+.bar {
     margin: 8px;
     height: 80px;
 }
 
-#lateralbutton{
+.lateralbutton{
     margin-top:0.5%;
-    width: 10%;
-    height: 10%;
+    text-align: center;
+    vertical-align: center;
+    height: fit-content;
 }
 
 #modifybutton{
-    width: 100%;
     height: 100%;
-    margin: 2%;
 }
 
 .parties-component{ 
@@ -44,8 +43,7 @@
 /* ************************************ 
             single party                    
 *************************************** */
-#barsmall {
-    margin: auto;
+.barsmall {
     margin-top: 2%;
     margin-bottom: 2%;
     height: 60px;
@@ -59,6 +57,13 @@
     margin-bottom: 2%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+.backsave{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-basis: 100%;
+    padding:2%;
+}
 
 .title{
     margin: auto;
@@ -71,36 +76,39 @@
 
 .info{
     margin: auto;
-    width: 95%;
-    padding-right: 4%;
-    padding-left: 4%;
     font-weight: bold;
     display:flex;
-    padding-top: 3%;
-    padding-bottom: 2%;
+    width: 80%;
+    padding: 40px;
+    justify-content: space-between;
     box-shadow: 0 4px 8px 0 rgba(249, 177, 101, 0.2), 0 6px 20px 0 rgba(249, 177, 101, 0.2);
+    vertical-align: middle;
 }
 .el{
     display: flex;
-    padding-left: 4%;
-    width: 100%;
+    vertical-align: middle;
 }
-#about{  
-    padding-right: 5%;
+.about{ 
+    margin-right: 10px; 
+    vertical-align: middle;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px; 
 }
 
-#value{
+.value{
     font-style: italic;
-    font-size: 120%;
-    padding-left: 3%;
-    padding-right: 2%;
+    height: fit-content;
+    vertical-align: middle;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .part{
     width: 50%;
     margin: 2%;
 }
-#it{
+.it{
     width: 200px;
     padding: 2%;
 }
@@ -108,9 +116,32 @@
 .middle{
     margin-top: 2%;
     margin-bottom: 2%;
+    width: 60%;
 }
 .aboutcontent{
-    width: 70%;
+    width: 80%;
     margin:auto;
 }
 
+.elmod{
+    margin-bottom: 2%;
+    border-radius: 20px;
+    text-align: center;
+}
+.modtxt{
+    text-align: center;
+}
+
+.part-cont{
+    display: flex;
+}
+.down{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 40%;
+}
+
+.quantity{
+    color: red;
+    padding: auto;
+}

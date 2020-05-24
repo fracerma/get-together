@@ -14,6 +14,7 @@ export default{
                     v-bind:user="user"
                     v-on:invited="addInvited"
                     v-on:uninvited="removeInvited"
+                    btn="add"
                     >
                 </friendComponent>
         </div>

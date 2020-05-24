@@ -156,9 +156,29 @@ router.get("/:id", async function (req, res) {
   }
 });
 //modifica il party con id
-router.put("/:id", (req, res) => {});
-//elimina il party d'id
-router.delete("/:id", (req, res) => {});
+router.put("/:id", async (req, res) => {
+    const changes=req.body;
+    console.log("**********************************************************",req.body);
+    const party= await Party.findByPk(req.params.id);
+
+    party.name=changes.name;
+    party.startDate=changes.startTime;
+    party.finishDate=changes.finishTime;
+    party.apiRecipes=changes.apiRecipes;
+    party.wines=changes.wines;
+    party.beers=changes.beers;
+    party.cocktails=changes.cocktails;
+  
+    // Party.setRecipes({where:{PartyId:party}});
+    // for(el in changes.userRecipes){
+    //   party.addRecipes(Recipe.findByPk(el.id));
+    // }
+
+    await party.save();
+
+
+});
+
 
 //aggiunge un commento
 router.post("/:id/comment", async function (req, res) {
