@@ -255,7 +255,6 @@ ITEMS COMPONENT
     display: flex;
     justify-content: space-between;
     z-index: 1;
-    height: 100%;
     text-align: left;
     align-items: center;
     border-radius: 20px;
