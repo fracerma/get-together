@@ -5,6 +5,7 @@ const UserParty = require("../models/index").UserParty;
 const Recipe = require("../models/index").Recipe;
 const Friendship = require("../models/index").Friendship;
 const Party = require("../models/index").Party;
+const PartyRecipe = require("../models/index").PartyRecipe;
 const Comment = require("../models/index").Comment;
 const notificate = require("./notifications").notificate;
 const broadcast = require("./notifications").broadcast;
@@ -169,10 +170,10 @@ router.put("/:id", async (req, res) => {
     party.beers=changes.beers;
     party.cocktails=changes.cocktails;
   
-    // Party.setRecipes({where:{PartyId:party}});
-    // for(el in changes.userRecipes){
-    //   party.addRecipes(Recipe.findByPk(el.id));
-    // }
+    await PartyRecipe.destroy({where:{PartyId:party.id}});
+    for(el in changes.userRecipes){
+      party.addRecipes(Recipe.findByPk(el.id));
+    }
 
     await party.save();
 
