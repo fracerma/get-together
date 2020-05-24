@@ -9,16 +9,29 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       source: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
       },
       destination: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
       },
       event: {
         type: Sequelize.STRING
       },
       party: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      comment: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
       },
       state: {
         type: Sequelize.BOOLEAN

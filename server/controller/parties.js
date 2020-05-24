@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
     const ownerObj = await User.findOne({ where: { id: sourceId } });
     const party = await Party.create({
       name: req.body.name,
-      owner: sourceId, //da cambiare con session
+      owner: sourceId,
       wines: req.body.wines,
       cocktails: req.body.cocktails,
       beers: req.body.beers,
@@ -87,6 +87,10 @@ router.get("/:id", async function (req, res) {
           model: Comment,
           //where: { PartyId: partyId },
           attributes: ["id", "UserId", "text", "createdAt"],
+          include: [{
+            model: User,
+            attributes: ["firstName", "id", "email"],
+        }],
         },
       ],
       //
@@ -136,8 +140,8 @@ router.post("/:id/comment", async function (req, res) {
   }
 });
 
-router.post("/:id/response", async function (req, res) {
-  const partyId = req.params.id;
+router.post("/response", async function (req, res) {
+  const partyId = req.body.id;
   const partecipantId = req.session.userId;
   const decision = req.body.decision;
   try {
@@ -150,28 +154,25 @@ router.post("/:id/response", async function (req, res) {
     if (person.status == "pending") {
       person.status = decision;
       person.save().then(function () {});
+    }
       if (decision == "accepted") {
         const not = {
           source: partecipantId,
           party: partyId,
           event: "joined",
-          comment: [],
+          comment: 0,
           state: true,
         };
         console.log(decision);
         await broadcast(not);
       }
-    }
+    
   } catch (error) {
     console.error(error);
   }
 });
 
 //Non serve
-//visualizza un commento
-router.get("/:party_id/comments/:comment_id", (req, res) => {});
 
-//elimina un commento
-router.delete("/:party_id/comments/:comment_id", (req, res) => {});
 
 module.exports = router;

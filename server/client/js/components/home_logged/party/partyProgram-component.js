@@ -1,4 +1,4 @@
-import friendComponent from "../../profile/friend-component.js"
+import friendComponent from "../../profile/friends/friend-component.js"
 export default{
     template:`
         <div class="partyProgram-component">
@@ -31,7 +31,7 @@ export default{
                     id:3,
                     firstName: "Riccardo",
                     lastName:"Casciotti",
-                    image: "https://web.whatsapp.com/pp?e=https%3A%2F%2Fpps.whatsapp.net%2Fv%2Ft61.24694-24%2F71405101_156464868900136_7294168160803779704_n.jpg%3Foe%3D5EC56801%26oh%3Df22175a90dcd8fdbbc9ae99b109d0d4b&t=l&u=393917951250%40c.us&i=1573061309&n=Twt75PkQmKaMiXvkIwHWJD9QNOFUan5lk%2F4fjMMAimE%3D"
+                    image: null
                 }
             ]
         }

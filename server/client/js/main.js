@@ -15,6 +15,7 @@ const router = new VueRouter({
   ],
 });
 
+export const bus = new Vue();
 var app = new Vue({
   el: "#app",
   data: {
