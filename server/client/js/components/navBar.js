@@ -163,7 +163,6 @@ export default{
             console.log(msg);
             if(msg!=null)
                 this.not++;
-            
         })
     },
 }
