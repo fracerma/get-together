@@ -1,16 +1,23 @@
 module.exports = (sequelize, DataTypes) => {
   const Friendship = sequelize.define(
     "Friendship",
+
     {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,},
+
       UserId: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
+        primaryKey: false,
       },
       FriendId: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
+        primaryKey: false,
       },
-      status: DataTypes.STRING,
+      status: { type: DataTypes.STRING} ,
     },
     {}
   );

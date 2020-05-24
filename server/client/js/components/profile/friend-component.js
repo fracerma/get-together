@@ -45,7 +45,6 @@ export default{
         }
     },
     beforeMount() {
-        console.log(this.image);
         if(this.image==null) this.image="https://loremflickr.com/320/240/food";
     }
 }

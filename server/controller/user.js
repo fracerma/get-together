@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const db = require("../models/index");
+const User = require("../models/index").User;
 
 const redirectToLogin = require("./session").redirectLogin;
 const bodyParser = require("body-parser");
@@ -10,6 +11,46 @@ const Op = require("sequelize").Op;
 router.use(bodyParser.json());
 
 //post che permette di aggiungere un amico passando un id di un utente
+
+router.get("/info", async function(req, res){
+  const userId = req.session.userId;
+  try{
+    const profile = await db.User.findOne({ raw: true, where: {id: userId}})
+    const final = {
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      email: profile.email,
+      image: profile.image,
+    }
+    res.send(final);
+  }catch(e){
+    console.error(e);
+  }
+
+})
+
+router.put("/update", async function(req, res){
+  const userId = req.session.userId;
+  const name = req.body.name;
+  const lastName = req.body.lastName;
+  const email = req.body.email;
+  try{
+    let user = await User.findByPk(userId);
+    if( name ){
+      await user.update({firstName: name}).then(()=>{});
+    }
+    if (lastName) {
+      await user.update({ lastName: lastName }).then(() => { });
+    }
+    if (email) {
+      await user.update({ email: email }).then(() => { });
+    }
+    res.send(true);
+  }catch(e){
+    console.error(e);
+  }
+})
+
 router.post("/friend", async (req, res) => {
   const userId = req.session.userId;
   try {
@@ -35,15 +76,15 @@ router.get("/friend", async (req, res) => {
       include: db.User,
     });
     res.send(
-      friends.map((el) => {
-        return {
-          id: el.User.id,
-          firstName: el.User.firstName,
-          lastName: el.User.lastName,
-          email: el.User.email,
-          image: el.User.image,
-          status: el.status,
+      friends.filter(el => el.status != "rejected").map((el) => {
+          return {
+            id: el.User.id,
+            firstName: el.User.firstName,
+            lastName: el.User.lastName,
+            email: el.User.email,
+            status: el.status,
         };
+      
       })
     );
   } catch(e) {
