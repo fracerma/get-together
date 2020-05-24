@@ -25,6 +25,7 @@ const router = new VueRouter({
 	});
 
 
+export const bus = new Vue();
 Vue.use(DatePicker);
 var app = new Vue({
 	el: "#app",

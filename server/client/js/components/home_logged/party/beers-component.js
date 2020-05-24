@@ -1,6 +1,6 @@
-import beerComponent from "./beer-component.js"
-export default{
-    template: `
+import beerComponent from "./beer-component.js";
+export default {
+  template: `
     <div class="conteiner-component">
         <div class="high-bar bg-yellow" >
             <span v-on:click="openContent">Select beers</span>
@@ -24,16 +24,17 @@ export default{
         </transition>
     </div>
     `,
-    data() {
-        return {
-            focused: false,
-            beers: null,
-            beer_name: null,
-            food: null,
-            abv_gt: null,
-            abv_lt: null
-        }
-    },
+  data() {
+    return {
+      focused: false,
+      beers: null,
+      beer_name: null,
+      food: null,
+      abv_gt: null,
+      abv_lt: null,
+    };
+  },
+
     methods: {
         openContent: function() {
             this.focused=!this.focused;
@@ -79,3 +80,4 @@ export default{
         beerComponent
     }
 }
+
