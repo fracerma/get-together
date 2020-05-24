@@ -1,5 +1,5 @@
 export default{
-    props:["user"],
+    props:["user","btn"],
     template: `
         <div class="item-component">
             <div class="conteiner-component">
@@ -8,7 +8,7 @@ export default{
                 <div>
                     <p></p>
                 </div>
-                <a class="btn bg-blue" v-on:click="inviteToParty" v-on:mouseout="removeDelete" v-on:mouseover="deleteText" v-html="buttonText"></a>
+                <a v-if="btn=='add'" class="btn bg-blue" v-on:click="inviteToParty" v-on:mouseout="removeDelete" v-on:mouseover="deleteText" v-html="buttonText"></a>
             </div>
         </div>
     `,
@@ -44,9 +44,7 @@ export default{
             }
         }
     },
-    props: ["user"],
     beforeMount() {
-        console.log(this.image);
         if(this.image==null) this.image="https://loremflickr.com/320/240/food";
     }
 }
