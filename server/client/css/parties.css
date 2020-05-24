@@ -1,0 +1,107 @@
+#bar {
+    margin: 8px;
+    height: 80px;
+}
+
+#lateralbutton{
+    margin-top:0.5%;
+    margin-left:0.5%;
+    width: 10%;
+    height: 10%;
+}
+
+.line{
+    display: flex;
+}
+
+.container-parties{
+    width: 50%;
+}
+.parties-elements{
+    margin-top: 3%;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 3%;
+    padding: 3%;
+    font-size:150%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#link{
+    color: black;
+    width: 40%;
+    font-style: italic;
+    text-align: center;
+}
+/* ************************************ 
+            single party                    
+*************************************** */
+#barsmall {
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    height: 60px;
+    font-size: smaller;
+}
+.all{
+    padding: 3%;
+    margin-top: 2%;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-bottom: 2%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.title{
+    margin: auto;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color:black;
+    text-align: center;
+    font-size: 60px;
+}
+
+.info{
+    margin: auto;
+    width: 95%;
+    padding-right: 4%;
+    padding-left: 4%;
+    font-weight: bold;
+    display:flex;
+    padding-top: 3%;
+    padding-bottom: 2%;
+    box-shadow: 0 4px 8px 0 rgba(249, 177, 101, 0.2), 0 6px 20px 0 rgba(249, 177, 101, 0.2);
+}
+.el{
+    display: flex;
+    padding-left: 4%;
+    width: 100%;
+}
+#about{  
+    padding-right: 5%;
+}
+
+#value{
+    font-style: italic;
+    font-size: 120%;
+    padding-left: 3%;
+    padding-right: 2%;
+}
+
+.part{
+    width: 50%;
+    margin: 2%;
+}
+#it{
+    width: 200px;
+    padding: 2%;
+}
+
+.middle{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.aboutcontent{
+    width: 70%;
+    margin:auto;
+}

@@ -11,7 +11,6 @@ export default{
             
             <select v-model="diets" v-on:change="fetchRecipe">
                 <option selected hidden>Diets type</option>
-                <option label="None"></option>
                 <option value="Gluten Free">Gluten Free</option>
                 <option value="Ketogenic">Ketogenic</option>
                 <option value="Vegetarian">Vegetarian</option>
@@ -25,7 +24,6 @@ export default{
             </select>
             <select v-model="cuisine" v-on:change="fetchRecipe">
                 <option selected hidden>Cuisine type</option>
-                <option label="None"></option>
                 <option value="African">African</option>
                 <option value="American">American</option>
                 <option value="British">British</option>
@@ -73,11 +71,25 @@ export default{
         </div>
         <transition name="fade">
             <div v-show="focused" class="content">
-                <recipe-component v-for="(recipeIt, index) in recipes"
-                    v-bind:recipe="recipeIt"
-                    v-bind:key="index+100"
+                <div class="separator"> <h4> Discover new recipes </h4> </div>
+                <recipe-component v-for="recipe in recipes"
+                    v-bind:recipe="recipe"
+                    v-bind:key="recipe.id"
+                    type="api"
+                    btn="add"
                     v-on:addItem="addItem"
                 > </recipe-component>
+                <div class="separator"> 
+                    <h4> Your recipes </h4>
+                    <p v-if="myRecipes.length==0"> You haven't add any recipe! </p>
+                 </div>
+                <recipe-component v-for="recipe in myRecipes"
+                    v-bind:recipe="recipe"
+                    type="user"
+                    btn="add"
+                    v-bind:key="recipe.id"
+                    v-on:addItem="addItem"
+                ></recipe-component>
             </div>
         </transition>
         
@@ -89,6 +101,7 @@ export default{
             focused: false,
             first: true,
             recipes: null,
+            myRecipes:[],
             query: null,
             cuisine: "Cuisine type",
             diets: "Diets type",
@@ -115,8 +128,7 @@ export default{
             fetch(`/api/recipes?`+url.toString())
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                this.recipes=data
+                this.recipes=data;
             });
         },
         fetchRandom: function(){
@@ -124,6 +136,16 @@ export default{
                 method: "GET"
             }).then(response => response.json())
             .then(data => this.recipes=data);
+            //my Recipes
+            fetch('/recipes',{
+                method: "GET",
+                credentials: "include"
+            }).then(response => response.json())
+            .then(data =>{
+                console.log(data);
+                
+                this.myRecipes=data;
+            });
         },
         resetFilter: function(){
             this.recipes=null;

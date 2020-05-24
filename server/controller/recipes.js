@@ -9,7 +9,6 @@ router.get("/",async (req,res)=>{
   try{
     const userId=req.session.userId;
     const recipes = await (await User.findByPk(userId)).getRecipes();
-    console.log(recipes);
     res.send(recipes);
   }catch(e){
     const errObj={
@@ -69,17 +68,16 @@ router.get("/:id",async (req,res)=>{
 
 router.delete("/:id",async (req,res)=>{
   try{
-    const recipe=await Recipe.findByPk(req.params.id);
-    await recipe.delete();
-    res.status(200);
+    await Recipe.destroy({
+      where:{
+        id:req.params.id
+      }
+    });
+    res.status(200).end();
   }catch(e){
-    const errObj={
-        name: e.name,
-        detail: e.parent.detail,
-        code: e.parent.code
-    }
-    console.log(errObj);
-    res.status(400).send(errObj);
+    console.error(e);
+    
+    res.status(400).send(e);
   };
 });
 
@@ -93,9 +91,8 @@ router.post("/",async (req,res)=>{
     if(data.sourceUrl){
       //controllo che siano presenti alcuni campi obbligatori
       if(!data.dishTypes) res.status(400).send({message:"missing dishTypes params"}).end();
-      if(!data.cuisines) res.status(400).send({message:"missing cuisines params"}).end();
-      if(!data.diets) res.status(400).send({message:"missing diets params"}).end();
-      if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
+      else if(!data.cuisines) res.status(400).send({message:"missing cuisines params"}).end();
+      else if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
       else{
         //faccio una richiesta a spoonacular per fare il parsing della ricetta
         axios.get(`https://api.spoonacular.com/recipes/extract?apiKey=${process.env.SPOONACULAR_KEY}&url=${data.sourceUrl}&forceExtraction=true`)
@@ -103,31 +100,35 @@ router.post("/",async (req,res)=>{
           //prendo il risultato e costruisco un oggetto da mettere nel database
           const ricetta= response.data;
           const obj={
-            userId: req.session.userId,
+            UserId: req.session.userId,
             title: ricetta.title,
             image: ricetta.image,
             readyInMinutes: ricetta.readyInMinutes,
             servings: ricetta.servings,
             sourceUrl: ricetta.sourceUrl,
-            dishTypes: data.dishTypes,
+            dishTypes: new Array(data.dishTypes),
             cuisines: data.cuisines,
             diets: data.diets,
-            //TODO summary
+            summary: (ricetta.summary!=null)?ricetta.summary:(ricetta.instructions),
             instructions: ricetta.instructions,
             extendedIngredients: ricetta.extendedIngredients.map((el)=>{ 
-              return {originalName: el.originalName, amount: el.amount,  unit: el.unit, measures: el.measures}
+              return {originalString: el.originalString, amount: el.amount,  unit: el.unit, measures: el.measures}
             }),
+            analyzedInstructions: ricetta.analyzedInstructions,
             leng: data.leng,
-            type: "users_recipe_url"
+            type: "user_recipe"
           }
-          console.log(obj);
-          await Recipe.create(obj);
+          const recipe=await Recipe.build(obj);
+          recipe.UserId=req.session.userId;
+          await recipe.save();
+          const curr_user=await User.findByPk(req.session.userId);
+          await curr_user.addRecipe(recipe);
           //ritorno quello che ho aggiunto
-          res.json(obj);
+          res.json(recipe);
         })
         .catch((error)=>{
           console.error(error);
-          res.status(400).send("Impossibile elaborare la richiesta: "+error+"\n");
+          res.status(400).send(error);
         });
       }
     }
@@ -140,14 +141,17 @@ router.post("/",async (req,res)=>{
       else if(!data.dishTypes) res.status(400).send({message:"missing dishTypes params"}).end();
       else if(!data.cuisines) res.status(400).send({message:"missing cuisines params"}).end();
       else if(!data.diets) res.status(400).send({message:"missing diets params"}).end();
+      else if(!data.summary) res.status(400).send({message:"missing summary params"}).end();
       else if(!data.extendedIngredients) res.status(400).send({message:"missing extendedIngredients params"}).end();
       else if(!data.analyzedInstructions) res.status(400).send({message:"missing analyzedInstructions params"}).end();
       else if(!data.leng) res.status(400).send({message:"missing leng params"}).end();
       else{
-        data.type="users_recipe"  
-        data.userId=req.session.userId;
+        data.type="user_recipe"  
+        data.UserId=req.session.userId;
         //TODO summary: su un'unica stringa
         await Recipe.create(data);
+        const curr_user=await User.findByPk(req.session.userId);
+        await curr_user.setRecipes(recipe);
         console.log(data);
         res.status(200).json(data);
       }

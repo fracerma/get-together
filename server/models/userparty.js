@@ -35,6 +35,6 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
     return await tuple.destroy();
-  };
+  }
   return UserParty;
 };

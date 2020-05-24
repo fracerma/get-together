@@ -1,20 +1,50 @@
 import partyItems from "./party/partyItems-component.js"
 import partyProgram from "./party/partyProgram-component.js"
+
 export default{
     template:`
         <div>
-            <partyProgram v-show="state"> </partyProgram>
-            <partyItems v-show="!state"></partyItems>
+            <partyProgram v-on:next="nextStep" v-bind:party="party" v-show="state"> </partyProgram>
+            <partyItems  v-on:back="nextStep" v-on:reload="reload" v-bind:party="party" v-show="!state"></partyItems>
         </div>
     `,
     data() {
         return {
-            state:false
+            state:false,
+            party:{
+                name:null,
+                startDate:null,
+                finishDate: null,
+                recipes:[],
+                wines: [],
+                cocktails: [],
+                beers: [],
+                partecipants: []
+            }
         }
     },
     components:{
         partyItems,
         partyProgram
-    }
+    },
+    methods: {
+        nextStep: function(){
+            this.state=!this.state;
+        },
+        reload(){
+                this.state=true;
+                this.party={
+                        name:null,
+                        startDate:null,
+                        finishDate: null,
+                        recipes:[],
+                        wines: [],
+                        cocktails: [],
+                        beers: [],
+                        partecipants: []
+                    }
+            this.$forceUpdate();
+        }
+    },
 
 }
