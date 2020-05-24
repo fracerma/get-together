@@ -85,7 +85,7 @@ export default{
             <div class="middle">
 
                 <div class="high-bar bar bg-main" > <span v-on:click="openContent('par')">Partecipants: </span></div>
-                <transition name="bounce">
+                
                 <div class="part" >
                     <friendComponent  class="it" v-for="user in party.Users" v-if="par && (party.owner != user.id)"
                         v-bind:key="user.id"
@@ -94,7 +94,6 @@ export default{
                     >
                     </friendComponent>
                 </div>
-                </transition>
 
                 <div  class="high-bar bar bg-main" > <span> About: </span></div>
                 <div class="aboutcontent">
@@ -213,7 +212,6 @@ export default{
             this.startTime= this.date.getHours()+":"+this.date.getMinutes();
             this.finishTime= (new Date(this.party.finishDate)).getHours()+":"+(new Date(this.party.finishDate)).getMinutes();
         });
-
     },
 
     methods: {
@@ -255,6 +253,7 @@ export default{
                 }
                 this.edit.finishTime=this.edit.datefinish;
             }
+
             this.party.name=this.edit.name;
             this.date=this.edit.datestart;
             this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();

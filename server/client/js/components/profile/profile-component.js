@@ -1,44 +1,43 @@
-export default{
-    template: `
-    <div>
-        Loggedd innn!
-        <div id="friend-conteinter">
-        </div>
-        <form action="user/friend" method="post">
-            <input type="text" name="friendId" id="" placeholder="Id del tuo amico">
-            <input type="submit" value="Aggiungi">
-        </form>
-    </div>
-    `,
-    methods: {
-        getFriend: function(){
-            fetch("user/friend", {
-                    method: 'GET',
-                    credentials: 'include'
-                    })
-                .then((response) => response.json())
-                .then((json) => {
-                   //TODO render friend
-                }).catch((err) => {
-                    console.log(err);
-                });
-        },
-        //TODO da fare bene
-        aggiungiAmico: function(){
-            fetch("/user/accept", {
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                credentials: 'include', // include, *same-origin, omit
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    friendId: null
-                })
-            }).then(response=>{
-                console.log(response);
-                getFriend();
-            });
-        }
+import middleComp from "./middle-component.js";
+import { bus } from "../../main.js";
 
-    }
+export default {
+  data() {
+    return { section: "Profile" }
+  },
+  template: `
+  <div>
+
+      <div class="high-bar high-top">
+          <h2 id="title">{{ section }}</h2>
+        </div>
+      <div class="high-bar high-left">
+          <input   class="btn btn-primary leftB" type="button" value="Profile info" @click="switchComponent('infoComp')">
+       
+          <input class="btn btn-primary leftB" type="button" value="Friends" @click="switchComponent('friendsComp')">
+      
+          <input class="btn btn-primary leftB"  type="button" value="Notifications" @click="switchComponent('notComp')">
+
+      </div>
+      
+      <middleComp class="middleComp"></middleComp>
+      
+  </div>
+    `,
+  methods: {
+    switchComponent(comp) {
+      bus.$emit("switchComp", comp);
+      if (comp == 'infoComp')
+        this.section = "Profile";
+      if (comp == 'notComp')
+        this.section = "Notifications";
+      if (comp == 'friendsComp')
+        this.section = "Friends";
+    },
+  },
+  components: {
+    middleComp
+  },
 }
+
+

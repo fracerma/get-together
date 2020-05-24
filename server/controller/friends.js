@@ -9,18 +9,23 @@ const Comment = require("../models/index").Comment;
 const notificate = require("./notifications").notificate;
 const broadcast = require("./notifications").broadcast;
 const bodyParser = require("body-parser");
+const { Op } = require("sequelize");
+
 
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-router.get("/", function (req, res) {});
 
 router.post("/", async function (req, res) {
   const sourceId = req.session.userId;
   console.log(sourceId);
-  const dstId = req.body.dstId;
-
-  const relObj = { UserId: sourceId, FriendId: dstId, status: "pending" };
+  const dstEmail = req.body.email;
+  console.log(dstEmail);
   try {
+    const checkUser = await User.findOne({ where: { email: dstEmail, id: { [Op.ne]: sourceId }}});
+    if(!checkUser) res.send(false);
+  else{
+    const dstId = checkUser.id;
+    const relObj = { UserId: sourceId, FriendId: dstId, status: "pending" };
     const exist = await Friendship.findOne({
       where: { UserId: sourceId, FriendId: dstId },
     });
@@ -41,6 +46,8 @@ router.post("/", async function (req, res) {
       exist.save().then(function () {});
       notificate(not);
     }
+    res.send(true);
+  }
   } catch (e) {
     console.error(e);
   }
@@ -56,11 +63,12 @@ router.post("/response", async function (req, res) {
     });
     if (senderFriendship) {
       if (senderFriendship.status == "pending") {
+        console.log(senderFriendship);
         senderFriendship.status = decision;
         senderFriendship.update({ status: decision }).then(function () {});
         senderFriendship.save().then(function () {});
         const exist = await Friendship.findOne({
-          where: { UserId: sourceId, FriendId: dstId, status: "pending" },
+          where: { UserId: sourceId, FriendId: dstId },
         });
         const not = {
           source: sourceId,
@@ -73,10 +81,8 @@ router.post("/response", async function (req, res) {
         if (decision == "accepted" && !exist) {
           relObj = { UserId: sourceId, FriendId: dstId, status: "accepted" };
           const relation = await Friendship.create(relObj);
-
           notificate(not);
         } else if (exist && decision == "accepted") {
-          exist.status = decision;
           exist.update({ status: decision }).then(function () {});
           exist.save().then(function () {});
           notificate(not);
@@ -86,7 +92,21 @@ router.post("/response", async function (req, res) {
   } catch (e) {
     console.error(e);
   }
-
   //const relation = await Friendship.create(relObj);
 });
+
+router.post("/remove", async function (req, res) {
+  const sourceId = req.session.userId;
+  const friendId = req.body.friendId;
+  try{
+     await Friendship.destroy({
+       where: {UserId: sourceId, FriendId: friendId}
+     });
+     await Friendship.destroy({
+       where: { UserId: friendId, FriendId: sourceId }
+     });
+   }catch(e){
+     console.error(e);
+   }
+})
 module.exports = router;

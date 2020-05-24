@@ -19,20 +19,23 @@ const router = new VueRouter({
 				{path:"/parties",name:"Parties", component: parties},
 				{path:"/parties/:id",name:"PartyInfo", component: party},
 				{path:"/wines/:id",name:"wineInfo", component: wineInfo},
-				{path:"/beers/:id",name:"wineInfo", component: beerInfo},
-				{path:"/cocktails/:id",name:"wineInfo", component: cocktailInfo},
+				{path:"/beers/:id",name:"beerInfo", component: beerInfo},
+				{path:"/cocktails/:id",name:"cocktailInfo", component: cocktailInfo},
 		]
 	});
 
+
+export const bus = new Vue();
 Vue.use(DatePicker);
 var app = new Vue({
-el: "#app",
-data: {
-bannerImage: "../image/Principal.jpg",
-regexPat: /(recipesPage|recipeInfo|parties|party|wineInfo|beerInfo|cocktailInfo)/
-},
-components: {
-"nav-bar": navBar,
-},
-router,
+	el: "#app",
+	data: {
+		bannerImage: "../image/Principal.jpg",
+		regexPat: /(homeComponent)/,
+		socket: io("https://localhost:4000")
+	},
+	components: {
+	"nav-bar": navBar,
+	},
+	router
 });
