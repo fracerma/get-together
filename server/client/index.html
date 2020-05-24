@@ -43,7 +43,7 @@
       <div id="banner-image">
         <img :src="bannerImage" />
       </div>
-      <keep-alive v-bind:exclude="regexPat">
+      <keep-alive v-bind:include="regexPat">
       <router-view></router-view>
       </keep-alive>
     </div>

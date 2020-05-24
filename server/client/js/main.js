@@ -31,7 +31,7 @@ var app = new Vue({
 	el: "#app",
 	data: {
 		bannerImage: "../image/Principal.jpg",
-		regexPat: /(recipesPage|recipeInfo|parties|party|wineInfo|beerInfo|cocktailInfo)/,
+		regexPat: /(homeComponent)/,
 		socket: io("https://localhost:4000")
 	},
 	components: {
