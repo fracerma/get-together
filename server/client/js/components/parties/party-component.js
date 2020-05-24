@@ -85,7 +85,7 @@ export default{
             <div class="middle">
 
                 <div class="high-bar bar bg-main" > <span v-on:click="openContent('par')">Partecipants: </span></div>
-                <transition name="bounce">
+                
                 <div class="part" >
                     <friendComponent  class="it" v-for="user in party.Users" v-if="par && (party.owner != user.id)"
                         v-bind:key="user.id"
@@ -94,7 +94,6 @@ export default{
                     >
                     </friendComponent>
                 </div>
-                </transition>
 
                 <div  class="high-bar bar bg-main" > <span> About: </span></div>
                 <div class="aboutcontent">
@@ -213,8 +212,6 @@ export default{
             this.startTime= this.date.getHours()+":"+this.date.getMinutes();
             this.finishTime= (new Date(this.party.finishDate)).getHours()+":"+(new Date(this.party.finishDate)).getMinutes();
         });
-
-
     },
 
     methods: {
@@ -256,6 +253,8 @@ export default{
                 }
                 this.edit.finishTime=this.edit.datefinish;
             }
+
+            this.party.name=this.edit.name;
             this.date=this.edit.datestart;
             this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
             this.startTime= this.date.getHours()+":"+this.date.getMinutes();
@@ -280,13 +279,10 @@ export default{
         removeapiRecipe:function(id){
             const index=this.edit.apiRecipes.findIndex(el=>el.id==id);
             if (index !== -1) {
-                if(this.edit.apiRecipes[index].quantity==1)
                 this.edit.apiRecipes.splice(index,1);
-                else this.edit.apiRecipes[index].quantity--;
             }
         },
         removeuserRecipe:function(id){
-            console.log(this.party.userRecipes);
             const index=this.edit.userRecipes.findIndex(el=>el.id==id);
             if (index !== -1) {
                 this.edit.userRecipes.splice(index,1);
@@ -309,7 +305,6 @@ export default{
             }
         },
         removeCocktail:function(id){
-            console.log(this.edit.cocktails);
             const index=this.edit.cocktails.findIndex(el=>el.cocktailID==id);
             if (index !== -1) {
                 if(this.edit.cocktails[index].quantity==1)

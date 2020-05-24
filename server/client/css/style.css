@@ -15,11 +15,8 @@ body{
 .bg-orange{
     background-color: coral;
 }
-.bg-lightsalmon{
-    background-color: lightsalmon;
-}
-.bg-moccasin{
-    background-color: navajowhite;
+.bg-main{
+    background-color: sandybrown;
 }
 
 .fill-orange{
