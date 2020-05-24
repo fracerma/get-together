@@ -95,8 +95,6 @@ router.post("/", async (req, res) => {
         comment: 0,
         state: true,
       };
-      console.log("notificating");
-      
       notificate(not);
     }
     // /broadcast(not);
