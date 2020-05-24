@@ -1,10 +1,5 @@
 export default{
     props:["notification"],//servirà a mettere i numeretti dove servono per le notifiche
-    data() {
-       return {
-        selected: this.$router.currentRoute.path
-        }
-    },
     template: `
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div id="navbarNav">
@@ -151,9 +146,24 @@ export default{
                     c0,1.101,0.494,2.128,1.34,2.821c0.81,3.173,2.477,5.575,3.093,6.389v2.894c0,0.816-0.445,1.566-1.162,1.958l-7.907,4.313
                     c-0.252,0.137-0.502,0.297-0.752,0.476C5.276,41.792,2,35.022,2,27.5z"/>
             </svg>
+            <span v-if="not>0">{{not}}</span>
             </router-link>
         </div>
     </div>
     </nav>
-    `
+    `,
+    data() {
+        return {
+            selected: this.$router.currentRoute.path,
+            not:0
+        }
+    },
+    mounted() {
+        this.$root.$data.socket.on("newInvitation",(msg)=>{
+            console.log(msg);
+            if(msg!=null)
+                this.not++;
+            
+        })
+    },
 }
