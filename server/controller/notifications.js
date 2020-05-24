@@ -9,9 +9,95 @@ const Party = require("../models/index").Party;
 const Comment = require("../models/index").Comment;
 const io = require("../index").io;
 
+router.get("/all", async function(req, res){
+  const userId = req.session.userId;
+  try{/*
+    let nots = await User.findOne({
+      include:[{
+        model: Notification,
+        include:[{
+          model: Party,
+          attributes: ["name","id"],
+        }],
+        include:[{
+          model: User,
+          as: "sourceUser",
+          attributes: ["firstName","lastName", "id"],
+        }]
+      }],
+      where: {id: userId},
+      attributes: ["firstName", "lastName", "id"]
+    })
+
+    
+
+    if( !nots )
+      res.send(false);
+    else{
+      let i;
+      for (i = 0; i < nots.Notifications.length; i++) {
+          const partyObj = await Party.findByPk(nots.Notifications[i].party);
+          if (partyObj){
+            nots.Notifications[i].party = {name: partyObj.name,
+                                          id: partyObj.id};
+            console.log(nots.Notifications[i].party.name);
+          }
+      }
+    }*/
+    let nots = await Notification.findAll({
+      raw: true, where: { destination: userId }, order: [
+        ['createdAt', 'DESC']]});
+      if( !nots )
+        res.send(false);
+      else{
+        let i;
+        let final = new Array();
+        for( i = 0; i < nots.length; i++){
+          let not = await createNotification(nots[i]);
+          not.time = nots[i].createdAt;
+          not.id = nots[i].id;
+          console.log(not.id);
+          not.state = nots[i].state;
+          console.log(not)
+          final.push(not);
+        }
+        res.send(final);
+      }
+      
+    
+  }catch(e){
+    console.error(e);
+  }
+})
+
+router.post("/mark", async function(req, res){
+  const userId = req.session.userId;
+  const id = req.body.id;
+  try{
+    let not = await Notification.findByPk(id);
+    if( not ){
+      not.state = false;
+      not.update({ state: false }).then((res)=>{});
+      not.save();
+    }
+
+  }catch(e){
+    console.error(e);
+  }
+})
+
+router.post("/destroy", async function(req, res){
+  const notId = req.body.id;
+  try{
+    await Notification.destroy({ where: {id: notId}});
+  }catch(e){
+    console.error(e);
+  }
+})
+
 io.on("connection", function (socket) {
   let currentId;
-  if (!socket.handshake.session.userId) socket.close();
+  if (!socket.handshake.session.userId) socket.disconnect();
   else {
     currentId = socket.handshake.session.userId;
 
@@ -39,29 +125,29 @@ io.on("connection", function (socket) {
 });
 
 async function notificate(event) {
-  console.log("event---->notficate: ", event);
+  //console.log("event---->notficate: ", event);
   try {
     //Mi trovo il nome della sorgente della notifica
-    const not = await createNotification(event);
+    let not = await createNotification(event);
     //Creo un oggetto da inviare come notifica che non contiene gli Id
     //ma solo il nome della source e altre info
-    console.log("Final not:  ", not);
+    
 
     //  SE LA NOTIFCA NON E' RELATIVA AD UN PARTY COSA SUCCEDE??? IL PARTY NON SI TROVA E...???
     Notification.create(event).then((toSend) => {
       //Controllo che il client sia nell'array di socket e abbia una socket attiva
 
       not.notificationId = toSend.id;
-
+      not.time = toSend.createdAt;
+      console.log("Final not:  ", not);
       let dstId = event.destination;
       let dstSock = sockets.filter((x) => x.clientId == dstId)[0];
-      console.log("dstId:  ", dstId);
+      //console.log("dstId:  ", dstId);
       //In caso positivo invio la notifica e la aggiorno nel db come false, ovvere non da leggere
       if (dstSock != undefined) {
         // Manca ack che il client abbia ricevuto la notifica
         io.to(dstSock.socket.id).emit(not.event, not);
-        console.log("dstId:  ", dstId);
-        // Dopo che ho verificato che sia arrivato lo segno come letto
+        //console.log("dstId:  ", dstId);
       }
     });
   } catch (error) {
@@ -95,9 +181,7 @@ async function check(socket, currentId) {
       // Manca ack che il client abbia ricevuto la notifica
       console.log(socket.id);
       io.to(socket.id).emit(e, not);
-
-      // Dopo che ho verificato che sia arrivato lo segno come letto
-      await Notification.update({ state: false }, { where: { id: notId } });
+      
     }
   } catch (error) {
     console.error(error);
@@ -116,7 +200,7 @@ function broadcast(event) {
       status: "accepted",
     },
   }).then((array) => {
-    console.log("array: ", array);
+    //console.log("array: ", array);
     let i;
     for (i = 0; i < array.length; i++) {
       let not = {
@@ -162,20 +246,27 @@ function broadcast(event) {
 async function createNotification(event) {
   try {
     const user = await User.findOne({
-      raw: true,
       where: { id: event.source },
-      attributes: ["id", "firstName", "email"],
+      attributes: ["id", "firstName", "lastName", "email"],
     });
-    const party = await Party.findOne({
-      raw: true,
+    let party =  await Party.findOne({
       where: { id: event.party },
       attributes: ["id", "name", "createdAt"],
     });
+    if( !party ){
+      party = {};
+    }
     // Se l'evento riguardo un commento, mi prendo l'oggetto relativo al commento e lo invio
-    const comment = await Comment.findOne({
-      raw: true,
+    let comment =  await Comment.findOne({
       where: { id: event.comment },
+      include: [{
+        model: User,
+        attributes: ["id", "firstName", "lastName", "email"],
+      }]
     });
+    if (!comment) {
+      comment = {};
+    }
     const not = {
       source: user,
       party: party,

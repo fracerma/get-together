@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   User.associate = function (models) {
     User.belongsToMany(User, {
-      as: "friends",
+      as: "Friends",
       through: "Friendships",
       foreignKey: "UserId",
     });
@@ -32,6 +32,9 @@ module.exports = (sequelize, DataTypes) => {
     //User.hasMany(models.Party, { foreignKey: "owner" });
     User.hasMany(models.Comment, { foreignKey: "UserId" });
     User.hasMany(models.Recipe, { foreignKey: "UserId" });
+
+    User.hasMany(models.Notification, { foreignKey: "source", as: "sourceUser" });
+    User.hasMany(models.Notification, { foreignKey: "destination" });
   };
 
   //class method
