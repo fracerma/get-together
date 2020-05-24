@@ -12,7 +12,6 @@ const bodyParser = require("body-parser");
 const { Op } = require("sequelize");
 
 
-router.use(bodyParser.json());
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 

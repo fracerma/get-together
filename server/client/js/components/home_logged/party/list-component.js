@@ -40,7 +40,7 @@ export default{
             </ul>
         </div>
         <div class="btn-create">
-            <a class="btn bg-orange">Create your party</a>
+            <a class="btn bg-orange" v-on:click="create">Create your party</a>
         </div>
     </div>
     `,
@@ -54,6 +54,22 @@ export default{
                     this.list[type].splice(index, 1);
                 else this.list[type][index].quantity--;
             }
+        },
+        create: function(){
+            console.log(JSON.stringify(this.list));
+            fetch("/parties",{
+                method:"POST",
+                credentials: 'include', // include, *same-origin, omit
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(this.list) 
+            }).then(response=>{
+                return response.json()
+            }).then(data=>{
+                this.$emit("reload");
+                this.$router.push('/parties/'+data.id);
+            });
         }
     },
 

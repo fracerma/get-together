@@ -25,6 +25,16 @@ module.exports = {
       cocktails: {
         type: Sequelize.JSONB,
       },
+      apiRecipes:{
+        type: Sequelize.JSONB,
+      },
+      startDate: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      finishDate: {
+        type: Sequelize.DATE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -19,7 +19,6 @@ export default{
                     <option value="Zinfandel">Zinfandel</option>
                     <option value="Malbec">Malbec</option>
                     <option value="Merlot">Merlot</option>
-                    <option value="Dornfelder">Dornfelder</option>
                     <option value="Sparkling Rose">Sparkling Rose</option>
                     <option value="Chenin Blanc">Chenin Blanc</option>
                     <option value="Nero d'Avola">Nero d'Avola</option>
@@ -51,6 +50,7 @@ export default{
                 <wineComponent v-for="(wine, index) in wines"
                 v-bind:wine="wine"
                 v-bind:key="wines.id"
+                btn="add"
                 v-on:addItem="addItem"
                 > </wineComponent>
             </div>
@@ -91,7 +91,7 @@ export default{
             else this.focused=!this.focused;
         },
         fetchRandom: function(){
-            const max=14;
+            const max=13;
             const random=Math.floor(Math.random() * max);
             this.type=this.$refs.option[random+1].innerText;
             this.fetchWine();
@@ -109,7 +109,7 @@ export default{
                     url="/recommendation";
                     query=new URLSearchParams(Object.assign({},{wine:this.type}));
                 }
-                fetch(`/api/wines${url}?${query.toString()}&number=4`)
+                fetch(`/api/wines${url}?${query.toString()}&number=8`)
                 .then(response => response.json())
                 .then(data => {
                     this.wines=data.wines;

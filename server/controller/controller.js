@@ -11,18 +11,10 @@ const nots = require("./notifications");
 const redirectToLogin = require("./session").redirectLogin;
 
 router.use("/", session);
-//router.use("/friends", friends);
-
-router.use("/user", user);
-router.use("/recipes", recipes);
-
-router.use("/parties", parties);
-router.use("/friends", friends);
-router.use("/notifications", nots);
-//router.use("/parties", redirectToLogin, parties);
-//router.use("/notifications", redirectToLogin, nots)
-//router.use("/friends", redirectToLogin, friends);
-//router.use("/user", redirectToLogin, user);
-//router.use("/recipes", redirectToLogin, recipes);
+router.use("/user", redirectToLogin, user);
+router.use("/recipes", redirectToLogin, recipes);
+router.use("/parties", redirectToLogin, parties);
+router.use("/friends", redirectToLogin, friends);
+router.use("/notifications", redirectToLogin,nots);
 
 module.exports = router;

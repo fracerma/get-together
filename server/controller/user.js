@@ -87,11 +87,9 @@ router.get("/friend", async (req, res) => {
       
       })
     );
-  } catch {
+  } catch(e) {
     const errObj = {
-      name: e.name,
-      detail: e.parent.detail,
-      code: e.parent.code,
+      name: e
     };
     console.log(errObj);
     res.status(400).send(errObj);

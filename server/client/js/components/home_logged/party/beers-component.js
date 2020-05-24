@@ -15,9 +15,10 @@ export default {
         <transition name="fade">
             <div v-show="focused" class="content">
                 <beerComponent v-for="(beerIt, index) in beers"
-                v-bind:beer="beerIt"
-                v-bind:key="index"
-                v-on:addItem="addItem"
+                    v-bind:beer="beerIt"
+                    v-bind:key="beerIt.id"
+                    btn="add"
+                    v-on:addItem="addItem"
                 > </beerComponent>
             </div>
         </transition>
@@ -33,51 +34,50 @@ export default {
       abv_lt: null,
     };
   },
-  methods: {
-    openContent: function () {
-      this.focused = !this.focused;
-    },
-    fetchBeer: function () {
-      this.focused = true;
-      const url = new URLSearchParams(
-        Object.assign(
-          {},
-          this.beer_name ? { beer_name: this.beer_name } : null,
-          this.food ? { food: this.food } : null,
-          this.abv_lt ? { abv_lt: this.abv_lt } : null,
-          this.abv_gt ? { abv_gt: this.abv_gt } : null
-        )
-      );
-      console.log(url.toString());
 
-      fetch(`/api/beers?` + url.toString())
-        .then((response) => response.json())
-        .then((data) => (this.beers = data.slice(0, 4)));
+    methods: {
+        openContent: function() {
+            this.focused=!this.focused;
+        },
+        fetchBeer: function(){
+            this.focused=true;
+            const url= new URLSearchParams(Object.assign({},
+                this.beer_name?{beer_name:this.beer_name}:null,
+                this.food?{food:this.food}:null,
+                this.abv_lt?{abv_lt:this.abv_lt}:null,
+                this.abv_gt?{abv_gt:this.abv_gt}:null
+                ));
+            console.log(url.toString());
+            
+            fetch(`/api/beers?`+url.toString())
+            .then(response => response.json())
+            .then(data => this.beers=data.slice(0,8));
+        },
+        resetFilter: function(){
+            this.beer_name= null;
+            this.food= null;
+            this.abv_gt= null;
+            this.abv_lt= null;        
+        },
+        addItem: function(value){
+            this.$emit("addBeer",{
+                id: value.id,
+                name:value.name,
+                abv:value.abv,
+                image_url:value.image_url,
+                description:value.description,
+            });
+        }
     },
-    resetFilter: function () {
-      this.beer_name = null;
-      this.food = null;
-      this.abv_gt = null;
-      this.abv_lt = null;
-    },
-    addItem: function (value) {
-      this.$emit("addBeer", {
-        id: value.id,
-        name: value.name,
-        abv: value.abv,
-        image_url: value.image_url,
-        description: value.description,
-      });
-    },
-  },
-  beforeCreate() {
-    fetch("/api/beers/random?number=4", {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => (this.beers = data));
-  },
-  components: {
-    beerComponent,
-  },
-};
+    beforeCreate() {
+        fetch('/api/beers/random?number=8',{
+            method: "GET"
+        }).then(response => response.json())
+        .then(data => this.beers=data);
+    }
+    ,
+    components:{
+        beerComponent
+    }
+}
+

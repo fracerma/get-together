@@ -9,31 +9,74 @@ const Comment = require("../models/index").Comment;
 const notificate = require("./notifications").notificate;
 const broadcast = require("./notifications").broadcast;
 const bodyParser = require("body-parser");
+const { Op } = require("sequelize");
 
 router.use(bodyParser.json());
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
-//router.use(bodyParser.urlencoded({ extended: false }));
 
 //ritorna tutti i party dell'utente corrente
-router.get("/", (req, res) => {
-  console.log("ciao");
-  res.send({ ciao: "hello" });
+router.get("/", async (req, res) => {
+  try{
+    const user= await User.findByPk(req.session.userId);
+    const party= await user.getParties({
+      raw: true,
+      where: {
+        owner: req.session.userId
+      }
+    
+    });
+    console.log(party);
+    res.send(party);
+  }
+  catch(e){
+    console.log(e);
+  }
+});
+
+//ritorna tutti i parties a cui l'utente è stato invitato
+router.get("/other", async (req, res) => {
+  try{
+    const user= await User.findByPk(req.session.userId);
+    const party= await user.getParties({
+      raw: true,
+      where: {
+        owner: {[Op.ne]: req.session.userId}
+      }
+    });
+    console.log(party);
+    res.send(party);
+  }
+  catch(e){
+    console.log(e);
+  }
 });
 
 //aggiungi un party
 router.post("/", async (req, res) => {
-  //questo deve avere un array di partecipanti, di id di ricette che sono già state aggiunte al db?
+  //questo deve avere un array di partecipanti, di id di mie ricette che sono già state aggiunte al db?
   //di birre, vini e cocktails
   sourceId = req.session.userId;
   try {
     const ownerObj = await User.findOne({ where: { id: sourceId } });
+    const apiRecipes=req.body.recipes.filter(el=>el.type==="api_recipe");
+    const userRecipes=req.body.recipes.filter(el=>el.type==="user_recipe");
+    console.log(apiRecipes,userRecipes);
+    
     const party = await Party.create({
       name: req.body.name,
       owner: sourceId,
       wines: req.body.wines,
       cocktails: req.body.cocktails,
-      beers: req.body.beers,
+      startDate: req.body.startDate,
+      finishDate: req.body.finishDate,
+      apiRecipes: apiRecipes,
+      beers: req.body.beers
     });
+    userRecipes.forEach(async el=>{
+        const recipe= await Recipe.findByPk(el.id);
+        await party.addUserRecipe(recipe);
+    });
+
     let people = req.body.partecipants;
     //req.body.partecipants.forEach(async (el) => {
     let i = 0;
@@ -52,13 +95,15 @@ router.post("/", async (req, res) => {
         comment: 0,
         state: true,
       };
+      console.log("notificating");
+      
       notificate(not);
     }
     // /broadcast(not);
     res.send(party);
   } catch (e) {
     const errObj = {
-      name: e.name,
+      name: e
       //detail: e.parent.detail,
       //code: e.parent.code,
     };
@@ -74,7 +119,7 @@ router.get("/:id", async function (req, res) {
   try {
     //const comments = []; //await Party.getComments(partyId); //Devo fare una chiamata al db che ritorna tutti i commenti relativi ad un party
 
-    const party = await Party.findAll({
+    const party = await Party.findOne({
       //raw: true,
       where: { id: partyId },
       include: [
@@ -92,15 +137,18 @@ router.get("/:id", async function (req, res) {
             attributes: ["firstName", "id", "email"],
         }],
         },
+        {
+          model: Recipe,
+          as:"userRecipes",
+          attributes: { exclude: ['PartyRecipe'] }
+        }
       ],
       //
     });
 
     console.log(JSON.stringify(party));
 
-    let response = {
-      party: party,
-    };
+    let response = party;
     res.send(response);
   } catch (error) {
     console.log(error);

@@ -5,28 +5,27 @@ import winesComponent from "./wines-component.js"
 import listComponent from "./list-component.js"
 
 export default{
+    props: ["party"],
     template: `
     <div class="party-component">
-        <div class="left-side">
-            <recipesComponent v-on:addRecipe="addRecipe"></recipesComponent>
-            <winesComponent v-on:addWine="addWine"></winesComponent>
-            <beersComponent v-on:addBeer="addBeer"></beersComponent>
-            <cocktailsComponent v-on:addCocktail="addCocktail"></cocktailsComponent>
+        <div>
+        <a class="btn bg-orange" v-on:click="backStep" style="color: white;"> &#10094 Back </a>
         </div>
-        <div class="right-side">
-            <listComponent v-bind:list="party"> </listComponent>
+        <div class="items-conteiner">
+            <div class="left-side">
+                <recipesComponent v-on:addRecipe="addRecipe"></recipesComponent>
+                <winesComponent v-on:addWine="addWine"></winesComponent>
+                <beersComponent v-on:addBeer="addBeer"></beersComponent>
+                <cocktailsComponent v-on:addCocktail="addCocktail"></cocktailsComponent>
+            </div>
+            <div class="right-side">
+                <listComponent v-bind:list="party" v-on:reload="$emit('reload')"> </listComponent>
+            </div>
         </div>
     </div>
     `,
     data() {
         return {
-            party:{
-                recipes:[],
-                wines: [],
-                cocktails: [],
-                beers: [],
-                partecipants: []
-            }
         }
     },
     methods: {
@@ -75,6 +74,9 @@ export default{
                 this.party.cocktails[index].quantity++;
             }
         },
+        backStep: function(){
+            this.$emit("back");
+        }
     },
     components:{
         recipesComponent,

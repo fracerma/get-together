@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   PartyRecipe.associate = function(models) {
     PartyRecipe.belongsTo(models.Party);
-    PartyRecipe.belongsTo(models.Recipe);
+    PartyRecipe.belongsTo(models.Recipe,{onDelete:'cascade'});
   };
   return PartyRecipe;
 };

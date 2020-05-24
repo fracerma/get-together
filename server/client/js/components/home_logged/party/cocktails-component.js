@@ -138,6 +138,7 @@ export default{
                 <cocktailComponent v-for="(cocktail, index) in cocktails"
                 v-bind:cocktail="cocktail"
                 v-bind:key="cocktail.cocktailID"
+                btn="add"
                 v-on:addItem="addItem"
                 > </cocktailComponent>
             </div>
@@ -179,7 +180,7 @@ export default{
                     query=new URLSearchParams(Object.assign({},{type: this.type}));
                 }
             
-                fetch(`/api/cocktails${url}?${query.toString()}&number=4`)
+                fetch(`/api/cocktails${url}?${query.toString()}&number=8`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
@@ -217,7 +218,7 @@ export default{
         }
     },
     beforeCreate() {
-        fetch('/api/cocktails/random?number=4',{
+        fetch('/api/cocktails/random?number=8',{
             method: "GET"
         }).then(response => response.json())
         .then(data => this.cocktails=data["drinks"]);

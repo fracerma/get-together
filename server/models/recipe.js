@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     dishTypes: DataTypes.JSONB ,//arary json
     cuisines: DataTypes.JSONB ,//array json
     diets: DataTypes.JSONB,//array json
+    summary: DataTypes.JSONB,
     extendedIngredients: DataTypes.JSONB,//array di json,
     analyzedInstructions: DataTypes.JSONB,
     leng: DataTypes.STRING,
@@ -16,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Recipe.associate = function(models) {
     // associations can be defined here
-    Recipe.belongsToMany(models.User,{as: "favourites", through: "Favourites",foreignKey:"recipeId"});
-    Recipe.belongsToMany(models.Party, {through: 'PartyRecipe', foreingKey: "recipeId"});
-    Recipe.belongsTo(models.User,{as: "user"});
+    Recipe.belongsToMany(models.User,{as: "favourites", through: "Favourites",foreignKey:"RecipeId"});
+    Recipe.belongsToMany(models.Party, {through: 'PartyRecipe', foreingKey: "RecipeId"});
+    Recipe.belongsTo(models.User);
   };
   return Recipe;
 };
