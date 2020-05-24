@@ -35,7 +35,7 @@ export default{
                         <path fill-rule="evenodd" d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" clip-rule="evenodd"/>
                         <path fill-rule="evenodd" d="M6.5 7a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
                     </svg>
-                <span class='value'>{{party.startDate.split("T")[0]}}</span>
+                <span class='value'>{{parsed}}</span>
             </div>
             <div v-if="modify" class="elmod">
                     <span class="modtxt">day:</span>
@@ -48,10 +48,10 @@ export default{
                         <rect width="1" height="2" x="13.5" y="7" rx=".5"/>
                         <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v3a.5.5 0 01-.5.5H6a.5.5 0 010-1h1.5V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
                     </svg> 
-                <span class='value'>{{party.startDate.split("T")[1].split(".")[0]}}</span>
+                <span class='value'>{{startTime}}</span>
 
                 <span class='about'>  to: </span>
-                <span class='value'>{{party.finishDate.split("T")[1].split(".")[0]}}</span>
+                <span class='value'>{{finishTime}}</span>
             </div>
             <div v-if="modify" class="elmod">
                 <span class="modtxt">from</span> 
@@ -110,7 +110,7 @@ export default{
                         >
                         </recipeComponent>
 
-                        <recipeComponent  class="it" v-for="(recipe,i) in party.userRecipes" v-if="rec && (party.apiRecipes!=null)"
+                        <recipeComponent  class="it" v-for="(recipe,i) in party.userRecipes" v-if="rec && (party.userRecipes!=null)"
                             v-bind:recipe="recipe"
                             v-bind:key="recipe.id"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
@@ -156,8 +156,6 @@ export default{
                 </div>
             </div>
 
-
-
             <div class="down">
                 <div class="high-bar bar bg-main"> <span>Comments: </span></div>
             </div>
@@ -168,6 +166,10 @@ export default{
     data(){
         return{
             party:null,
+            date:null,
+            parsed: null,
+            startTime: null,
+            finishTime: null,
             modify:false,
 
             par: false,
@@ -204,30 +206,34 @@ export default{
             method: "GET",
             credentials: "include"
         }).then(response => response.json())
-        .then(data => this.party=data);
-
+        .then(data => {
+            this.party=data;
+            this.date= new Date(this.party.startDate);
+            this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
+            this.startTime= this.date.getHours()+":"+this.date.getMinutes();
+            this.finishTime= (new Date(this.party.finishDate)).getHours()+":"+(new Date(this.party.finishDate)).getMinutes();
+        });
 
     },
 
     methods: {
         editfunction: function(){
+            
             if(this.modify==true) this.modify=false;
             else this.modify=true;
             
             this.edit.name=this.party.name;
 
-            this.edit.datestart=new Date(this.party.startDate);
-            this.edit.startTime=this.edit.datestart.getHours()+':'+this.edit.datestart.getMinutes();
+            this.edit.datestart=this.date;
+            this.edit.startTime=this.startTime;
             this.edit.datefinish=new Date(this.party.finishDate);
-            this.edit.finishTime=this.edit.datefinish.getHours()+':'+this.edit.datefinish.getMinutes();
+            this.edit.finishTime=this.finishTime;
 
             this.edit.apiRecipes=this.party.apiRecipes;
             this.edit.userRecipes=this.party.userRecipes;
             this.edit.wines=this.party.wines;
             this.edit.beers=this.party.beers;
             this.edit.cocktails=this.party.cocktails;
-
-            console.log("PRIMA",this.edit.datestart,this.edit.startTime,this.edit.finishTime);
         },
         openContent: function(el) {
             if(el=="par") this.par=!this.par;
@@ -249,7 +255,11 @@ export default{
                 }
                 this.edit.finishTime=this.edit.datefinish;
             }
-            console.log(this.edit.startTime,this.edit.finishTime);
+            this.party.name=this.edit.name;
+            this.date=this.edit.datestart;
+            this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
+            this.startTime= this.date.getHours()+":"+this.date.getMinutes();
+            this.finishTime= (new Date(this.edit.datefinish)).getHours()+":"+(new Date(this.edit.datefinish)).getMinutes();
 
             fetch('/parties/'+this.$route.params.id,{
                 method: "PUT",
@@ -270,17 +280,13 @@ export default{
         removeapiRecipe:function(id){
             const index=this.edit.apiRecipes.findIndex(el=>el.id==id);
             if (index !== -1) {
-                if(this.edit.apiRecipes[index].quantity==1)
                 this.edit.apiRecipes.splice(index,1);
-                else this.edit.apiRecipes[index].quantity--;
             }
         },
         removeuserRecipe:function(id){
             const index=this.edit.userRecipes.findIndex(el=>el.id==id);
             if (index !== -1) {
-                if(this.edit.userRecipes[index].quantity==1)
                 this.edit.userRecipes.splice(index,1);
-                else this.edit.userRecipes[index].quantity--;
             }
         },
         removeWine:function(id){
@@ -300,7 +306,6 @@ export default{
             }
         },
         removeCocktail:function(id){
-            console.log(this.edit.cocktails);
             const index=this.edit.cocktails.findIndex(el=>el.cocktailID==id);
             if (index !== -1) {
                 if(this.edit.cocktails[index].quantity==1)
