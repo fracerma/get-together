@@ -10,9 +10,9 @@
     <div id="news-list"></div>
     <script src="socket.io/socket.io.js"></script>
     <script>
-      var socket = io("http://localhost:4000");
+      var socket = io("https://localhost:4000");
 
-      socket.on("friend-request", function (data) {
+      socket.on("newFriend", function (data) {
         document.getElementById("friend").innerHTML = data;
 
       });

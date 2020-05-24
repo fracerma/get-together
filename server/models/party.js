@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       through: "UserParty",
       foreingKey: "PartyId",
     });
+
   };
   return Party;
 };
