@@ -3,10 +3,9 @@ export default{
     name: "parties",
     template:`
     <div class="parties-component">
-        <router-link to="/" id="lateralbutton" class="btn bg-orange" style="color: white;"> Create Party </router-link>
         <div class="line">
             <div class="container-parties">
-                <div id="bar" class="high-bar bg-yellow" >
+                <div  class="high-bar bar bg-yellow" >
                     <span> Your parties </span>
                 </div>
                 <div>
@@ -19,7 +18,7 @@ export default{
             </div>
 
             <div class="container-parties">
-                <div id="bar" class="high-bar bg-red" >
+                <div class="high-bar bar bg-red" >
                     <span> Parties you have been invited to </span>
                 </div>
                 <div>

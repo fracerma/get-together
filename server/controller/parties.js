@@ -5,6 +5,7 @@ const UserParty = require("../models/index").UserParty;
 const Recipe = require("../models/index").Recipe;
 const Friendship = require("../models/index").Friendship;
 const Party = require("../models/index").Party;
+const PartyRecipe = require("../models/index").PartyRecipe;
 const Comment = require("../models/index").Comment;
 const notificate = require("./notifications").notificate;
 const broadcast = require("./notifications").broadcast;
@@ -61,7 +62,6 @@ router.post("/", async (req, res) => {
     const apiRecipes=req.body.recipes.filter(el=>el.type==="api_recipe");
     const userRecipes=req.body.recipes.filter(el=>el.type==="user_recipe");
     console.log(apiRecipes,userRecipes);
-    
     const party = await Party.create({
       name: req.body.name,
       owner: sourceId,
@@ -116,10 +116,11 @@ router.get("/:id", async function (req, res) {
   console.log(partyId);
   try {
     //const comments = []; //await Party.getComments(partyId); //Devo fare una chiamata al db che ritorna tutti i commenti relativi ad un party
-
     const party = await Party.findOne({
       //raw: true,
-      where: { id: partyId },
+      where: { 
+        id: partyId
+      },
       include: [
         {
           // Notice `include` takes an ARRAY
@@ -144,7 +145,14 @@ router.get("/:id", async function (req, res) {
       //
     });
 
-    console.log(JSON.stringify(party));
+
+    let isOwner = false;
+    if(req.session.userId == party.owner){
+      isOwner=true;
+    } 
+
+    party["dataValues"]["isOwner"] = isOwner;
+    console.log(party);
 
     let response = party;
     res.send(response);
@@ -153,9 +161,29 @@ router.get("/:id", async function (req, res) {
   }
 });
 //modifica il party con id
-router.put("/:id", (req, res) => {});
-//elimina il party d'id
-router.delete("/:id", (req, res) => {});
+router.put("/:id", async (req, res) => {
+    const changes=req.body;
+    console.log("**********************************************************",req.body);
+    const party= await Party.findByPk(req.params.id);
+
+    party.name=changes.name;
+    party.startDate=changes.startTime;
+    party.finishDate=changes.finishTime;
+    party.apiRecipes=changes.apiRecipes;
+    party.wines=changes.wines;
+    party.beers=changes.beers;
+    party.cocktails=changes.cocktails;
+  
+    await PartyRecipe.destroy({where:{PartyId:party.id}});
+    for(el in changes.userRecipes){
+      party.addRecipes(Recipe.findByPk(el.id));
+    }
+
+    await party.save();
+
+
+});
+
 
 //aggiunge un commento
 router.post("/:id/comment", async function (req, res) {
