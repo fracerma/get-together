@@ -18,11 +18,11 @@ router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 router.get("/", async (req, res) => {
   const userId = req.session.userId;
   try {
-    let friends = await db.Friendship.findAll({
+    let friends = await Friendship.findAll({
       where: {
         UserId: userId,
       },
-      include: db.User,
+      include: User,
     });
     res.send(
       friends.filter(el => el.status != "rejected").map((el) => {
