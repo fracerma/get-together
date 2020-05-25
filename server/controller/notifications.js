@@ -11,63 +11,30 @@ const io = require("../index").io;
 
 router.get("/all", async function(req, res){
   const userId = req.session.userId;
-  try{/*
-    let nots = await User.findOne({
-      include:[{
-        model: Notification,
-        include:[{
-          model: Party,
-          attributes: ["name","id"],
-        }],
-        include:[{
-          model: User,
-          as: "sourceUser",
-          attributes: ["firstName","lastName", "id"],
-        }]
-      }],
-      where: {id: userId},
-      attributes: ["firstName", "lastName", "id"]
-    })
-
-    
-
-    if( !nots )
-      res.send(false);
-    else{
-      let i;
-      for (i = 0; i < nots.Notifications.length; i++) {
-          const partyObj = await Party.findByPk(nots.Notifications[i].party);
-          if (partyObj){
-            nots.Notifications[i].party = {name: partyObj.name,
-                                          id: partyObj.id};
-            console.log(nots.Notifications[i].party.name);
-          }
-      }
-    }*/
-    let nots = await Notification.findAll({
-      raw: true, where: { destination: userId }, order: [
-        ['createdAt', 'DESC']]});
-      if( !nots )
-        res.send(false);
-      else{
-        let i;
-        let final = new Array();
-        for( i = 0; i < nots.length; i++){
-          let not = await createNotification(nots[i]);
-          not.time = nots[i].createdAt;
-          not.id = nots[i].id;
-          console.log(not.id);
-          not.state = nots[i].state;
-          console.log(not)
-          final.push(not);
-        }
-        res.send(final);
-      }
-      
-    
-  }catch(e){
-    console.error(e);
-  }
+     try {
+       let nots = await Notification.findAll({
+         raw: true,
+         where: { destination: userId },
+         order: [["createdAt", "DESC"]],
+       });
+       if (!nots) res.send(false);
+       else {
+         let i;
+         let final = new Array();
+         for (i = 0; i < nots.length; i++) {
+           let not = await createNotification(nots[i]);
+           not.time = nots[i].createdAt;
+           not.id = nots[i].id;
+           console.log(not.id);
+           not.state = nots[i].state;
+           console.log(not);
+           final.push(not);
+         }
+         res.send(final);
+       }
+     } catch (e) {
+       console.error(e);
+     }
 })
 
 router.post("/mark", async function(req, res){
@@ -137,7 +104,7 @@ async function notificate(event) {
     Notification.create(event).then((toSend) => {
       //Controllo che il client sia nell'array di socket e abbia una socket attiva
 
-      not.notificationId = toSend.id;
+      not.id = toSend.id;
       not.time = toSend.createdAt;
       console.log("Final not:  ", not);
       let dstId = event.destination;

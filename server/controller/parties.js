@@ -117,10 +117,7 @@ router.get("/:id", async function (req, res) {
   const partyId = req.params.id;
   console.log(partyId);
   try {
-    //const comments = []; //await Party.getComments(partyId); //Devo fare una chiamata al db che ritorna tutti i commenti relativi ad un party
-
     const party = await Party.findOne({
-      //raw: true,
       where: { id: partyId },
       include: [
         {
@@ -130,7 +127,6 @@ router.get("/:id", async function (req, res) {
         },
         {
           model: Comment,
-          //where: { PartyId: partyId },
           attributes: ["id", "UserId", "text", "createdAt"],
           include: [{
             model: User,
@@ -154,10 +150,6 @@ router.get("/:id", async function (req, res) {
     console.log(error);
   }
 });
-//modifica il party con id
-router.put("/:id", (req, res) => {});
-//elimina il party d'id
-router.delete("/:id", (req, res) => {});
 
 //aggiunge un commento
 router.post("/:id/comment", async function (req, res) {
@@ -219,8 +211,5 @@ router.post("/response", async function (req, res) {
     console.error(error);
   }
 });
-
-//Non serve
-
 
 module.exports = router;

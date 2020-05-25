@@ -18,10 +18,12 @@ router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 router.post("/", async function (req, res) {
   const sourceId = req.session.userId;
   console.log(sourceId);
-  const dstEmail = req.body.email;
-  console.log(dstEmail);
+  const dstId = req.body.id;
+  console.log(dstId)
+  let checkUser = null;
   try {
-    const checkUser = await User.findOne({ where: { email: dstEmail, id: { [Op.ne]: sourceId }}});
+    if( dstId != sourceId )
+      checkUser = await User.findOne({ where: { id: dstId}});
     if(!checkUser) res.send(false);
   else{
     const dstId = checkUser.id;
@@ -108,5 +110,7 @@ router.post("/remove", async function (req, res) {
    }catch(e){
      console.error(e);
    }
-})
+});
+
+
 module.exports = router;
