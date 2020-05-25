@@ -65,8 +65,14 @@ export default {
       remove: function(){
         this.rem = false;
         setTimeout(() => this.show = false, 1500);
+        if( this.not.event == 'newInvitation' && this.not.state == true){
+          this.declineInvitation();
+        }
+        else if (this.not.event == 'newFriend' && this.not.state == true){
+          this.declineFriend();
+        }
         fetch('/notifications/destroy', {
-          credentials: 'same-origin',
+          credentials: 'include',
           method: 'POST', // or 'PUT'
           headers: {
             'Content-Type': 'application/json',
@@ -84,7 +90,7 @@ export default {
 
       acceptInvitation: function(){
         fetch('/parties/response', {
-          credentials: 'same-origin',
+          credentials: 'include',
           method: 'POST', // or 'PUT'
           headers: {
             'Content-Type': 'application/json',
@@ -101,7 +107,7 @@ export default {
       },
       declineInvitation: function() {
         fetch('/parties/response', {
-          credentials: 'same-origin',
+          credentials: 'include',
           method: 'POST', // or 'PUT'
           headers: {
             'Content-Type': 'application/json',
@@ -118,7 +124,7 @@ export default {
       },
       acceptFriend: function() {
         fetch('/friends/response', {
-          credentials: 'same-origin',
+          credentials: 'include',
           method: 'POST', // or 'PUT'
           headers: {
             'Content-Type': 'application/json',
@@ -135,7 +141,7 @@ export default {
       },
       declineFriend: function() {
         fetch('/friends/response', {
-          credentials: 'same-origin',
+          credentials: 'include',
           method: 'POST', // or 'PUT'
           headers: {
             'Content-Type': 'application/json',
@@ -151,12 +157,17 @@ export default {
         this.mark();
       },
       toParty: function(){
-        return true;
+        if(this.not.event == "newInvitation")
+          this.$router.push("/parties/"+ this.not.party.id);
+        else{
+          this.mark();
+          this.$router.push("/parties/" + this.not.party.id);
+        }  
       },
       mark: function(){
        if (this.not.state == true){
         fetch('/notifications/mark', {
-          credentials: 'same-origin',
+          credentials: 'include',
           method: 'POST', // or 'PUT'
           headers: {
             'Content-Type': 'application/json',

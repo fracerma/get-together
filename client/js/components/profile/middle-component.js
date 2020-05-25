@@ -3,6 +3,7 @@ import notComp from "./notifications/notifications-component.js";
 import friendsComp from "./friends/friends-component.js";
 import editComp from "./profile-info/edit-component.js"
 import { bus } from '../../main.js';
+import addFriendsComp from "./friends/add-friends-component.js"
 
 export default {
   
@@ -25,7 +26,8 @@ export default {
   methods: {},
   components: { 'infoComp': infoComp,
                 'friendsComp': friendsComp,
-                "notComp": notComp,
+                'notComp': notComp,
                 'editComp': editComp,
+                'addFriendsComp': addFriendsComp
             },
 };
