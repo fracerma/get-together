@@ -43,7 +43,7 @@ export default{
         }
     },
     beforeCreate() {
-        fetch(`/user/friend`,{
+        fetch(`/friends`,{
             method: "GET",
             credentials: "include"
         })

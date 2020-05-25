@@ -41,7 +41,7 @@ var fp=new Vue({
                 },
                 body: JSON.stringify({
                     firstName: $("#firstnameform").val(),
-                    secondName: $("#lastnameform").val(),
+                    lastName: $("#lastnameform").val(),
                     email: $("#emailform").val(),
                     password: $("#pswform").val()
                 })

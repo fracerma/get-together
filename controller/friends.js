@@ -15,13 +15,46 @@ const { Op } = require("sequelize");
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 
+router.get("/", async (req, res) => {
+  const userId = req.session.userId;
+  try {
+    let friends = await db.Friendship.findAll({
+      where: {
+        UserId: userId,
+      },
+      include: db.User,
+    });
+    res.send(
+      friends.filter(el => el.status != "rejected").map((el) => {
+        return {
+          id: el.User.id,
+          firstName: el.User.firstName,
+          lastName: el.User.lastName,
+          email: el.User.email,
+          image: el.User.image,
+          status: el.status,
+        };
+
+      })
+    );
+  } catch (e) {
+    const errObj = {
+      name: e
+    };
+    console.log(errObj);
+    res.status(400).send(errObj);
+  }
+});
+
 router.post("/", async function (req, res) {
   const sourceId = req.session.userId;
   console.log(sourceId);
-  const dstEmail = req.body.email;
-  console.log(dstEmail);
+  const dstId = req.body.id;
+  console.log(dstId)
+  let checkUser = null;
   try {
-    const checkUser = await User.findOne({ where: { email: dstEmail, id: { [Op.ne]: sourceId }}});
+    if( dstId != sourceId )
+      checkUser = await User.findOne({ where: { id: dstId}});
     if(!checkUser) res.send(false);
   else{
     const dstId = checkUser.id;
@@ -108,5 +141,7 @@ router.post("/remove", async function (req, res) {
    }catch(e){
      console.error(e);
    }
-})
+});
+
+
 module.exports = router;
