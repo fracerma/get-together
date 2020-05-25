@@ -8,7 +8,7 @@ import party from "./components/parties/party-component.js";
 import wineInfo from "./components/wines/wineInfo-component.js";
 import beerInfo from "./components/beers/beerInfo-component.js";
 import cocktailInfo from "./components/cocktails/cocktailInfo-component.js";
-
+import Comments from "./components/parties/comments-component.js";
 const router = new VueRouter({
 		routes:[
 				{path:"/",name:"Home", component: homeComponent },
@@ -16,8 +16,11 @@ const router = new VueRouter({
 				{path:"/profile",name:"Profile", component: profile},
 				{path:"/recipes",name:"recipesPage", component: recipesPage},
 				{path:"/recipes/:id",name:"recipeInfo", component: recipeInfo},
+
 				{path:"/parties",name:"Parties", component: parties},
 				{path:"/parties/:id",name:"PartyInfo", component: party},
+				{path:"/parties/:id/comments",name:"Comments", component: Comments},
+
 				{path:"/wines/:id",name:"wineInfo", component: wineInfo},
 				{path:"/beers/:id",name:"beerInfo", component: beerInfo},
 				{path:"/cocktails/:id",name:"cocktailInfo", component: cocktailInfo},
