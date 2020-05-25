@@ -6,7 +6,7 @@ export default {
     <div>
     <div id="notifications" v-if="notifications && notifications.length > 0" >
         <div >
-            <notComp v-for="not in notifications" v-bind:not="not"></notComp>
+            <notComp v-for="not in notifications" v-bind:not="not" v-bind:key="not.id"></notComp>
         </div>
     </div>
     <div v-else="notifications.length == 0">

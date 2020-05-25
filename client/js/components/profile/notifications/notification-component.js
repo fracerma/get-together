@@ -157,8 +157,12 @@ export default {
         this.mark();
       },
       toParty: function(){
-        this.$router.push("/parties/"+ this.not.party.id);
-        
+        if(this.not.event == "newInvitation")
+          this.$router.push("/parties/"+ this.not.party.id);
+        else{
+          this.mark();
+          this.$router.push("/parties/" + this.not.party.id);
+        }  
       },
       mark: function(){
        if (this.not.state == true){

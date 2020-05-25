@@ -15,6 +15,37 @@ const { Op } = require("sequelize");
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 
+router.get("/", async (req, res) => {
+  const userId = req.session.userId;
+  try {
+    let friends = await db.Friendship.findAll({
+      where: {
+        UserId: userId,
+      },
+      include: db.User,
+    });
+    res.send(
+      friends.filter(el => el.status != "rejected").map((el) => {
+        return {
+          id: el.User.id,
+          firstName: el.User.firstName,
+          lastName: el.User.lastName,
+          email: el.User.email,
+          image: el.User.image,
+          status: el.status,
+        };
+
+      })
+    );
+  } catch (e) {
+    const errObj = {
+      name: e
+    };
+    console.log(errObj);
+    res.status(400).send(errObj);
+  }
+});
+
 router.post("/", async function (req, res) {
   const sourceId = req.session.userId;
   console.log(sourceId);

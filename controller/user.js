@@ -52,41 +52,12 @@ router.put("/update", async function(req, res){
   }
 })
 
-router.get("/friend", async (req, res) => {
-  const userId = req.session.userId;
-  try {
-    let friends = await db.Friendship.findAll({
-      where: {
-        UserId: userId,
-      },
-      include: db.User,
-    });
-    res.send(
-      friends.filter(el => el.status != "rejected").map((el) => {
-          return {
-            id: el.User.id,
-            firstName: el.User.firstName,
-            lastName: el.User.lastName,
-            email: el.User.email,
-            status: el.status,
-        };
-      
-      })
-    );
-  } catch(e) {
-    const errObj = {
-      name: e
-    };
-    console.log(errObj);
-    res.status(400).send(errObj);
-  }
-});
 
-router.post("/search", async (req, res) => {
+router.get("/search", async (req, res) => {
   const userId = req.session.userId;
-  const mail = req.body.query.split("@")[0];
-  const tot = req.body.query.split(" ");
-  let users = [];
+  const mail = req.query.query.split("@")[0];
+  const tot = req.query.query.split(" ");
+  let users;
   try {
     if( tot.length > 1 ){
       const name = tot[0];

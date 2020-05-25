@@ -21,7 +21,7 @@ export default {
         <h4>Search for a person to add to your friends: </h4>
         <input  v-model="newFriend" > 
         <div v-if="friends">
-            <addFriendComp v-for="user in friends"
+            <addFriendComp v-for="user in friends" v-bind:key="user.id"
                 v-bind:user="user">
             </addFriendComp>
         </div>
@@ -36,13 +36,9 @@ export default {
         },
         search: function(v){
                 this.friends = null;
-                fetch("/user/search", {
+            fetch("/user/search?query=" + this.newFriend, {
                     credentials: "include",
-                    method: "POST", // or 'PUT'
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({query: this.newFriend}),
+                    method: "GET",
                 })
                     .then((response) => response.json())
                     .then((data) => {
