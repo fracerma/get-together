@@ -16,8 +16,11 @@ const router = new VueRouter({
 				{path:"/profile",name:"Profile", component: profile},
 				{path:"/recipes",name:"recipesPage", component: recipesPage},
 				{path:"/recipes/:id",name:"recipeInfo", component: recipeInfo},
+
 				{path:"/parties",name:"Parties", component: parties},
 				{path:"/parties/:id",name:"PartyInfo", component: party},
+				
+
 				{path:"/wines/:id",name:"wineInfo", component: wineInfo},
 				{path:"/beers/:id",name:"beerInfo", component: beerInfo},
 				{path:"/cocktails/:id",name:"cocktailInfo", component: cocktailInfo},

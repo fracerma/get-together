@@ -3,16 +3,18 @@ import recipeComponent from "../home_logged/party/recipe-component.js"
 import wineComponent from "../home_logged/party/wine-component.js"
 import beerComponent from "../home_logged/party/beer-component.js"
 import cocktailComponent from "../home_logged/party/cocktail-component.js"
+import comments from "./comments-component.js"
 
 export default{
     name: "party",
     template:`
     <div>
-        <div class="all">
+        <div class="all" v-if="party">
     
         <div class="backsave">
             <router-link to="/parties" class="btn lateralbutton bg-orange" style="color: white;">&#10094 Back </router-link>
             <button  v-on:click="save" class="btn lateralbutton bg-orange" v-if="party.isOwner && modify" > Save! </button>
+            <button v-on:click="deleteparty" class="btn lateralbutton bg-orange" v-if="party.isOwner"> Delete Party </button>
 
             <div id="modifybutton">
                 <button v-if="party.isOwner" v-on:click="editfunction" class="btn lateralbutton bg-orange" >
@@ -157,6 +159,9 @@ export default{
 
             <div class="down">
                 <div class="high-bar bar bg-main"> <span>Comments: </span></div>
+                <comments
+                    v-bind:comm="this.party.Comments">
+                </comments>
             </div>
         </div>
         </div>
@@ -197,7 +202,8 @@ export default{
         recipeComponent,
         wineComponent,
         beerComponent,
-        cocktailComponent
+        cocktailComponent,
+        comments
     },
 
     beforeCreate() {
@@ -209,8 +215,10 @@ export default{
             this.party=data;
             this.date= new Date(this.party.startDate);
             this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
-            this.startTime= this.date.getHours()+":"+this.date.getMinutes();
-            this.finishTime= (new Date(this.party.finishDate)).getHours()+":"+(new Date(this.party.finishDate)).getMinutes();
+            this.startTime= this.date.getHours()+":";
+            this.startTime+=(this.date.getMinutes() <'10')?'0'+this.date.getMinutes():this.date.getMinutes();
+            this.finishTime= (new Date(this.party.finishDate)).getHours()+":";
+            this.finishTime+=((new Date(this.party.finishDate)).getMinutes() <'10')?'0'+(new Date(this.party.finishDate)).getMinutes():(new Date(this.party.finishDate)).getMinutes();
         });
     },
 
@@ -311,6 +319,20 @@ export default{
                 this.edit.cocktails.splice(index,1);
                 else this.edit.cocktails[index].quantity--;
             }
+        },
+        deleteparty:function(event){
+            fetch('/parties/'+this.$route.params.id,{
+                method: "DELETE",
+                credentials: "include",
+            })
+            .then(result => {
+              console.log('Success:', result);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+            
+            this.$router.push('/parties');
         }
             
     }
