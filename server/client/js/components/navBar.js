@@ -139,7 +139,7 @@ export default{
     data() {
         return {
             selected: this.$router.currentRoute.path,
-            not: 2
+            not: 0
         }
     },
     mounted() {
