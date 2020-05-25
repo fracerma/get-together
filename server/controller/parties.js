@@ -26,7 +26,6 @@ router.get("/", async (req, res) => {
       }
     
     });
-    console.log(party);
     res.send(party);
   }
   catch(e){
@@ -37,25 +36,40 @@ router.get("/", async (req, res) => {
 //ritorna tutti i parties a cui l'utente è stato invitato
 router.get("/other", async (req, res) => {
   try{
-    const user= await User.findByPk(req.session.userId);
-    const party= await user.getParties({
+    const user= req.session.userId;
+    const userparty=await UserParty.findAll({
       raw: true,
-      where: {
-        owner: {[Op.ne]: req.session.userId}
+      where:{
+        UserId:user,
+        status:'accepted'
       }
     });
-    console.log(party);
+    let party=[];
+    for(el in userparty){
+      party.push(await Party.findOne({
+        raw: true,
+        where:{
+          id: userparty[el].PartyId,
+          owner: {[Op.ne]: req.session.userId}
+        }
+       })
+      );
+    console.log(userparty[el].PartyId);
+    }
+    for(el in party){
+      if(party[el]==null){
+        party.splice(el, 1);
+      }
+    }
     res.send(party);
   }
-  catch(e){
-    console.log(e);
-  }
+catch(e){
+  console.log(e);
+}
 });
 
 //aggiungi un party
 router.post("/", async (req, res) => {
-  //questo deve avere un array di partecipanti, di id di mie ricette che sono già state aggiunte al db?
-  //di birre, vini e cocktails
   sourceId = req.session.userId;
   try {
     const ownerObj = await User.findOne({ where: { id: sourceId } });
@@ -142,7 +156,7 @@ router.get("/:id", async function (req, res) {
           attributes: { exclude: ['PartyRecipe'] }
         }
       ],
-      //
+      
     });
 
 
@@ -182,6 +196,21 @@ router.put("/:id", async (req, res) => {
     await party.save();
 
 
+});
+
+//elimina il party con id
+router.delete("/:id",async (req,res)=>{
+    await UserParty.destroy({
+      where:{
+        PartyId:req.params.id
+      }
+    });
+    await Party.destroy({
+      where:{
+        id:req.params.id
+      }
+    });
+    res.send('ok');
 });
 
 
@@ -246,7 +275,6 @@ router.post("/response", async function (req, res) {
   }
 });
 
-//Non serve
 
 
 module.exports = router;

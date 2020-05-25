@@ -3,16 +3,16 @@ import recipeComponent from "../home_logged/party/recipe-component.js"
 import wineComponent from "../home_logged/party/wine-component.js"
 import beerComponent from "../home_logged/party/beer-component.js"
 import cocktailComponent from "../home_logged/party/cocktail-component.js"
-
 export default{
     name: "party",
     template:`
     <div>
-        <div class="all">
+        <div class="all" v-if="party">
     
         <div class="backsave">
             <router-link to="/parties" class="btn lateralbutton bg-orange" style="color: white;">&#10094 Back </router-link>
             <button  v-on:click="save" class="btn lateralbutton bg-orange" v-if="party.isOwner && modify" > Save! </button>
+            <button v-on:click="deleteparty" class="btn lateralbutton bg-orange" v-if="party.isOwner"> Delete Party </button>
 
             <div id="modifybutton">
                 <button v-if="party.isOwner" v-on:click="editfunction" class="btn lateralbutton bg-orange" >
@@ -311,6 +311,20 @@ export default{
                 this.edit.cocktails.splice(index,1);
                 else this.edit.cocktails[index].quantity--;
             }
+        },
+        deleteparty:function(event){
+            fetch('/parties/'+this.$route.params.id,{
+                method: "DELETE",
+                credentials: "include",
+            })
+            .then(result => {
+              console.log('Success:', result);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+            
+            this.$router.push('/parties');
         }
             
     }
