@@ -10,16 +10,11 @@ body{
     overflow-x: hidden;
 }
 
-
-
 .bg-orange{
     background-color: coral;
 }
-.bg-lightsalmon{
-    background-color: lightsalmon;
-}
-.bg-moccasin{
-    background-color: navajowhite;
+.bg-main{
+    background-color: sandybrown;
 }
 
 .fill-orange{
@@ -81,6 +76,27 @@ svg{
     align-items: center;
     flex-basis: 100%;
     justify-content: space-between;
+}
+
+.profile-svg{
+    position: relative;
+}
+
+.notify{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    font-size: 0.5em;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+    background-color: #a42e2ef1;
+    position: absolute;
+    left:30px;
+    top:30px;
 }
 
 /************
@@ -258,7 +274,7 @@ ITEMS COMPONENT
     display: flex;
     justify-content: space-between;
     z-index: 1;
-    height: 100%;
+
     text-align: left;
     align-items: center;
     border-radius: 20px;
@@ -500,27 +516,6 @@ RESPONSIVE STUFF
     nav{
         font-size: 1.6em;
     }
-    .navbar-brand{
-        margin-right: 0;
-        margin-left: 0;
-    }
-    #logo-nav{
-        width: 130px;
-    }
-    svg{
-        height: 35px;
-    }
-    .right-icon{
-        margin-right: 0px;
-    }
-    
-    .right-icon svg{
-        margin-right: 0px;
-    }
-    
-    .left-icon{
-        margin-left: 0px;
-    }
     #banner-image img{
         width: 100%;
         margin-top: 0;
@@ -546,6 +541,26 @@ RESPONSIVE STUFF
     }
 }
 @media only screen and (max-width: 880px) {
+    
+    .navbar-brand{
+        margin-right: 0;
+        margin-left: 0;
+    }
+    
+    #logo-nav{
+        width: 130px;
+    }
+    .right-icon{
+        margin-right: 0px;
+    }
+    
+    .right-icon svg{
+        margin-right: 0px;
+    }
+    
+    .left-icon{
+        margin-left: 0px;
+    }
     .partyProgram-component{
         display: block;
     }

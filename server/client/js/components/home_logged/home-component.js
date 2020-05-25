@@ -2,6 +2,7 @@ import partyItems from "./party/partyItems-component.js"
 import partyProgram from "./party/partyProgram-component.js"
 
 export default{
+    name: "homeComponent",
     template:`
         <div>
             <partyProgram v-on:next="nextStep" v-bind:party="party" v-show="state"> </partyProgram>
@@ -10,7 +11,7 @@ export default{
     `,
     data() {
         return {
-            state:false,
+            state:true,
             party:{
                 name:null,
                 startDate:null,

@@ -5,6 +5,7 @@ const UserParty = require("../models/index").UserParty;
 const Recipe = require("../models/index").Recipe;
 const Friendship = require("../models/index").Friendship;
 const Party = require("../models/index").Party;
+const PartyRecipe = require("../models/index").PartyRecipe;
 const Comment = require("../models/index").Comment;
 const notificate = require("./notifications").notificate;
 const broadcast = require("./notifications").broadcast;
@@ -25,7 +26,6 @@ router.get("/", async (req, res) => {
       }
     
     });
-    console.log(party);
     res.send(party);
   }
   catch(e){
@@ -36,32 +36,46 @@ router.get("/", async (req, res) => {
 //ritorna tutti i parties a cui l'utente è stato invitato
 router.get("/other", async (req, res) => {
   try{
-    const user= await User.findByPk(req.session.userId);
-    const party= await user.getParties({
+    const user= req.session.userId;
+    const userparty=await UserParty.findAll({
       raw: true,
-      where: {
-        owner: {[Op.ne]: req.session.userId}
+      where:{
+        UserId:user,
+        status:'accepted'
       }
     });
-    console.log(party);
+    let party=[];
+    for(el in userparty){
+      party.push(await Party.findOne({
+        raw: true,
+        where:{
+          id: userparty[el].PartyId,
+          owner: {[Op.ne]: req.session.userId}
+        }
+       })
+      );
+    console.log(userparty[el].PartyId);
+    }
+    for(el in party){
+      if(party[el]==null){
+        party.splice(el, 1);
+      }
+    }
     res.send(party);
   }
-  catch(e){
-    console.log(e);
-  }
+catch(e){
+  console.log(e);
+}
 });
 
 //aggiungi un party
 router.post("/", async (req, res) => {
-  //questo deve avere un array di partecipanti, di id di mie ricette che sono già state aggiunte al db?
-  //di birre, vini e cocktails
   sourceId = req.session.userId;
   try {
     const ownerObj = await User.findOne({ where: { id: sourceId } });
     const apiRecipes=req.body.recipes.filter(el=>el.type==="api_recipe");
     const userRecipes=req.body.recipes.filter(el=>el.type==="user_recipe");
     console.log(apiRecipes,userRecipes);
-    
     const party = await Party.create({
       name: req.body.name,
       owner: sourceId,
@@ -95,8 +109,6 @@ router.post("/", async (req, res) => {
         comment: 0,
         state: true,
       };
-      console.log("notificating");
-      
       notificate(not);
     }
     // /broadcast(not);
@@ -117,20 +129,24 @@ router.get("/:id", async function (req, res) {
   const partyId = req.params.id;
   console.log(partyId);
   try {
-    const party = await Party.findOne({
-      where: { id: partyId },
+    //const comments = await Party.getComments(partyId); //Devo fare una chiamata al db che ritorna tutti i commenti relativi ad un party
+    let party = await Party.findOne({
+      //raw: true,
+      where: { 
+        id: partyId
+      },
       include: [
         {
           // Notice `include` takes an ARRAY
           model: User,
-          attributes: ["firstName", "id", "email"],
+          attributes: ["firstName","lastName", "id", "email"],
         },
         {
           model: Comment,
           attributes: ["id", "UserId", "text", "createdAt"],
           include: [{
             model: User,
-            attributes: ["firstName", "id", "email"],
+            attributes: ["firstName","lastName", "id", "email"],
         }],
         },
         {
@@ -139,10 +155,25 @@ router.get("/:id", async function (req, res) {
           attributes: { exclude: ['PartyRecipe'] }
         }
       ],
-      //
+      
     });
 
-    console.log(JSON.stringify(party));
+
+    let isOwner = false;
+    if(req.session.userId == party.owner){
+      isOwner=true;
+    } 
+
+    party["dataValues"]["isOwner"] = isOwner;
+    party=party.toJSON();
+    party["Comments"].forEach(x=>{
+      if(x.UserId == req.session.userId){
+        x.mycomm=true;
+      }
+      else{
+        x.mycomm=false;
+      }
+    })
 
     let response = party;
     res.send(response);
@@ -150,6 +181,45 @@ router.get("/:id", async function (req, res) {
     console.log(error);
   }
 });
+//modifica il party con id
+router.put("/:id", async (req, res) => {
+    const changes=req.body;
+    console.log("**********************************************************",req.body);
+    const party= await Party.findByPk(req.params.id);
+
+    party.name=changes.name;
+    party.startDate=changes.startTime;
+    party.finishDate=changes.finishTime;
+    party.apiRecipes=changes.apiRecipes;
+    party.wines=changes.wines;
+    party.beers=changes.beers;
+    party.cocktails=changes.cocktails;
+  
+    await PartyRecipe.destroy({where:{PartyId:party.id}});
+    for(el in changes.userRecipes){
+      party.addRecipes(Recipe.findByPk(el.id));
+    }
+
+    await party.save();
+
+
+});
+
+//elimina il party con id
+router.delete("/:id",async (req,res)=>{
+    await UserParty.destroy({
+      where:{
+        PartyId:req.params.id
+      }
+    });
+    await Party.destroy({
+      where:{
+        id:req.params.id
+      }
+    });
+    res.send('ok');
+});
+
 
 //aggiunge un commento
 router.post("/:id/comment", async function (req, res) {
@@ -160,12 +230,9 @@ router.post("/:id/comment", async function (req, res) {
     text: commentTxt,
     PartyId: partyId,
     UserId: sourceId,
-  };
-
-  console.log(newCommObj);
+  }
   try {
-    //COME SI AGGIUNGONO ELEMENTI ALLE JOIN TABLE???
-    const newComm = await Comment.create(newCommObj);
+    let newComm = await Comment.create(newCommObj);
     let not = {
       source: sourceId,
       party: partyId,
@@ -173,11 +240,18 @@ router.post("/:id/comment", async function (req, res) {
       comment: newComm.id,
       state: true,
     };
-    console.log(not);
     broadcast(not);
+    newComm=newComm.toJSON();
+    const user=await User.findOne({
+      where:{id:newComm.UserId},
+      attributes: ["firstName","lastName", "id", "email"]
+    });
+    newComm.User=user.toJSON();
+    res.send(newComm);
   } catch (error) {
     console.error(error);
   }
+
 });
 
 router.post("/response", async function (req, res) {
@@ -211,5 +285,7 @@ router.post("/response", async function (req, res) {
     console.error(error);
   }
 });
+
+
 
 module.exports = router;

@@ -1,15 +1,20 @@
-#bar {
+.bar {
     margin: 8px;
     height: 80px;
 }
 
-#lateralbutton{
+.lateralbutton{
     margin-top:0.5%;
-    margin-left:0.5%;
-    width: 10%;
-    height: 10%;
+    text-align: center;
+    vertical-align: center;
+    height: fit-content;
 }
-
+#modifybutton{
+    height: 100%;
+}
+.parties-component{ 
+    margin: 2%;
+}
 .line{
     display: flex;
 }
@@ -36,7 +41,7 @@
 /* ************************************ 
             single party                    
 *************************************** */
-#barsmall {
+.barsmall {
     margin: auto;
     margin-top: 2%;
     margin-bottom: 2%;
@@ -51,6 +56,14 @@
     margin-bottom: 2%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+.backsave{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-basis: 100%;
+    padding:2%;
+}
+
 
 .title{
     margin: auto;
@@ -61,47 +74,143 @@
     font-size: 60px;
 }
 
-.info{
+.info-bar{
     margin: auto;
-    width: 95%;
-    padding-right: 4%;
-    padding-left: 4%;
     font-weight: bold;
     display:flex;
-    padding-top: 3%;
-    padding-bottom: 2%;
+    width: 80%;
+    padding: 40px;
+    justify-content: space-between;
     box-shadow: 0 4px 8px 0 rgba(249, 177, 101, 0.2), 0 6px 20px 0 rgba(249, 177, 101, 0.2);
+    vertical-align: middle;
 }
 .el{
     display: flex;
-    padding-left: 4%;
-    width: 100%;
 }
-#about{  
-    padding-right: 5%;
+.about{  
+    margin-right: 10px; 
+    vertical-align: middle;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px; 
 }
 
-#value{
+.value{
     font-style: italic;
-    font-size: 120%;
-    padding-left: 3%;
-    padding-right: 2%;
+    height: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .part{
     width: 50%;
     margin: 2%;
 }
-#it{
-    width: 200px;
-    padding: 2%;
-}
+
 
 .middle{
+    box-sizing: border-box;
     margin-top: 2%;
     margin-bottom: 2%;
+    width: 60%;
 }
 .aboutcontent{
-    width: 70%;
+    width: 80%;
     margin:auto;
 }
+
+.elmod{
+    margin-bottom: 2%;
+    border-radius: 20px;
+    text-align: center;
+}
+.modtxt{
+    text-align: center;
+}
+.part-cont{
+    display: flex;
+}
+.down{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 40%;
+}
+.quantity{
+    color: red;
+    padding: auto;
+}
+.comments-container{
+    overflow: scroll;
+    overflow-x:hidden ;
+    height: 90%;
+}
+
+.comm-component{
+    border: solid;
+    border-color: rgba(249, 173, 92, 0.571);
+    width: 90%;
+    margin:auto;
+    height: 400px;
+}
+.addmess {
+    height: 10%;
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.addmess input{
+    margin-bottom: 5px;
+    height: 100%;
+    width: 90%;
+    text-align: center;
+    
+}
+.addmess button{
+    height: 100%;
+    margin-bottom: 5px;
+}
+
+.othercomm .messup{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.messdown{
+    height: 20%;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+.commtxt{
+    width: 80%;
+    overflow-wrap: break-word;
+    margin:auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.name{
+    font-size: 0.9em;
+    color: peru;
+}
+.date{
+    font-size: 0.6em;
+}
+.mycomm{
+    width: 50%;
+    border: solid;
+    border-color: moccasin;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.othercomm{
+    width: 50%;
+    border: solid;
+    border-color: peru;
+    border-radius: 20px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
