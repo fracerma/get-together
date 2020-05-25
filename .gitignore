@@ -4,7 +4,6 @@
 server.cert
 server.key
 
-
 # Logs
 logs
 *.log
@@ -47,4 +46,3 @@ Icon?
 server.cert
 server.key
 
-server/config/config.json
