@@ -26,7 +26,6 @@ router.get("/", async (req, res) => {
       }
     
     });
-    console.log(party);
     res.send(party);
   }
   catch(e){
@@ -37,25 +36,40 @@ router.get("/", async (req, res) => {
 //ritorna tutti i parties a cui l'utente è stato invitato
 router.get("/other", async (req, res) => {
   try{
-    const user= await User.findByPk(req.session.userId);
-    const party= await user.getParties({
+    const user= req.session.userId;
+    const userparty=await UserParty.findAll({
       raw: true,
-      where: {
-        owner: {[Op.ne]: req.session.userId}
+      where:{
+        UserId:user,
+        status:'accepted'
       }
     });
-    console.log(party);
+    let party=[];
+    for(el in userparty){
+      party.push(await Party.findOne({
+        raw: true,
+        where:{
+          id: userparty[el].PartyId,
+          owner: {[Op.ne]: req.session.userId}
+        }
+       })
+      );
+    console.log(userparty[el].PartyId);
+    }
+    for(el in party){
+      if(party[el]==null){
+        party.splice(el, 1);
+      }
+    }
     res.send(party);
   }
-  catch(e){
-    console.log(e);
-  }
+catch(e){
+  console.log(e);
+}
 });
 
 //aggiungi un party
 router.post("/", async (req, res) => {
-  //questo deve avere un array di partecipanti, di id di mie ricette che sono già state aggiunte al db?
-  //di birre, vini e cocktails
   sourceId = req.session.userId;
   try {
     const ownerObj = await User.findOne({ where: { id: sourceId } });
@@ -115,8 +129,8 @@ router.get("/:id", async function (req, res) {
   const partyId = req.params.id;
   console.log(partyId);
   try {
-    //const comments = []; //await Party.getComments(partyId); //Devo fare una chiamata al db che ritorna tutti i commenti relativi ad un party
-    const party = await Party.findOne({
+    //const comments = await Party.getComments(partyId); //Devo fare una chiamata al db che ritorna tutti i commenti relativi ad un party
+    let party = await Party.findOne({
       //raw: true,
       where: { 
         id: partyId
@@ -125,15 +139,14 @@ router.get("/:id", async function (req, res) {
         {
           // Notice `include` takes an ARRAY
           model: User,
-          attributes: ["firstName", "id", "email"],
+          attributes: ["firstName","lastName", "id", "email"],
         },
         {
           model: Comment,
-          //where: { PartyId: partyId },
           attributes: ["id", "UserId", "text", "createdAt"],
           include: [{
             model: User,
-            attributes: ["firstName", "id", "email"],
+            attributes: ["firstName","lastName", "id", "email"],
         }],
         },
         {
@@ -142,7 +155,7 @@ router.get("/:id", async function (req, res) {
           attributes: { exclude: ['PartyRecipe'] }
         }
       ],
-      //
+      
     });
 
 
@@ -152,7 +165,15 @@ router.get("/:id", async function (req, res) {
     } 
 
     party["dataValues"]["isOwner"] = isOwner;
-    console.log(party);
+    party=party.toJSON();
+    party["Comments"].forEach(x=>{
+      if(x.UserId == req.session.userId){
+        x.mycomm=true;
+      }
+      else{
+        x.mycomm=false;
+      }
+    })
 
     let response = party;
     res.send(response);
@@ -184,6 +205,21 @@ router.put("/:id", async (req, res) => {
 
 });
 
+//elimina il party con id
+router.delete("/:id",async (req,res)=>{
+    await UserParty.destroy({
+      where:{
+        PartyId:req.params.id
+      }
+    });
+    await Party.destroy({
+      where:{
+        id:req.params.id
+      }
+    });
+    res.send('ok');
+});
+
 
 //aggiunge un commento
 router.post("/:id/comment", async function (req, res) {
@@ -194,12 +230,9 @@ router.post("/:id/comment", async function (req, res) {
     text: commentTxt,
     PartyId: partyId,
     UserId: sourceId,
-  };
-
-  console.log(newCommObj);
+  }
   try {
-    //COME SI AGGIUNGONO ELEMENTI ALLE JOIN TABLE???
-    const newComm = await Comment.create(newCommObj);
+    let newComm = await Comment.create(newCommObj);
     let not = {
       source: sourceId,
       party: partyId,
@@ -207,11 +240,18 @@ router.post("/:id/comment", async function (req, res) {
       comment: newComm.id,
       state: true,
     };
-    console.log(not);
     broadcast(not);
+    newComm=newComm.toJSON();
+    const user=await User.findOne({
+      where:{id:newComm.UserId},
+      attributes: ["firstName","lastName", "id", "email"]
+    });
+    newComm.User=user.toJSON();
+    res.send(newComm);
   } catch (error) {
     console.error(error);
   }
+
 });
 
 router.post("/response", async function (req, res) {
@@ -246,7 +286,6 @@ router.post("/response", async function (req, res) {
   }
 });
 
-//Non serve
 
 
 module.exports = router;
