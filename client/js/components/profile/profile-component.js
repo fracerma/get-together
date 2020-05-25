@@ -17,7 +17,7 @@ export default {
           <input class="btn btn-primary leftB" type="button" value="Friends" @click="switchComponent('friendsComp')">
       
           <input class="btn btn-primary leftB"  type="button" value="Notifications" @click="switchComponent('notComp')">
-          <a href="https://localhost:4000/logout" type="button" class="btn-red logout">Log out</a>
+          <a href="/logout" type="button" class="btn-red logout">Log out</a>
 
       </div>
       
