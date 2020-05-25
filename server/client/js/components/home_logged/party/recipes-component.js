@@ -111,10 +111,6 @@ export default{
     methods: {
         openContent: function() {
             this.focused=!this.focused;
-            if(this.first){
-                this.first=false;
-                this.fetchRandom();
-            }
         },
         fetchRecipe: function(){
             this.focused=true;
@@ -176,5 +172,8 @@ export default{
     },
     components:{
         'recipe-component': recipeComponent
+    },
+    beforeMount() {
+        this.fetchRandom();
     }
 };

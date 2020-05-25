@@ -65,23 +65,20 @@ router.get("/login.html",redirectHome);
 router.post("/login", redirectHome, async (req,res)=>{
     const email = req.body.email,
             password = req.body.password;
+            console.log(email,password);
+            
     try{
         const user = await User.findOne({ where: { email: email } });         
         if (!user||!user.authenticate(password)) {
-            res.redirect('/login.html');
+            res.status(400).end();
         } else {
             req.session.userId = user.id;
             res.redirect('/');
         }
     }
     catch(e){
-        const errObj={
-            name: e.name,
-            detail: e.parent.detail,
-            code: e.parent.code
-        }
-        console.log(errObj);
-        res.status(400).send(errObj);
+        console.log(e);
+        res.status(400).end();
     };
 });
 
@@ -90,8 +87,18 @@ router.get("/register.html", redirectHome);
 
 router.post("/register",redirectHome,async (req,res)=>{
     try{
-      await User.create(req.body);
-      res.redirect("/login.html");
+      const user=await User.findOne({
+        where:{
+          email: req.body.email
+        }
+      });
+      if(!user){
+        await User.create(req.body);
+        res.redirect("/login.html");
+      }
+      else{
+        res.status(400).send("Email is used");
+      }
     }
     catch(e){
         const errObj={
@@ -101,9 +108,6 @@ router.post("/register",redirectHome,async (req,res)=>{
         res.status(400).send(errObj);
     }
 });
-
-
-
 
 router.get("/oauthfb", redirectHome, async (req, res) => {
   res.redirect(

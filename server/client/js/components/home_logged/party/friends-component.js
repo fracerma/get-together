@@ -49,7 +49,7 @@ export default{
         })
             .then(response => response.json())
             .then(data => {
-                    this.friends=data;
+                    this.friends=data.filter(x=>x.status=="accepted");
             }).catch(e=>{
                 console.log(e);
             });
