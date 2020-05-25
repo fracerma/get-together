@@ -11,39 +11,7 @@ const io = require("../index").io;
 
 router.get("/all", async function(req, res){
   const userId = req.session.userId;
-  try{/*
-    let nots = await User.findOne({
-      include:[{
-        model: Notification,
-        include:[{
-          model: Party,
-          attributes: ["name","id"],
-        }],
-        include:[{
-          model: User,
-          as: "sourceUser",
-          attributes: ["firstName","lastName", "id"],
-        }]
-      }],
-      where: {id: userId},
-      attributes: ["firstName", "lastName", "id"]
-    })
-
-    
-
-    if( !nots )
-      res.send(false);
-    else{
-      let i;
-      for (i = 0; i < nots.Notifications.length; i++) {
-          const partyObj = await Party.findByPk(nots.Notifications[i].party);
-          if (partyObj){
-            nots.Notifications[i].party = {name: partyObj.name,
-                                          id: partyObj.id};
-            console.log(nots.Notifications[i].party.name);
-          }
-      }
-    }*/
+  try{
     let nots = await Notification.findAll({
       raw: true, where: { destination: userId }, order: [
         ['createdAt', 'DESC']]});
