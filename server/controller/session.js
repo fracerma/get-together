@@ -65,23 +65,20 @@ router.get("/login.html",redirectHome);
 router.post("/login", redirectHome, async (req,res)=>{
     const email = req.body.email,
             password = req.body.password;
+            console.log(email,password);
+            
     try{
         const user = await User.findOne({ where: { email: email } });         
         if (!user||!user.authenticate(password)) {
-            res.redirect('/login.html');
+            res.status(400).end();
         } else {
             req.session.userId = user.id;
             res.redirect('/');
         }
     }
     catch(e){
-        const errObj={
-            name: e.name,
-            detail: e.parent.detail,
-            code: e.parent.code
-        }
-        console.log(errObj);
-        res.status(400).send(errObj);
+        console.log(e);
+        res.status(400).end();
     };
 });
 
@@ -90,8 +87,18 @@ router.get("/register.html", redirectHome);
 
 router.post("/register",redirectHome,async (req,res)=>{
     try{
-      await User.create(req.body);
-      res.redirect("/login.html");
+      const user=await User.findOne({
+        where:{
+          email: req.body.email
+        }
+      });
+      if(!user){
+        await User.create(req.body);
+        res.redirect("/login.html");
+      }
+      else{
+        res.status(400).send("Email is used");
+      }
     }
     catch(e){
         const errObj={
@@ -102,18 +109,15 @@ router.post("/register",redirectHome,async (req,res)=>{
     }
 });
 
-
-
-
 router.get("/oauthfb", redirectHome, async (req, res) => {
   res.redirect(
-    `https://www.facebook.com/v7.0/dialog/oauth?client_id=${process.env.FACEBOOK_CLIENT_ID}&redirect_uri=https://localhost:4000/loginfb&state={st=1234}&scope=email,user_friends`
+    `https://www.facebook.com/v7.0/dialog/oauth?client_id=${process.env.FACEBOOK_CLIENT_ID}&redirect_uri=${process.env.BASE_URL}/loginfb&state={st=1234}&scope=email,user_friends`
   );
 });
 
 router.get('/loginfb',redirectHome, async(req,res)=>{
     if(req.query.code){
-        const actok = (await axios.get(`https://graph.facebook.com/v7.0/oauth/access_token?client_id=${process.env.FACEBOOK_CLIENT_ID}&redirect_uri=https://localhost:4000/loginfb&client_secret=${process.env.FACEBOOK_CLIENT_SECRET}&code=${req.query.code}`)).data.access_token;
+        const actok = (await axios.get(`https://graph.facebook.com/v7.0/oauth/access_token?client_id=${process.env.FACEBOOK_CLIENT_ID}&redirect_uri=${process.env.BASE_URL}/loginfb&client_secret=${process.env.FACEBOOK_CLIENT_SECRET}&code=${req.query.code}`)).data.access_token;
         try{
             const apptoken= await axios.get(`https://graph.facebook.com/oauth/access_token?client_id=${process.env.FACEBOOK_CLIENT_ID}&client_secret=${process.env.FACEBOOK_CLIENT_SECRET}&grant_type=client_credentials`); 
             const response= (await axios.get(`https://graph.facebook.com/v7.0/debug_token?input_token=${actok}&access_token=${apptoken.data.access_token}`)).data;

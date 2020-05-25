@@ -16,8 +16,11 @@ const router = new VueRouter({
 				{path:"/profile",name:"Profile", component: profile},
 				{path:"/recipes",name:"recipesPage", component: recipesPage},
 				{path:"/recipes/:id",name:"recipeInfo", component: recipeInfo},
+
 				{path:"/parties",name:"Parties", component: parties},
 				{path:"/parties/:id",name:"PartyInfo", component: party},
+				
+
 				{path:"/wines/:id",name:"wineInfo", component: wineInfo},
 				{path:"/beers/:id",name:"beerInfo", component: beerInfo},
 				{path:"/cocktails/:id",name:"cocktailInfo", component: cocktailInfo},
@@ -31,9 +34,9 @@ var app = new Vue({
 	el: "#app",
 	data: {
 		bannerImage: "../image/Principal.jpg",
-		regexPat: /(recipesPage|recipeInfo|parties|party|wineInfo|beerInfo|cocktailInfo)/,
+		regexPat: /(homeComponent)/,
 		socket: io("https://localhost:4000"),
-		router: router
+		router: router,
 	},
 	components: {
 	"nav-bar": navBar,

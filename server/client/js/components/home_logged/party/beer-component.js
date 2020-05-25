@@ -13,8 +13,9 @@ export default{
                 <span>{{beer.abv}}</span>
             </div>
         </div>
+        <span v-if="beer.quantity">x {{beer.quantity}} </span>
         <a v-if="btn=='add'" class="btn bg-yellow" v-on:click="emitAdd">Add to your party</a>
-        <a v-if="btn=='remove'" class="btn bg-yellow" v-on:click="emitAdd">Delete beer</a>
+        <a v-if="btn=='remove'" class="btn bg-yellow" v-on:click="emitRemove">Delete beer</a>
     </div>
     `,
     data() {
@@ -27,7 +28,7 @@ export default{
             this.$emit("addItem",this.beer);
         },
         emitRemove: function(){
-            this.$emit("removeItem",this.beer);
+            this.$emit("removeBeer",this.beer);
         }
     },
 }

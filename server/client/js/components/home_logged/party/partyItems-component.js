@@ -42,13 +42,9 @@ export default{
         },
         addRecipe: function(value){
             const index=this.party.recipes.findIndex(x=>x.id===value.id);
-            
             if(index==-1){
                 value.quantity=1;
                 this.party.recipes.push(value);
-            }
-            else{
-                this.party.recipes[index].quantity++;
             }
         },
         addWine: function(value){
