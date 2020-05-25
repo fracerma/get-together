@@ -164,5 +164,5 @@ export default{
             if(msg!=null)
                 this.not++;
         })
-    },
+    }
 }
