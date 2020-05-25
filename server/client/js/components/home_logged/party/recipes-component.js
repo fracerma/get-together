@@ -137,11 +137,7 @@ export default{
                 method: "GET",
                 credentials: "include"
             }).then(response => response.json())
-            .then(data =>{
-                console.log(data);
-                
-                this.myRecipes=data;
-            });
+            .then(data =>this.myRecipes=data);
         },
         resetFilter: function(){
             this.recipes=null;

@@ -65,8 +65,6 @@ router.get("/login.html",redirectHome);
 router.post("/login", redirectHome, async (req,res)=>{
     const email = req.body.email,
             password = req.body.password;
-            console.log(email,password);
-            
     try{
         const user = await User.findOne({ where: { email: email } });         
         if (!user||!user.authenticate(password)) {
@@ -137,7 +135,6 @@ router.get('/loginfb',redirectHome, async(req,res)=>{
                     const image_url =(await axios.get(`https://graph.facebook.com/${response.data.user_id}/picture?redirect=0&height=400&width=400&type=large`)).data.data.url;
                     user = await User.findOne({where: {email: emailtrovata}});
                     if(user){
-                      console.log(image_url);
                         req.session.userId = user.id;
                         user.idfb= response.data.user_id;
                         user.image= image_url;
