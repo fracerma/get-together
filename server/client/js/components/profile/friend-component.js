@@ -43,8 +43,5 @@ export default{
                 this.buttonText="Invited &#10004";
             }
         }
-    },
-    beforeMount() {
-        if(this.image==null) this.image="https://loremflickr.com/320/240/food";
     }
 }

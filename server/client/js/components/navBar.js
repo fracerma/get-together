@@ -142,7 +142,7 @@ export default{
             not: 0
         }
     },
-    mounted() {
+    beforeMount() {
         this.$root.$data.socket.on("newInvitation", (msg)=>{
             if(msg!=null&&this.selected!='/profile')
                 this.not++;
