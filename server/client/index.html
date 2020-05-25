@@ -44,7 +44,9 @@
         <img :src="bannerImage" />
       </div>
       <keep-alive v-bind:include="regexPat">
-      <router-view></router-view>
+        <transition name="opaci">
+          <router-view></router-view>
+      </transition>
       </keep-alive>
     </div>
 

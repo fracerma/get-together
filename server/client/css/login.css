@@ -134,7 +134,12 @@ body{
     display: flex;
     flex-direction: column;
 }
-
+span{
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 10px;
+    color: red;
+}
 button { 
     width: 50%;
     height: 40px;
