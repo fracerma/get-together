@@ -19,7 +19,7 @@ export default {
       .then((data) => {
         this.profile = data;
         if( !this.profile.image ){
-            this.profile.image = image;
+          this.image=this.profile.image;
         }
       })
       .catch((error) => {
