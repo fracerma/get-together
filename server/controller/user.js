@@ -3,6 +3,7 @@ const router = express.Router();
 
 const db = require("../models/index");
 const User = require("../models/index").User;
+const Friendship = require("../models/index").Friendship;
 
 const redirectToLogin = require("./session").redirectLogin;
 const bodyParser = require("body-parser");
@@ -51,21 +52,6 @@ router.put("/update", async function(req, res){
   }
 })
 
-router.post("/friend", async (req, res) => {
-  const userId = req.session.userId;
-  try {
-    await db.Friendship.friendRequest(userId, req.body.friendId);
-  } catch (e) {
-    const errObj = {
-      name: e.name,
-      detail: e.parent.detail,
-      code: e.parent.code,
-    };
-    console.log(errObj);
-    res.status(400).send(errObj);
-  }
-});
-
 router.get("/friend", async (req, res) => {
   const userId = req.session.userId;
   try {
@@ -96,31 +82,75 @@ router.get("/friend", async (req, res) => {
   }
 });
 
-router.post("/accept", async (req, res) => {
+router.post("/search", async (req, res) => {
   const userId = req.session.userId;
+  const mail = req.body.query.split("@")[0];
+  const tot = req.body.query.split(" ");
+  let users = [];
   try {
-    await db.Friendship.acceptRequest(userId, req.body.friendId);
-  } catch (e) {
-    const errObj = {
-      name: e.name,
-      detail: e.parent.detail,
-      code: e.parent.code,
-    };
-    console.log(errObj);
-    res.status(400).send(errObj);
-  }
-});
-
-router.get("/search", (req, res) => {
-  try {
+    if( tot.length > 1 ){
+      const name = tot[0];
+      const last = tot[1];
     //TODO SQL INJECTION
-    let users = db.User.findAll({
+    users = await db.User.findAll({
+      raw: true,
       where: {
-        fistName: {
-          [Op.like]: `%${req.body.query}%`,
+        id: {
+          [Op.ne]: userId
         },
+        [Op.or]: [{
+          firstName: {
+            [Op.iLike]: `%${name}%`,
+          },
+        }, {
+            lastName: {
+              [Op.iLike]: `%${last}%`,
+            },
+          }, {
+            email: {
+              [Op.iLike]: `%${mail}%`,
+            },
+          } ],
+        
       },
+      attributes: ['firstName', 'lastName', 'id', 'image', 'email']
     });
+  }
+  else{
+    users = await db.User.findAll({
+        raw: true,
+        where: {
+          id: {
+            [Op.ne]: userId
+          },
+          [Op.or]: [{
+            firstName: {
+              [Op.iLike]: `%${req.body.query}%`,
+            },
+          }, {
+            lastName: {
+              [Op.iLike]: `%${req.body.query}%`,
+            },
+          }, {
+            email: {
+              [Op.iLike]: `%${mail}%`,
+            },
+          }],
+
+        },
+        attributes: ['firstName', 'lastName', 'id', 'image', 'email']
+      });
+  }
+    let i;
+    for( i = 0; i < users.length; i++){
+      const state = await Friendship.findOne({ where: {
+        UserId: userId, 
+        FriendId: users[i].id
+      }})
+      if( state )users[i].state = false;
+      else if (!state) users[i].state = true;
+    }
+    res.send(users);
     console.log(users);
   } catch (e) {
     const errObj = {

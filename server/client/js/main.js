@@ -32,7 +32,8 @@ var app = new Vue({
 	data: {
 		bannerImage: "../image/Principal.jpg",
 		regexPat: /(recipesPage|recipeInfo|parties|party|wineInfo|beerInfo|cocktailInfo)/,
-		socket: io("https://localhost:4000")
+		socket: io("https://localhost:4000"),
+		router: router
 	},
 	components: {
 	"nav-bar": navBar,

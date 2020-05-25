@@ -1,4 +1,5 @@
 import friendComp from "./friend-component.js"
+import { bus } from "../../../main.js";
 
 export default {
     props: ["user"],
@@ -10,7 +11,7 @@ export default {
     },
     created() {
         fetch('/user/friend', {
-            credentials: 'same-origin',
+            credentials: 'include',
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -29,8 +30,9 @@ export default {
    
     template: `
         <div class="content">
-        <input  v-model="newFriend" v-on:keyup.enter="addFriend">
-        <button v-on:click="addFriend">Add a friend</button> 
+        <div id="addFriendDiv">
+            <button id="addFriend" class="btn btn-primary" v-on:click="switchComponent('addFriendsComp')">Add a friend</button> 
+        </div>
         <div v-if="friends">
             <friendComp v-for="user in friends"
                 v-bind:user="user">
@@ -41,7 +43,7 @@ export default {
     methods: {
         addFriend: function(){
             fetch('/friends', {
-                credentials: 'same-origin',
+                credentials: 'include',
                 method: 'POST', // or 'PUT'
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,7 +63,10 @@ export default {
                 .catch((error) => {
                     console.error('Error:', error);
                 });
-        }
+        },
+        switchComponent: function (comp) {
+            bus.$emit("switchComp", comp);
+        },
     },
     components:{
         friendComp
