@@ -3,6 +3,8 @@ import recipeComponent from "../home_logged/party/recipe-component.js"
 import wineComponent from "../home_logged/party/wine-component.js"
 import beerComponent from "../home_logged/party/beer-component.js"
 import cocktailComponent from "../home_logged/party/cocktail-component.js"
+import comments from "./comments-component.js"
+
 export default{
     name: "party",
     template:`
@@ -29,7 +31,7 @@ export default{
         <div v-if="modify" class="title">
             <input class="elmod" v-model="edit.name" type="text"> </input>
         </div>
-        <div class="info">
+        <div class="info-bar">
             <div class="el" v-if="!modify">
                     <svg class="bi about bi-calendar" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" clip-rule="evenodd"/>
@@ -157,6 +159,9 @@ export default{
 
             <div class="down">
                 <div class="high-bar bar bg-main"> <span>Comments: </span></div>
+                <comments
+                    v-bind:comm="this.party.Comments">
+                </comments>
             </div>
         </div>
         </div>
@@ -197,7 +202,8 @@ export default{
         recipeComponent,
         wineComponent,
         beerComponent,
-        cocktailComponent
+        cocktailComponent,
+        comments
     },
 
     beforeCreate() {
@@ -209,8 +215,10 @@ export default{
             this.party=data;
             this.date= new Date(this.party.startDate);
             this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
-            this.startTime= this.date.getHours()+":"+this.date.getMinutes();
-            this.finishTime= (new Date(this.party.finishDate)).getHours()+":"+(new Date(this.party.finishDate)).getMinutes();
+            this.startTime= this.date.getHours()+":";
+            this.startTime+=(this.date.getMinutes() <'10')?'0'+this.date.getMinutes():this.date.getMinutes();
+            this.finishTime= (new Date(this.party.finishDate)).getHours()+":";
+            this.finishTime+=((new Date(this.party.finishDate)).getMinutes() <'10')?'0'+(new Date(this.party.finishDate)).getMinutes():(new Date(this.party.finishDate)).getMinutes();
         });
     },
 
