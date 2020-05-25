@@ -18,7 +18,7 @@ router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 router.get("/", async (req, res) => {
   const userId = req.session.userId;
   try {
-    let friends = await db.Friendship.findAll({
+    let friends = await Friendship.findAll({
       where: {
         UserId: userId,
       },
