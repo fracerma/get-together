@@ -43,5 +43,10 @@ export default{
                 this.buttonText="Invited &#10004";
             }
         }
-    }
+    },
+    beforeMount() {
+        if(this.image==null){
+            this.image="../../../../image/no-profile-picture.jpg"
+        }
+    },
 }
