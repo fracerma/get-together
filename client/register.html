@@ -15,6 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
   <body>
+
     <div id="fp">
       <nav-bar></nav-bar>
       <form @submit="register">
@@ -28,9 +29,10 @@
               class="form"
               id="firstnameform"
               placeholder="enter your name"
-              required
-            />
+              @change="checkInput()"
+              required/>
           </div>
+          <div class="errors" v-if="errorFirstName"><span>{{errorFirstName}}</span></div>
 
           <div class="line">
             <label for="lastName" class="txt">Last Name:</label>
@@ -54,10 +56,12 @@
               class="form"
               id="lastnameform"
               placeholder="enter your last name"
+              @change="checkInput()"
               required
             />
           </div>
-
+          <div class="errors" v-if="errorLastName"><span>{{errorLastName}}</span></div>
+          
           <div class="line">
             <label for="email" class="txt">Email:</label>
             <svg
@@ -114,16 +118,20 @@
               class="form"
               id="pswform"
               placeholder="enter your password"
+              @input="checkInput()"
               required
             />
+            
           </div>
-          <div style="text-align: center;">
-            <span>{{error}}</span>
+          <div class="errors"><span v-if="errorPassword">{{errorPassword}}</span></div>
+          <div v-if="error" class="errors">
+            <span >{{error}}</span>
           </div>
           <button type="submit">Register</button>
         </div>
       </form>
     </div>
+
     <script
       type="module"
       src="js/components/frontpage/mainfp.js"

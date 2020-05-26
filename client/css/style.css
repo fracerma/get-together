@@ -512,7 +512,7 @@ ITEM COMPONENT
 RESPONSIVE STUFF
 *************/
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1000px) {
     nav{
         font-size: 1.6em;
     }
