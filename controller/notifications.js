@@ -9,6 +9,15 @@ const Party = require("../models/index").Party;
 const Comment = require("../models/index").Comment;
 const io = require("../index").io;
 
+router.delete("/delete/all", async function(req, res){
+  const userId = req.session.userId;
+  try{
+    await Notification.destroy({ where: { destination: userId } });
+  }catch(e){
+    console.error(e);
+  }
+});
+
 router.get("/all", async function(req, res){
   const userId = req.session.userId;
      try {

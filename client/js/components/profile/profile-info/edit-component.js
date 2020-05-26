@@ -17,7 +17,7 @@ export default {
             <input class="input" style="font-size:13px;" type="text" id="flast" placeholder="Lastname" value="" v-model="lastName"/><br/>
             <label for="femail">E-mail:</label><br/>
             <input class="input" style="font-size:13px; " type="email" id="femail" placeholder="E-mail" value="" v-model="email"/><br/>
-            <button class="btn btn-primary send" @click="submit" v-bind:disabled="name.length < 2 || lastName.length < 2 || email.length < 2">Submit</button>
+            <button class="btn btn-default leftB" @click="submit" v-bind:disabled="name.length < 2 || lastName.length < 2 || email.length < 2">Submit</button>
     </div>
     `,
   created() {

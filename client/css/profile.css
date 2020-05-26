@@ -10,6 +10,10 @@
   float: right;
 }
 
+input{
+  border-color: black;
+}
+
 .btn.btn-primary{
   width: 100%;
   font-size: 13px;
@@ -21,6 +25,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
+  padding: 10px;
 }
 
 /** TOP BAR **/
@@ -35,53 +40,75 @@
 .high-top {
   animation: slideInDown;
   animation-duration: 1s;
-  width: 99%;
+  width: 100%;
   text-align: center;
   height: 50px;
   display: inline-block;
   background-color: orange;
   position: relative;
-  margin: 10px;
+  margin: auto;
   cursor: auto;
 }
 
 
 
 /* SIDE MENU */
-
-
 .high-left {
   cursor: none;
   animation: slideInLeft;
   animation-duration: 1s;
-    width: 20%;
-    position: relative;
-    height: 100%;
-    float: left;
-    background-color: white;
-    border-collapse: collapse;
-    border-color: black;
-    border: 2px solid black;
-    display: block;
-    text-align: center;
-    margin: 10px;
+  width: 20%;
+  position: relative;
+  height: 100%;
+  float: left;
+  background-color: white;
+  border-collapse: collapse;
+  border-color: black;
+  border: 2px solid black;
+  display: block;
+  text-align: center;
+  vertical-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
 }
 
 
 .leftB{
   position: relative;
-  font-size: 18px;
-  right: 20px;
-  margin: 20px;
+  font-size: 13px;
+  text-align: center;
+  width: 15vw;
+  margin: 15px;
+  background-color: #21535b;
+  border-color: #21535b;
+  vertical-align: center;
+}
+
+.leftB:hover{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
+}
+.leftB:active{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
+}
+
+.leftB:focus{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
 }
 
 .logout{
-  font-size: 11px;
+   font-size: 13px;
   color: white;
-  width: 40%;
+  width: 10vw;
   margin: 20px;
   position: relative;
-  background-color: red;
+  background-color: #a42e2ef1;
   text-align: center;
   padding: 5px;
   border-radius: 5px;
@@ -90,6 +117,7 @@
 .logout:hover{
   outline: none;
   text-decoration: none;
+  background-color: darkred;
 }
 
 .middle-container {
@@ -104,31 +132,57 @@
 
 .leftInfo{
   display: block;
+  margin: 1.5vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.profilePicDiv{
+  position: relative;
+  float: left;
+  width: 40%;
+  height: auto;
+  margin: 1.5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #profilePic {
   position: relative;
   float: left;
-  width: 40%;
-  height:auto;
-  margin: 50px;
+  width: 100%;
+  height: auto;
+  margin: auto;
 }
 
 .data{
-  padding:50px;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5vw;
 }
 
 .info{
   margin: 10px;
   position: relative;
+  font-weight: bold;
+  font-size: 13px;
+  width: 70vw;
+  display: flex;
+  box-shadow: 0 4px 8px 0 rgba(249, 177, 101, 0.2), 0 6px 20px 0 rgba(249, 177, 101, 0.2);
 }
 
 /** EDIT PROFILE **/
 
+#fname{
+  width:100%;
+}
+
 .editB{
-  font-size: 11px;
+  font-size: 13px;
   color: white;
-  width: 10%;
+  width: 5vw;
   margin: 20px;
   position: relative;
   text-align: center;
@@ -138,7 +192,6 @@
 
 
 .edit{
-    
     height: 100%;
     background-color: white;
     border-collapse: collapse;
@@ -165,11 +218,15 @@
 
 .content{
   margin: 10px;
+  display: flex;
+  
 }
 
 .friends{
   width: 10%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bottomB{
@@ -179,17 +236,49 @@
 }
 
 .btn-view{
-  font-size: 13px;
-  width: 50px;
   position: relative;
+  text-align: center;
+  background-color: #21535b;
+  border-color: #21535b;
+  vertical-align: center;
+  font-size: 13px;
+  width: 100%;
+  height: auto;
+
+}
+
+.btn-view:hover{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
+}
+
+.btn-view:active{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
+}
+
+.btn-view:focus{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
 }
 
 .btn-remove{
   font-size: 10px;
+  margin: auto;
 }
 
 #finfo{
   font-weight: bold;
+   font-size: 13px;
+}
+
+.finfo{
+  width: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 /** ADD FRIENDS **/
@@ -280,7 +369,7 @@
 } 
 
 .btn-red{
-  background: red;
+  background:#a42e2ef1;
 }
 
 .btn-red:hover {
@@ -328,4 +417,183 @@
 .btn-delete:active{
   outline: none;
   background: lightgrey;
+}
+
+@media only screen and (max-width: 670px){
+
+  p{
+    font-size:calc(8px + 0.6vw);
+    text-align: center;
+  }
+
+  input{
+  border-color: black;
+  height: 8vw;
+}
+
+  .container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  text-align: center;
+  vertical-align: center;
+}
+
+.middleComp{
+  width: auto;
+  height: 100%;
+  position: relative;
+
+}
+
+  .middle-container {
+    position: relative;
+    width:auto;
+    height: 100%;
+    margin: 10px;
+    text-align: center;
+    vertical-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+  .high-left {
+  cursor: none;
+  animation: slideInLeft;
+  animation-duration: 1s;
+  width: 100%;
+  position: relative;
+  height: 98%;
+  background-color: white;
+  border-collapse: collapse;
+  border-color: black;
+  border: 2px solid black;
+  text-align: center;
+  vertical-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4vw;
+}
+
+
+.leftB{
+  position: relative;
+  font-size:calc(8px + 0.6vw);
+  text-align: center;
+  width: auto;
+  margin: 5px;
+  background-color: #21535b;
+  border-color: #21535b;
+  vertical-align: center;
+}
+
+.leftB:hover{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
+}
+.leftB:active{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
+}
+
+.leftB:focus{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
+}
+
+.logout{
+  font-size:calc(8px + 0.6vw);
+  color: white;
+  width: 10vw;
+  margin: 8px;
+  position: relative;
+  background-color: #a42e2ef1;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.logout:hover{
+  outline: none;
+  text-decoration: none;
+  background-color: darkred;
+}
+
+.info{
+  margin: 10px;
+  position: relative;
+  font-weight: bold;
+  font-size: 13px;
+  width: auto;
+  display: flex;
+  box-shadow: 0 4px 8px 0 rgba(249, 177, 101, 0.2), 0 6px 20px 0 rgba(249, 177, 101, 0.2);
+}
+
+.leftInfo{
+  display: block;
+  width: 20vw;
+  margin: 1.5vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.finfo{
+  width: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.notPanel{
+  display: flex;
+  width: 100%;
+
+}
+
+.bg-white{
+  width: auto;
+  position: relative;
+  border-color: black;
+  border: 2px solid black;
+  text-align: center;
+  top: 4px;
+  bottom: 4px;
+  position: relative;
+  float: left;
+  background-color: white;
+  margin: 10px;
+}
+
+.bg-lightblue{
+  width: 70%;
+  position: relative;
+  border-color: black;
+  border: 2px solid black;
+  text-align: center;
+  top: 4px;
+  bottom: 4px;
+  position: relative;
+  float: left;
+  margin: 10px;
+  background-color:lightblue;
+  animation: bounce;
+  animation-duration: 2s;
+}
+
+.btn-delete{
+  position: relative;
+  float: right;
+  margin: 4vw;
+  top: 10px;
+  background: lightgrey;
+}
+
+#addFriend{
+  width: auto;
+
+}
+
 }
