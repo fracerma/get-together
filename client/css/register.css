@@ -1,40 +1,4 @@
 /************
-    NAVBAR
-*************/
-nav{
-    font-size: 2em;
-}
-#navbarNav{
-    display: flex;
-}
-#navbar-brand{
-    margin:auto;
-}
-#logo-nav{
-    width: 200px;
-}
-#login{
-    margin-right: 1%;
-    display: table;
-}
-#register{
-    margin-left: 1%;
-    display: table;
-}
-#link{
-    display: table-cell;
-    vertical-align: middle;
-    text-decoration: none;
-    color:rgb(242, 106, 48);
-}
-#login a:hover{
-    text-decoration: none;
-}
-#register a:hover{
-    text-decoration: none;
-}
-
-/************
     SFONDO
 ************/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
@@ -124,3 +88,40 @@ button {
   .errors{
     text-align: center;
   }
+
+  @media only screen and (max-width: 1025px) {
+    #pan{
+        background-color: white;
+        border-radius: 25px;
+        width: 60%;
+        padding: 10px;
+        margin: auto;
+        margin-top: 20px;
+    }
+    .line{
+        display: flex;
+        background-color: white;
+        margin: auto;
+        margin-top: 10%;
+        width: 90%;
+    }
+  }
+
+  @media only screen and (max-width: 670px) {
+    #pan{
+        background-color: white;
+        border-radius: 25px;
+        width: 90%;
+        padding: 10px;
+        margin: auto;
+        margin-top: 20px;
+    }
+    .line{
+        display: flex;
+        background-color: white;
+        margin: auto;
+        margin-top: 10%;
+        width: 95%;
+    }
+  }
+
