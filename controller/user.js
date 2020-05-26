@@ -53,83 +53,51 @@ router.put("/update", async function(req, res){
 })
 
 
-router.get("/search", async (req, res) => {
+router.get("/search", async function(req, res){
   const userId = req.session.userId;
   const query = req.query.query;
-  console.log(query);
+  
   const mail = req.query.query.split("@")[0];
   const tot = req.query.query.split(" ");
-  let users;
   try {
-    if( tot.length > 1 ){
       const first = tot[0];
       const second = tot[1];
-    //TODO SQL INJECTION
-    const usersA = await db.User.findAll({
+    const users = await db.User.findAll({
       raw: true,
       where: {
         id: {
-          [Op.ne]: userId
+          [Op.ne]: userId,
         },
-        [Op.or]: [{
-          firstName: {
-            [Op.iLike]: `%${first}%`,
+        [Op.or]: [
+          {
+            firstName: {
+              [Op.iLike]: `%${first}%`,
+            },
           },
-          lastName: {
-            [Op.iLike]: `%${second}%`,
-          }
-        }],
-        
-      },
-      attributes: ['firstName', 'lastName', 'id', 'image', 'email']
-    });
-      users.concat(usersA);
-      const usersB = await db.User.findAll({
-        raw: true,
-        where: {
-          id: {
-            [Op.ne]: userId
+          {
+            lastName: {
+              [Op.iLike]: `%${second}%`,
+            },
           },
-          [Op.or]: [{
+          {
             firstName: {
               [Op.iLike]: `%${second}%`,
             },
+          },
+          {
             lastName: {
               [Op.iLike]: `%${first}%`,
-            }
-          }],
-
-        },
-        attributes: ['firstName', 'lastName', 'id', 'image', 'email']
-      });
-      users.concat(usersB);
-  }
-  else{
-    const usersC = await db.User.findAll({
-        raw: true,
-        where: {
-          id: {
-            [Op.ne]: userId
+            },
           },
-          [Op.or]: [{
-            firstName: {
-              [Op.iLike]: `%${query}%`,
-            },
-          }, {
-            lastName: {
-              [Op.iLike]: `%${query}%`,
-            },
-          }, {
+          {
             email: {
               [Op.iLike]: `%${mail}%`,
             },
-          }],
-
-        },
-        attributes: ['firstName', 'lastName', 'id', 'image', 'email']
-      });
-      users.concat(usersC);
-  }
+          },
+        ],
+      },
+      attributes: ["firstName", "lastName", "id", "image", "email"],
+    });
     let i;
     for( i = 0; i < users.length; i++){
       const state = await Friendship.findOne({ where: {
@@ -140,15 +108,9 @@ router.get("/search", async (req, res) => {
       else if (!state) users[i].state = true;
     }
     res.send(users);
-    console.log(users);
-  } catch (e) {
-    const errObj = {
-      name: e.name,
-      detail: e.parent.detail,
-      code: e.parent.code,
-    };
-    console.log(errObj);
-    res.status(400).send(errObj);
+ } catch (e) {
+    console.log(e);
+    
   }
 });
 

@@ -45,6 +45,8 @@ export default{
         }
     },
     beforeMount() {
-        if(this.image==null) this.image="https://loremflickr.com/320/240/food";
-    }
+        if(this.image==null){
+            this.image="../../../../image/no-profile-picture.jpg"
+        }
+    },
 }

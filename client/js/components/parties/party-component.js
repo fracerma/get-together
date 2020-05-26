@@ -4,12 +4,16 @@ import wineComponent from "../home_logged/party/wine-component.js"
 import beerComponent from "../home_logged/party/beer-component.js"
 import cocktailComponent from "../home_logged/party/cocktail-component.js"
 import comments from "./comments-component.js"
+import pageNotFound from "../pageNotFound.js"
 
 export default{
     name: "party",
     template:`
     <div>
-        <div class="all" v-if="party">
+        <div v-if="deleted">
+            <pageNotFound></pageNotFound>
+        </div>
+        <div class="all" v-if="party&&!deleted">
     
         <div class="backsave">
             <router-link to="/parties" class="btn lateralbutton bg-orange" style="color: white;">&#10094 Back </router-link>
@@ -89,7 +93,7 @@ export default{
                 <div class="high-bar bar bg-main" > <span v-on:click="openContent('par')">Partecipants: </span></div>
                 
                 <div class="part" >
-                    <friendComponent  class="it" v-for="user in party.Users" v-if="par && (party.owner != user.id)"
+                    <friendComponent v-for="user in party.Users" v-if="par && (party.owner != user.id && user.UserParty.status=='accepted')"
                         v-bind:key="user.id"
                         v-bind:user="user"
                         v-bind:invited="true"
@@ -102,7 +106,7 @@ export default{
 
                     <div class="ptrecipes">   
                         <div  class="high-bar barsmall bg-blue"> <span v-on:click="openContent('rec')"> Recipes: </span></div>
-                        <recipeComponent  class="it" v-for="(recipe,i) in party.apiRecipes" v-if="rec && (party.apiRecipes!=null)"
+                        <recipeComponent v-for="(recipe,i) in party.apiRecipes" v-if="rec && (party.apiRecipes!=null)"
                             v-bind:recipe="recipe"
                             v-bind:key="recipe.id"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
@@ -111,7 +115,7 @@ export default{
                         >
                         </recipeComponent>
 
-                        <recipeComponent  class="it" v-for="(recipe,i) in party.userRecipes" v-if="rec && (party.userRecipes!=null)"
+                        <recipeComponent v-for="(recipe,i) in party.userRecipes" v-if="rec && (party.userRecipes!=null)"
                             v-bind:recipe="recipe"
                             v-bind:key="recipe.id"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
@@ -123,7 +127,7 @@ export default{
 
                     <div class="ptwines">   
                         <div class="high-bar barsmall bg-red" > <span v-on:click="openContent('win')"> Wines: </span></div>
-                        <wineComponent class="it" v-for="(wine, i) in party.wines" v-if="win && (party.wines!=null)"
+                        <wineComponent  v-for="(wine, i) in party.wines" v-if="win && (party.wines!=null)"
                             v-bind:wine="wine"
                             v-bind:key="wine.id"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
@@ -134,7 +138,7 @@ export default{
 
                     <div class="ptbeers"> 
                         <div   class="high-bar barsmall bg-yellow" > <span v-on:click="openContent('be')"> Beers: </span></div>  
-                        <beerComponent class="it" v-for="(beer, i) in party.beers" v-if="be && (party.beers!=null)"
+                        <beerComponent v-for="(beer, i) in party.beers" v-if="be && (party.beers!=null)"
                             v-bind:beer="beer"
                             v-bind:key="index"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
@@ -145,7 +149,7 @@ export default{
 
                     <div class="ptcocktail"> 
                         <div class="high-bar barsmall bg-green" > <span v-on:click="openContent('co')"> Cocktail: </span></div> 
-                        <cocktailComponent class="it" v-for="(cocktail, i) in party.cocktails" v-if="co && (party.cocktails!=null)"
+                        <cocktailComponent v-for="(cocktail, i) in party.cocktails" v-if="co && (party.cocktails!=null)"
                             v-bind:cocktail="cocktail"
                             v-bind:key="cocktail.cocktailID"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
@@ -175,6 +179,7 @@ export default{
             startTime: null,
             finishTime: null,
             modify:false,
+            deleted: false,
 
             par: false,
             rec:false,
@@ -203,22 +208,30 @@ export default{
         wineComponent,
         beerComponent,
         cocktailComponent,
-        comments
+        comments,
+        pageNotFound
     },
 
-    beforeCreate() {
+    created() {
         fetch('/parties/'+this.$route.params.id,{
             method: "GET",
             credentials: "include"
-        }).then(response => response.json())
+        }).then(response =>{ 
+            console.log(response);
+            if(response.status==404){
+                this.deleted=true;
+            }
+            else return response.json()
+        })
         .then(data => {
-            this.party=data;
-            this.date= new Date(this.party.startDate);
-            this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
-            this.startTime= this.date.getHours()+":";
-            this.startTime+=(this.date.getMinutes() <'10')?'0'+this.date.getMinutes():this.date.getMinutes();
-            this.finishTime= (new Date(this.party.finishDate)).getHours()+":";
-            this.finishTime+=((new Date(this.party.finishDate)).getMinutes() <'10')?'0'+(new Date(this.party.finishDate)).getMinutes():(new Date(this.party.finishDate)).getMinutes();
+                this.party=data;
+                this.date= new Date(this.party.startDate);
+                this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
+                this.startTime= this.date.getHours()+":";
+                this.startTime+=(this.date.getMinutes() <'10')?'0'+this.date.getMinutes():this.date.getMinutes();
+                this.finishTime= (new Date(this.party.finishDate)).getHours()+":";
+                this.finishTime+=((new Date(this.party.finishDate)).getMinutes() <'10')?'0'+(new Date(this.party.finishDate)).getMinutes():(new Date(this.party.finishDate)).getMinutes();
+            
         });
     },
 
@@ -234,6 +247,7 @@ export default{
             this.edit.startTime=this.startTime;
             this.edit.datefinish=new Date(this.party.finishDate);
             this.edit.finishTime=this.finishTime;
+
 
             this.edit.apiRecipes=this.party.apiRecipes;
             this.edit.userRecipes=this.party.userRecipes;
@@ -265,8 +279,11 @@ export default{
             this.party.name=this.edit.name;
             this.date=this.edit.datestart;
             this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
-            this.startTime= this.date.getHours()+":"+this.date.getMinutes();
-            this.finishTime= (new Date(this.edit.datefinish)).getHours()+":"+(new Date(this.edit.datefinish)).getMinutes();
+            this.startTime= this.date.getHours()+":";
+            this.startTime+=(this.date.getMinutes() <'10')?'0'+this.date.getMinutes():this.date.getMinutes();
+            this.finishTime= (new Date(this.edit.datefinish)).getHours()+":";
+            this.finishTime+=((new Date(this.party.finishDate)).getMinutes() <'10')?'0'+(new Date(this.party.finishDate)).getMinutes():(new Date(this.party.finishDate)).getMinutes();
+
 
             fetch('/parties/'+this.$route.params.id,{
                 method: "PUT",

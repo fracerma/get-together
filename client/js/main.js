@@ -1,4 +1,5 @@
 import navBar from "./components/navBar.js"
+import PageNotFound from "./components/pageNotFound.js"
 import profile from "./components/profile/profile-component.js"
 import recipesPage from "./components/recipes/recipesPage-component.js"
 import recipeInfo from "./components/recipes/recipeInfo-component.js"
@@ -24,9 +25,12 @@ const router = new VueRouter({
 				{path:"/wines/:id",name:"wineInfo", component: wineInfo},
 				{path:"/beers/:id",name:"beerInfo", component: beerInfo},
 				{path:"/cocktails/:id",name:"cocktailInfo", component: cocktailInfo},
+				{ path: "*", component: PageNotFound }
 		]
 	});
 
+const getUrl = window.location;
+const baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
 export const bus = new Vue();
 Vue.use(DatePicker);
@@ -35,7 +39,7 @@ var app = new Vue({
 	data: {
 		bannerImage: "../image/Principal.jpg",
 		regexPat: /(homeComponent)/,
-		socket: io("https://localhost:4000"),
+		socket: io(baseUrl),
 		router: router,
 	},
 	components: {
