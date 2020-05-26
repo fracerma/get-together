@@ -12,12 +12,12 @@ export default {
           <h2 id="title">{{ section }}</h2>
         </div>
       <div class="high-bar high-left">
-          <input   class="btn btn-primary leftB" type="button" value="Profile info" @click="switchComponent('infoComp')">
+          <button  class="btn btn-default leftB"  @click="switchComponent('infoComp')">Profile info</button>
        
-          <input class="btn btn-primary leftB" type="button" value="Friends" @click="switchComponent('friendsComp')">
+          <button class="btn btn-default leftB"  @click="switchComponent('friendsComp')">Friends</button>
       
-          <input class="btn btn-primary leftB"  type="button" value="Notifications" @click="switchComponent('notComp')">
-          <a href="/logout" type="button" class="btn-red logout">Log out</a>
+          <button class="btn btn-default leftB"  @click="switchComponent('notComp')">Notifications</button>
+          <a href="/logout" type="button" class="btn-default logout leftB">Log out</a>
 
       </div>
       

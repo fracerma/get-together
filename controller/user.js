@@ -55,15 +55,17 @@ router.put("/update", async function(req, res){
 
 router.get("/search", async (req, res) => {
   const userId = req.session.userId;
+  const query = req.query.query;
+  console.log(query);
   const mail = req.query.query.split("@")[0];
   const tot = req.query.query.split(" ");
   let users;
   try {
     if( tot.length > 1 ){
-      const name = tot[0];
-      const last = tot[1];
+      const first = tot[0];
+      const second = tot[1];
     //TODO SQL INJECTION
-    users = await db.User.findAll({
+    const usersA = await db.User.findAll({
       raw: true,
       where: {
         id: {
@@ -71,24 +73,18 @@ router.get("/search", async (req, res) => {
         },
         [Op.or]: [{
           firstName: {
-            [Op.iLike]: `%${name}%`,
+            [Op.iLike]: `%${first}%`,
           },
-        }, {
-            lastName: {
-              [Op.iLike]: `%${last}%`,
-            },
-          }, {
-            email: {
-              [Op.iLike]: `%${mail}%`,
-            },
-          } ],
+          lastName: {
+            [Op.iLike]: `%${second}%`,
+          }
+        }],
         
       },
       attributes: ['firstName', 'lastName', 'id', 'image', 'email']
     });
-  }
-  else{
-    users = await db.User.findAll({
+      users.concat(usersA);
+      const usersB = await db.User.findAll({
         raw: true,
         where: {
           id: {
@@ -96,11 +92,32 @@ router.get("/search", async (req, res) => {
           },
           [Op.or]: [{
             firstName: {
-              [Op.iLike]: `%${req.body.query}%`,
+              [Op.iLike]: `%${second}%`,
+            },
+            lastName: {
+              [Op.iLike]: `%${first}%`,
+            }
+          }],
+
+        },
+        attributes: ['firstName', 'lastName', 'id', 'image', 'email']
+      });
+      users.concat(usersB);
+  }
+  else{
+    const usersC = await db.User.findAll({
+        raw: true,
+        where: {
+          id: {
+            [Op.ne]: userId
+          },
+          [Op.or]: [{
+            firstName: {
+              [Op.iLike]: `%${query}%`,
             },
           }, {
             lastName: {
-              [Op.iLike]: `%${req.body.query}%`,
+              [Op.iLike]: `%${query}%`,
             },
           }, {
             email: {
@@ -111,6 +128,7 @@ router.get("/search", async (req, res) => {
         },
         attributes: ['firstName', 'lastName', 'id', 'image', 'email']
       });
+      users.concat(usersC);
   }
     let i;
     for( i = 0; i < users.length; i++){

@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
       where: {
         UserId: userId,
       },
-      include: db.User,
+      include: User,
     });
     res.send(
       friends.filter(el => el.status != "rejected").map((el) => {
