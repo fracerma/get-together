@@ -8,10 +8,8 @@ require("dotenv").config();
 
 ////////////////////////////////////////
 const PORT=process.env.PORT || 4000;
-const server = https
-  .createServer(
-    app
-  )
+const server = http
+  .createServer(app)
   .listen(PORT, function () {
     console.log("Go to https://localhost:"+PORT);
   });
