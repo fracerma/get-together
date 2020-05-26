@@ -157,26 +157,30 @@ router.get("/:id", async function (req, res) {
       ],
       
     });
+    if(!party){
+      console.log("Not found");
+      res.status(404).end();
+    }
+    else{
+      let isOwner = false;
+      if(req.session.userId == party.owner){
+        isOwner=true;
+      } 
 
+      party["dataValues"]["isOwner"] = isOwner;
+      party=party.toJSON();
+      party["Comments"].forEach(x=>{
+        if(x.UserId == req.session.userId){
+          x.mycomm=true;
+        }
+        else{
+          x.mycomm=false;
+        }
+      })
 
-    let isOwner = false;
-    if(req.session.userId == party.owner){
-      isOwner=true;
-    } 
-
-    party["dataValues"]["isOwner"] = isOwner;
-    party=party.toJSON();
-    party["Comments"].forEach(x=>{
-      if(x.UserId == req.session.userId){
-        x.mycomm=true;
-      }
-      else{
-        x.mycomm=false;
-      }
-    })
-
-    let response = party;
-    res.send(response);
+      let response = party;
+      res.send(response);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -184,7 +188,6 @@ router.get("/:id", async function (req, res) {
 //modifica il party con id
 router.put("/:id", async (req, res) => {
     const changes=req.body;
-    console.log("**********************************************************",req.body);
     const party= await Party.findByPk(req.params.id);
 
     party.name=changes.name;
@@ -207,11 +210,6 @@ router.put("/:id", async (req, res) => {
 
 //elimina il party con id
 router.delete("/:id",async (req,res)=>{
-    await UserParty.destroy({
-      where:{
-        PartyId:req.params.id
-      }
-    });
     await Party.destroy({
       where:{
         id:req.params.id
