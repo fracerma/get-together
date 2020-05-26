@@ -1,7 +1,7 @@
 //Requiring all needed modules
 const express = require("express");
 const bodyParser = require("body-parser");
-const https = require("https");
+const http = require("http");
 const fs = require("fs");
 const app = express();
 require("dotenv").config();
@@ -10,10 +10,6 @@ require("dotenv").config();
 const PORT=process.env.PORT || 4000;
 const server = https
   .createServer(
-    {
-      key: fs.readFileSync("server.key"),
-      cert: fs.readFileSync("server.cert"),
-    },
     app
   )
   .listen(PORT, function () {
