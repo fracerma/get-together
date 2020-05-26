@@ -133,10 +133,6 @@
     width: 40%;
     
 }
-.quantity{
-    color: red;
-    padding: auto;
-}
 .comments-container{
     overflow: scroll;
     overflow-x:hidden ;
@@ -176,6 +172,7 @@
 .othercomm .messup{
     display: flex;
     justify-content: space-evenly;
+    margin-left:6px;
 }
 
 .messdown{
@@ -187,11 +184,11 @@
     width: 80%;
     overflow-wrap: break-word;
     margin:auto;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 .name{
-    font-size: 0.9em;
+    font-size: 0.8em;
     color: peru;
 }
 .date{

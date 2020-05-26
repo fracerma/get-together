@@ -17,6 +17,7 @@ module.exports = {
           model: "Parties",
           key: "id",
         },
+        onDelete: 'CASCADE'
       },
       UserId: {
         type: Sequelize.INTEGER,
@@ -24,6 +25,7 @@ module.exports = {
           model: "Users",
           key: "id",
         },
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

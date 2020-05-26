@@ -14,6 +14,7 @@ module.exports = {
           model: "Users",
           key: "id",
         },
+        onDelete: 'CASCADE'
       },
       PartyId: {
         type: Sequelize.INTEGER,
@@ -21,6 +22,7 @@ module.exports = {
           model: "Parties",
           key: "id",
         },
+        onDelete: 'CASCADE'
       },
       status: {
         allowNull: false,
