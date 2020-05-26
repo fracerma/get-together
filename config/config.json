@@ -1,20 +1,20 @@
 {
-    "development": {
-      "username": "postgres",
-      "password": "schizzo98",
-      "database": "get_together",
-      "host": "127.0.0.1",
-      "dialect": "postgres"
-    },
-    "test": {
-      "username": "postgres",
-      "password": "schizzo98",
-      "database": "get_together",
-      "host": "127.0.0.1",
-      "dialect": "postgres"
-    },
-    "production": {
-      "use_env_variable": "DATABASE_URL"
-    }
+  "development": {
+    "username": "postgres",
+    "password": "Ilaria",
+    "database": "get_together",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "Ilaria",
+    "database": "get_together",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {       
+    "use_env_variable": "DATABASE_URL"    
   }
+}
   
