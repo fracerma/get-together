@@ -131,6 +131,7 @@
     margin-top: 2%;
     margin-bottom: 2%;
     width: 40%;
+    
 }
 .quantity{
     color: red;
@@ -140,6 +141,7 @@
     overflow: scroll;
     overflow-x:hidden ;
     height: 90%;
+;
 }
 
 .comm-component{
@@ -148,6 +150,9 @@
     width: 90%;
     margin:auto;
     height: 400px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top:100px
 }
 .addmess {
     height: 10%;

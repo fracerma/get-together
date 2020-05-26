@@ -12,7 +12,7 @@ export default{
             ></comment> 
         </div>        
         <div class="addmess">
-            <input type="text" v-model="newcomment" @keypress="addmessenter($event)" placeholder="add a comment" ></input>
+            <input type="text" v-model="newcomment" @keyup="addmessenter" placeholder="add a comment" ></input>
             <button class="btn bg-main"  v-on:click="addmessfunc" >ADD</button>
         </div>
 
@@ -46,7 +46,7 @@ export default{
             div.scrollTop = div.scrollHeight - div.clientHeight;
         },
         addmessenter:function(e){
-            if(e.key==="Enter") this.addmessfunc;
+            if(e!=null&&e.keyCode==13) this.addmessfunc();
         },
         addmessfunc:function(){
             if(this.newcomment!=null){
