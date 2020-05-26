@@ -1,6 +1,7 @@
 //import moment from '../../../moment/moment.min.js'
+
 export default {
-  props: ["not"],
+  props: ["not", ],
   data(){
     return {
       rem: true,
