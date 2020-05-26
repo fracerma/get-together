@@ -206,21 +206,6 @@ router.put("/:id", async (req, res) => {
 
 //elimina il party con id
 router.delete("/:id",async (req,res)=>{
-    await UserParty.destroy({
-      where:{
-        PartyId:req.params.id
-      }
-    });
-    await Comment.destroy({
-      where:{
-        PartyId:req.params.id
-      }
-    });
-    await PartyRecipe.destroy({
-      where:{
-        PartyId:req.params.id
-      }
-    });
     await Party.destroy({
       where:{
         id:req.params.id

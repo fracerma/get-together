@@ -9,7 +9,6 @@ export default{
     name: "party",
     template:`
     <div>
-        <div v-if='deleted'> <h1> PARTY HAS BEEN DELETED </h1> </div>
         <div class="all" v-if="party">
     
         <div class="backsave">
@@ -176,7 +175,6 @@ export default{
             startTime: null,
             finishTime: null,
             modify:false,
-            deleted:false,
 
             par: false,
             rec:false,
@@ -214,11 +212,6 @@ export default{
             credentials: "include"
         }).then(response => response.json())
         .then(data => {
-            console.log(data);
-            if(!data){ 
-                this.deleted=true;
-            }
-            else{
                 this.party=data;
                 this.date= new Date(this.party.startDate);
                 this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
@@ -226,7 +219,7 @@ export default{
                 this.startTime+=(this.date.getMinutes() <'10')?'0'+this.date.getMinutes():this.date.getMinutes();
                 this.finishTime= (new Date(this.party.finishDate)).getHours()+":";
                 this.finishTime+=((new Date(this.party.finishDate)).getMinutes() <'10')?'0'+(new Date(this.party.finishDate)).getMinutes():(new Date(this.party.finishDate)).getMinutes();
-            }
+            
         });
     },
 
