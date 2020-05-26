@@ -10,10 +10,33 @@ const notificate = require("./notifications").notificate;
 const broadcast = require("./notifications").broadcast;
 const bodyParser = require("body-parser");
 const { Op } = require("sequelize");
+const axios= require("axios");
 
 
 router.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+router.get("/facebook",async (req,res)=>{
+  try{
+  const userId= req.session.userId;
+  const user= await User.findByPk(userId);
+  let friends =(await axios.get(`https://graph.facebook.com/v7.0/${user.idfb}/friends?access_token=${user.accessToken}`)).data.data;
+  for(i=0;i<friends.length;i++){
+    const obj= (await User.findOne({where: { idfb:friends[i].id}, attributes:["id","firstName","lastName","image","email"]})).toJSON();
+    const state = await Friendship.findOne({ where: {
+      UserId: userId, 
+      FriendId: obj.id
+    }})
+    if( state )obj["state"] = false;
+    else obj["state"] = true;
+    console.log(obj);
+    friends[i]=obj;
+  }
+  res.send(friends);
+  }catch(e){
+    console.log(e);
+    
+  }
+});
 
 router.get("/", async (req, res) => {
   const userId = req.session.userId;

@@ -338,18 +338,19 @@ export default{
             }
         },
         deleteparty:function(event){
-            fetch('/parties/'+this.$route.params.id,{
-                method: "DELETE",
-                credentials: "include",
-            })
-            .then(result => {
-              console.log('Success:', result);
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
-            
-            this.$router.push('/parties');
+            if(confirm("Are you sure you want to delete this party?")){
+                fetch('/parties/'+this.$route.params.id,{
+                    method: "DELETE",
+                    credentials: "include",
+                })
+                .then(result => {
+                console.log('Success:', result);
+                })
+                .catch(error => {
+                console.error('Error:', error);
+                });
+                setTimeout(this.$router.push('/parties'),200);
+            }
         }
             
     }
