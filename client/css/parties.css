@@ -131,11 +131,13 @@
     margin-top: 2%;
     margin-bottom: 2%;
     width: 40%;
+    
 }
 .comments-container{
     overflow: scroll;
     overflow-x:hidden ;
     height: 90%;
+;
 }
 
 .comm-component{
@@ -144,6 +146,9 @@
     width: 90%;
     margin:auto;
     height: 400px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top:100px
 }
 .addmess {
     height: 10%;
@@ -223,5 +228,21 @@
     }
     .info-bar{
         display: block;
+    }
+    .line{
+        display: block;
+    }
+    .container-parties{
+        width: 90%;
+    }
+    .info-bar{
+        margin: auto;
+        font-weight: bold;
+        display:block;
+        width: 90%;
+        padding: 40px;
+        justify-content: space-between;
+        box-shadow: 0 4px 8px 0 rgba(249, 177, 101, 0.2), 0 6px 20px 0 rgba(249, 177, 101, 0.2);
+        vertical-align: middle;
     }
 }

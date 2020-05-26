@@ -6,7 +6,7 @@ export default{
     template:`
         <div>
             <partyProgram v-on:next="nextStep" v-bind:party="party" v-show="state"> </partyProgram>
-            <partyItems  v-on:back="nextStep" v-on:reload="reload" v-bind:party="party" v-show="!state"></partyItems>
+            <partyItems v-on:back="nextStep" v-on:reload="reload" v-bind:party="party" v-show="!state"></partyItems>
         </div>
     `,
     data() {
@@ -33,18 +33,7 @@ export default{
             this.state=!this.state;
         },
         reload(){
-                this.state=true;
-                this.party={
-                        name:null,
-                        startDate:null,
-                        finishDate: null,
-                        recipes:[],
-                        wines: [],
-                        cocktails: [],
-                        beers: [],
-                        partecipants: []
-                    }
-            this.$forceUpdate();
+            this.$destroy();
         }
     },
 
