@@ -157,26 +157,30 @@ router.get("/:id", async function (req, res) {
       ],
       
     });
+    if(!party){
+      console.log("Not found");
+      res.status(404).end();
+    }
+    else{
+      let isOwner = false;
+      if(req.session.userId == party.owner){
+        isOwner=true;
+      } 
 
+      party["dataValues"]["isOwner"] = isOwner;
+      party=party.toJSON();
+      party["Comments"].forEach(x=>{
+        if(x.UserId == req.session.userId){
+          x.mycomm=true;
+        }
+        else{
+          x.mycomm=false;
+        }
+      })
 
-    let isOwner = false;
-    if(req.session.userId == party.owner){
-      isOwner=true;
-    } 
-
-    party["dataValues"]["isOwner"] = isOwner;
-    party=party.toJSON();
-    party["Comments"].forEach(x=>{
-      if(x.UserId == req.session.userId){
-        x.mycomm=true;
-      }
-      else{
-        x.mycomm=false;
-      }
-    })
-
-    let response = party;
-    res.send(response);
+      let response = party;
+      res.send(response);
+    }
   } catch (error) {
     console.log(error);
   }
