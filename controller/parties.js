@@ -184,7 +184,6 @@ router.get("/:id", async function (req, res) {
 //modifica il party con id
 router.put("/:id", async (req, res) => {
     const changes=req.body;
-    console.log("**********************************************************",req.body);
     const party= await Party.findByPk(req.params.id);
 
     party.name=changes.name;
@@ -208,6 +207,16 @@ router.put("/:id", async (req, res) => {
 //elimina il party con id
 router.delete("/:id",async (req,res)=>{
     await UserParty.destroy({
+      where:{
+        PartyId:req.params.id
+      }
+    });
+    await Comment.destroy({
+      where:{
+        PartyId:req.params.id
+      }
+    });
+    await PartyRecipe.destroy({
       where:{
         PartyId:req.params.id
       }
