@@ -11,7 +11,7 @@ export default {
                 </div>
             </div>
             <div class="friendView" v-if="show">
-              <div class="info" >
+              <div class="info finfo" >
                   <div class="data">
                     <p id="finfo" >Nome: {{ firstName }}</p>
                     <p id="finfo">Cognome: {{ lastName }}</p>

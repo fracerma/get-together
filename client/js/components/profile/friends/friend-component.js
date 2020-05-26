@@ -9,12 +9,12 @@ export default {
                 <img v-bind:src="image">
                 <span v-if="user.status == 'pending'">Pending</span>
                 <div class="bottomB">
-                    <button class="btn btn-primary btn-view" @click="view">View profile</button>
+                    <button class="btn btn-default btn-view leftb" @click="view">View profile</button>
                     <button class="btn btn-danger btn-remove" @click="remove">Remove friend</button>
                 </div>
             </div>
             <div class="friendView" v-if="show">
-              <div class="info" >
+              <div class="info finfo" >
                   <div class="data">
                     <p id="finfo" >Nome: {{ firstName }}</p>
                     <p id="finfo">Cognome: {{ lastName }}</p>

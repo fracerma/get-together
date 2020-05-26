@@ -54,34 +54,58 @@
   cursor: none;
   animation: slideInLeft;
   animation-duration: 1s;
-    width: 20%;
-    position: relative;
-    height: 100%;
-    float: left;
-    background-color: white;
-    border-collapse: collapse;
-    border-color: black;
-    border: 2px solid black;
-    display: block;
-    text-align: center;
-    margin: 10px;
+  width: 20%;
+  position: relative;
+  height: 100%;
+  float: left;
+  background-color: white;
+  border-collapse: collapse;
+  border-color: black;
+  border: 2px solid black;
+  display: block;
+  text-align: center;
+  vertical-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
 }
 
 
 .leftB{
   position: relative;
-  font-size: 18px;
-  right: 20px;
-  margin: 20px;
+  font-size: 1.2vw;
+  text-align: center;
+  width: 15vw;
+  margin: 15px;
+  background-color: #21535b;
+  border-color: #21535b;
+  vertical-align: center;
+}
+
+.leftB:hover{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
+}
+.leftB:active{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
+}
+
+.leftB:focus{
+  outline: none;
+  text-decoration: none;
+  background-color: #21535b;
 }
 
 .logout{
-  font-size: 11px;
+  font-size: auto;
   color: white;
-  width: 40%;
+  width: 10vw;
   margin: 20px;
   position: relative;
-  background-color: red;
+  background-color: #a42e2ef1;
   text-align: center;
   padding: 5px;
   border-radius: 5px;
@@ -90,6 +114,7 @@
 .logout:hover{
   outline: none;
   text-decoration: none;
+  background-color: darkred;
 }
 
 .middle-container {
@@ -104,31 +129,53 @@
 
 .leftInfo{
   display: block;
+  margin: 1.5vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.profilePicDiv{
+  position: relative;
+  float: left;
+  width: 40%;
+  height: auto;
+  margin: 1.5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #profilePic {
   position: relative;
   float: left;
-  width: 40%;
-  height:auto;
-  margin: 50px;
+  width: 100%;
+  height: auto;
+  margin: auto;
 }
 
 .data{
-  padding:50px;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5vw;
 }
 
 .info{
   margin: 10px;
   position: relative;
+  font-weight: bold;
+  font-size: 1.5vw;
+  width: 70vw;
+  display: flex;
+  box-shadow: 0 4px 8px 0 rgba(249, 177, 101, 0.2), 0 6px 20px 0 rgba(249, 177, 101, 0.2);
 }
 
 /** EDIT PROFILE **/
 
 .editB{
-  font-size: 11px;
+  font-size: 1vw;
   color: white;
-  width: 10%;
+  width: 5vw;
   margin: 20px;
   position: relative;
   text-align: center;
@@ -138,7 +185,6 @@
 
 
 .edit{
-    
     height: 100%;
     background-color: white;
     border-collapse: collapse;
@@ -190,6 +236,13 @@
 
 #finfo{
   font-weight: bold;
+  font-size: 2vw;
+}
+
+.finfo{
+  width: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 /** ADD FRIENDS **/
@@ -280,7 +333,7 @@
 } 
 
 .btn-red{
-  background: red;
+  background:#a42e2ef1;
 }
 
 .btn-red:hover {
