@@ -18,8 +18,8 @@ export default {
       .then((response) => response.json())
       .then((data) => {
         this.profile = data;
-        if( !this.profile.image ){
-            this.profile.image = image;
+        if(this.profile.image ){
+          this.image=this.profile.image;
         }
       })
       .catch((error) => {
