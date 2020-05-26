@@ -93,7 +93,7 @@ export default{
                 <div class="high-bar bar bg-main" > <span v-on:click="openContent('par')">Partecipants: </span></div>
                 
                 <div class="part" >
-                    <friendComponent v-for="user in party.Users" v-if="par && (party.owner != user.id)"
+                    <friendComponent v-for="user in party.Users" v-if="par && (party.owner != user.id && user.UserParty.status=='accepted')"
                         v-bind:key="user.id"
                         v-bind:user="user"
                         v-bind:invited="true"
@@ -248,6 +248,7 @@ export default{
             this.edit.datefinish=new Date(this.party.finishDate);
             this.edit.finishTime=this.finishTime;
 
+
             this.edit.apiRecipes=this.party.apiRecipes;
             this.edit.userRecipes=this.party.userRecipes;
             this.edit.wines=this.party.wines;
@@ -278,8 +279,11 @@ export default{
             this.party.name=this.edit.name;
             this.date=this.edit.datestart;
             this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
-            this.startTime= this.date.getHours()+":"+this.date.getMinutes();
-            this.finishTime= (new Date(this.edit.datefinish)).getHours()+":"+(new Date(this.edit.datefinish)).getMinutes();
+            this.startTime= this.date.getHours()+":";
+            this.startTime+=(this.date.getMinutes() <'10')?'0'+this.date.getMinutes():this.date.getMinutes();
+            this.finishTime= (new Date(this.edit.datefinish)).getHours()+":";
+            this.finishTime+=((new Date(this.party.finishDate)).getMinutes() <'10')?'0'+(new Date(this.party.finishDate)).getMinutes():(new Date(this.party.finishDate)).getMinutes();
+
 
             fetch('/parties/'+this.$route.params.id,{
                 method: "PUT",
