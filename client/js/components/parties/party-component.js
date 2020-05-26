@@ -9,6 +9,7 @@ export default{
     name: "party",
     template:`
     <div>
+        <div v-if='deleted'> <h1> PARTY HAS BEEN DELETED </h1> </div>
         <div class="all" v-if="party">
     
         <div class="backsave">
@@ -89,7 +90,7 @@ export default{
                 <div class="high-bar bar bg-main" > <span v-on:click="openContent('par')">Partecipants: </span></div>
                 
                 <div class="part" >
-                    <friendComponent  class="it" v-for="user in party.Users" v-if="par && (party.owner != user.id)"
+                    <friendComponent class="it" v-for="user in party.Users" v-if="par && (party.owner != user.id) && user.UserParty.status=='accepted'"
                         v-bind:key="user.id"
                         v-bind:user="user"
                         v-bind:invited="true"
@@ -175,6 +176,7 @@ export default{
             startTime: null,
             finishTime: null,
             modify:false,
+            deleted:false,
 
             par: false,
             rec:false,
@@ -212,13 +214,19 @@ export default{
             credentials: "include"
         }).then(response => response.json())
         .then(data => {
-            this.party=data;
-            this.date= new Date(this.party.startDate);
-            this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
-            this.startTime= this.date.getHours()+":";
-            this.startTime+=(this.date.getMinutes() <'10')?'0'+this.date.getMinutes():this.date.getMinutes();
-            this.finishTime= (new Date(this.party.finishDate)).getHours()+":";
-            this.finishTime+=((new Date(this.party.finishDate)).getMinutes() <'10')?'0'+(new Date(this.party.finishDate)).getMinutes():(new Date(this.party.finishDate)).getMinutes();
+            console.log(data);
+            if(!data){ 
+                this.deleted=true;
+            }
+            else{
+                this.party=data;
+                this.date= new Date(this.party.startDate);
+                this.parsed= this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
+                this.startTime= this.date.getHours()+":";
+                this.startTime+=(this.date.getMinutes() <'10')?'0'+this.date.getMinutes():this.date.getMinutes();
+                this.finishTime= (new Date(this.party.finishDate)).getHours()+":";
+                this.finishTime+=((new Date(this.party.finishDate)).getMinutes() <'10')?'0'+(new Date(this.party.finishDate)).getMinutes():(new Date(this.party.finishDate)).getMinutes();
+            }
         });
     },
 
