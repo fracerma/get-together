@@ -1,0 +1,44 @@
+/************
+    NAVBAR
+*************/
+nav{
+    font-size: 2em;
+}
+#navbarNav{
+    display: flex;
+}
+#navbar-brand{
+    margin:auto;
+}
+#logo-nav{
+    width: 200px;
+}
+#login{
+    margin-right: 1%;
+    
+}
+#register{
+    margin-left: 1%;
+    display: table;
+}
+#link{
+    display: table-cell;
+    vertical-align: middle;
+    text-decoration: none;
+    color:rgb(242, 106, 48);
+}
+#login a:hover{
+    text-decoration: none;
+}
+#register a:hover{
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 870px) {
+    #logo-nav{
+        width: 100px;
+    }
+    nav{
+        font-size: 1.5em;
+    }
+}
