@@ -102,12 +102,6 @@
     margin-bottom: auto;
 }
 
-.part{
-    width: 50%;
-    margin: 2%;
-}
-
-
 .middle{
     box-sizing: border-box;
     margin-top: 2%;
@@ -117,6 +111,9 @@
 .aboutcontent{
     width: 80%;
     margin:auto;
+}
+.middle .item-component{
+    width:30%
 }
 
 .elmod{
@@ -134,10 +131,6 @@
     margin-top: 2%;
     margin-bottom: 2%;
     width: 40%;
-}
-.quantity{
-    color: red;
-    padding: auto;
 }
 .comments-container{
     overflow: scroll;
@@ -174,6 +167,7 @@
 .othercomm .messup{
     display: flex;
     justify-content: space-evenly;
+    margin-left:6px;
 }
 
 .messdown{
@@ -185,11 +179,11 @@
     width: 80%;
     overflow-wrap: break-word;
     margin:auto;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 .name{
-    font-size: 0.9em;
+    font-size: 0.8em;
     color: peru;
 }
 .date{
@@ -214,3 +208,20 @@
     margin-top: 5px;
 }
 
+@media only screen and (max-width: 670px) {
+    .part-cont{
+        display: block;
+    }
+    .down{
+        width:100%;
+    }
+    .middle{
+        width:100%;
+    }
+    .middle .item-component{
+        width:80%
+    }
+    .info-bar{
+        display: block;
+    }
+}

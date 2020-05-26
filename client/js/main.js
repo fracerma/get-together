@@ -1,4 +1,5 @@
 import navBar from "./components/navBar.js"
+import PageNotFound from "./components/pageNotFound.js"
 import profile from "./components/profile/profile-component.js"
 import recipesPage from "./components/recipes/recipesPage-component.js"
 import recipeInfo from "./components/recipes/recipeInfo-component.js"
@@ -24,6 +25,7 @@ const router = new VueRouter({
 				{path:"/wines/:id",name:"wineInfo", component: wineInfo},
 				{path:"/beers/:id",name:"beerInfo", component: beerInfo},
 				{path:"/cocktails/:id",name:"cocktailInfo", component: cocktailInfo},
+				{ path: "*", component: PageNotFound }
 		]
 	});
 
