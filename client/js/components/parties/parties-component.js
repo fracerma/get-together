@@ -11,7 +11,7 @@ export default{
                 <div v-if="yourparties">
                     <div v-for="party in yourparties" class="parties-elements">
                         <router-link v-if="party" :to='"/parties/"+party.id' id="link">
-                            <li> "{{party.name}}" on {{party.startDate.split("T")[0]}}</li>
+                            <li> "{{party.name}}" on {{parsing(party.startDate)}}</li>
                         </router-link>
                     </div>
                 </div>
@@ -24,7 +24,7 @@ export default{
                 <div v-if="otherparties">
                     <div v-for="party in otherparties" class="parties-elements">
                             <router-link v-if="party" :to='"/parties/"+party.id' id="link">
-                                <li> "{{party.name}}" on {{party.startDate.split("T")[0]}}</li>
+                                <li> "{{party.name}}" on {{parsing(party.startDate)}}</li>
                             </router-link>
                     </div>
                 </div>
@@ -46,12 +46,21 @@ export default{
             method: "GET",
             credentials: "include"
         }).then(response => response.json())
-        .then(data => this.yourparties=data);
+        .then(data => {
+            this.yourparties=data
+        });
 
         fetch('/parties/other',{
             method: "GET",
             credentials: "include"
         }).then(response => response.json())
         .then(data => this.otherparties=data);
+    },
+    methods:{
+        parsing: function(d){
+            let date=new Date(d);
+            date=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+            return date
+        }
     }
 }
