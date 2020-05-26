@@ -102,12 +102,6 @@
     margin-bottom: auto;
 }
 
-.part{
-    width: 50%;
-    margin: 2%;
-}
-
-
 .middle{
     box-sizing: border-box;
     margin-top: 2%;
@@ -117,6 +111,9 @@
 .aboutcontent{
     width: 80%;
     margin:auto;
+}
+.middle .item-component{
+    width:30%
 }
 
 .elmod{
@@ -211,3 +208,20 @@
     margin-top: 5px;
 }
 
+@media only screen and (max-width: 670px) {
+    .part-cont{
+        display: block;
+    }
+    .down{
+        width:100%;
+    }
+    .middle{
+        width:100%;
+    }
+    .middle .item-component{
+        width:80%
+    }
+    .info-bar{
+        display: block;
+    }
+}
