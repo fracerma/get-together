@@ -1,14 +1,14 @@
 //Requiring all needed modules
 const express = require("express");
 const bodyParser = require("body-parser");
-const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const app = express();
 require("dotenv").config();
 
 ////////////////////////////////////////
 const PORT=process.env.PORT || 4000;
-const server = http
+const server = https
   .createServer(app)
   .listen(PORT, function () {
     console.log("Go to https://localhost:"+PORT);
