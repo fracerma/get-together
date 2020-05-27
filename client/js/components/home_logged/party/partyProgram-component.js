@@ -1,4 +1,4 @@
-import friendsComponent from "./friends-component.js"
+import friendsComponent from "./items-components/friends-component.js"
 import settingComponent from "./settingParty-component.js"
 export default{
     props: ["party"],

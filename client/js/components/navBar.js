@@ -9,7 +9,7 @@ export default{
             </router-link>
         </div>
         <div class="navbar-brand">
-            <a href="/frontpage.html" >
+            <a href="/" >
                 <img src="image/LogoGetTorgether.png" id="logo-nav" alt="logo" >
             </a>
         </div>

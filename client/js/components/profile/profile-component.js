@@ -6,12 +6,12 @@ export default {
     return { section: "Profile" };
   },
   template: `
-  <div>
+  <div id="entire">
 
       <div class="high-bar high-top">
           <h2 id="title">{{ section }}</h2>
-        </div>
-      <div class="high-bar high-left">
+      </div>
+      <div class="high-left">
           <button  class="btn btn-default leftB"  @click="switchComponent('infoComp')">Profile info</button>
        
           <button class="btn btn-default leftB"  @click="switchComponent('friendsComp')">Friends</button>
@@ -26,17 +26,17 @@ export default {
   </div>
     `,
   methods: {
-    switchComponent: function(comp) {
+    switchComponent: function (comp) {
       bus.$emit("switchComp", comp);
       if (comp == "infoComp") this.section = "Profile";
       if (comp == "notComp") this.section = "Notifications";
       if (comp == "friendsComp") this.section = "Friends";
     },
-    logout: function(){
+    logout: function () {
       fetch("/logout", {
         credentials: "include",
-        method: "GET", 
-        redirect: 'follow',
+        method: "GET",
+        redirect: "follow",
         headers: {
           "Content-Type": "application/json",
         },
@@ -50,8 +50,7 @@ export default {
         .catch((error) => {
           console.error("Error:", error);
         });
-    }
-
+    },
   },
   components: {
     middleComp,

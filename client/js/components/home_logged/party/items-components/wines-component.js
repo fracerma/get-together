@@ -6,7 +6,7 @@ export default{
             <span v-on:click="openContent">Select wines</span>
             <div>
                 <a v-on:click="resetFilter">Remove filter</a>
-                <input v-model="food" placeholder="food pairing" v-on:change="fetchWine">
+                <input autocomplete="off" v-model="food" placeholder="food pairing" v-on:change="fetchWine">
                 <select ref="option" v-model="type" v-on:change="fetchWine">
                     <option hidden selected>Wine type</option>
                     <option value="Chardonnay">Chardonnay</option>
