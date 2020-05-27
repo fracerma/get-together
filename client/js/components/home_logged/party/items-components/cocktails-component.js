@@ -1,13 +1,12 @@
 import cocktailComponent from "./cocktail-component.js"
 export default{
-    //FIXME gestione input select
     template: `
     <div class="conteiner-component">
         <div class="high-bar bg-green" >
             <span v-on:click="openContent">Select cocktails</span>
             <div>
                 <a v-on:click="resetFilter">Remove filter</a>
-                <input v-model="name" placeholder="cocktail name" v-on:change="fetchCocktail">
+                <input autocomplete="off" v-model="name" placeholder="cocktail name" v-on:change="fetchCocktail">
                 <select v-model="category" v-on:change="fetchCocktail">
                     <option selected>Category</option>
                     <option value="Ordinary Drink">Ordinary Drink</option>
