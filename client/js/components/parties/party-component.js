@@ -1,8 +1,8 @@
 import friendComponent from "../profile/friend-component.js"
-import recipeComponent from "../home_logged/party/recipe-component.js"
-import wineComponent from "../home_logged/party/wine-component.js"
-import beerComponent from "../home_logged/party/beer-component.js"
-import cocktailComponent from "../home_logged/party/cocktail-component.js"
+import recipeComponent from "../home_logged/party/items-components//recipe-component.js"
+import wineComponent from "../home_logged/party/items-components/wine-component.js"
+import beerComponent from "../home_logged/party/items-components/beer-component.js"
+import cocktailComponent from "../home_logged/party/items-components/cocktail-component.js"
 import comments from "./comments-component.js"
 import pageNotFound from "../pageNotFound.js"
 
