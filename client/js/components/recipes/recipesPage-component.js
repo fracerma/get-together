@@ -85,7 +85,7 @@ export default{
                     </select>
                 </div>
                 <div>
-                    <p class="label">Lenguage:</p>
+                    <p class="label">Language:</p>
                     <select v-model="data.leng" class="mx-input">
                         <option value="en">English</option>
                         <option value="it">Italian</option>
