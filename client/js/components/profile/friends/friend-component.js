@@ -6,7 +6,7 @@ export default {
         <div class="item-component friend" v-if="reveal">
             <div class="conteiner-component">
                 <h5>{{firstName}} {{lastName}}</h5>
-                <img v-bind:src="image">
+                <img v-bind:src="image"><br/>
                 <span v-if="user.status == 'pending'">Pending</span>
                 <div class="bottomB">
                     <button class="btn btn-default btn-view" @click="view">View profile</button>

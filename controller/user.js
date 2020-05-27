@@ -59,10 +59,12 @@ router.get("/search", async function(req, res){
   
   const mail = req.query.query.split("@")[0];
   const tot = req.query.query.split(" ");
+  let users;
   try {
+    if( tot.length > 1){
       const first = tot[0];
       const second = tot[1];
-    const users = await db.User.findAll({
+    users = await db.User.findAll({
       raw: true,
       where: {
         id: {
@@ -73,8 +75,6 @@ router.get("/search", async function(req, res){
             firstName: {
               [Op.iLike]: `%${first}%`,
             },
-          },
-          {
             lastName: {
               [Op.iLike]: `%${second}%`,
             },
@@ -83,8 +83,6 @@ router.get("/search", async function(req, res){
             firstName: {
               [Op.iLike]: `%${second}%`,
             },
-          },
-          {
             lastName: {
               [Op.iLike]: `%${first}%`,
             },
@@ -98,6 +96,34 @@ router.get("/search", async function(req, res){
       },
       attributes: ["firstName", "lastName", "id", "image", "email"],
     });
+  }else{
+     users = await db.User.findAll({
+      raw: true,
+      where: {
+        id: {
+          [Op.ne]: userId,
+        },
+        [Op.or]: [
+          {
+            firstName: {
+              [Op.iLike]: `%${query}%`,
+            },
+          },
+          {
+            lastName: {
+              [Op.iLike]: `%${query}%`,
+            },
+          },
+          {
+            email: {
+              [Op.iLike]: `%${mail}%`,
+            },
+          },
+        ],
+      },
+      attributes: ["firstName", "lastName", "id", "image", "email"],
+    });
+  }
     let i;
     for( i = 0; i < users.length; i++){
       const state = await Friendship.findOne({ where: {
