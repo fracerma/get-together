@@ -6,10 +6,10 @@ export default {
             <span v-on:click="openContent">Select beers</span>
             <div>
                 <a v-on:click="resetFilter">Remove filter</a>
-                <input v-model="beer_name" placeholder="beer name" v-on:change="fetchBeer">
-                <input v-model="food" placeholder="food pairing" v-on:change="fetchBeer">
-                <input v-model="abv_lt" placeholder="alcool max" v-on:change="fetchBeer">
-                <input v-model="abv_gt" placeholder="alcool min" v-on:change="fetchBeer">
+                <input autocomplete="off" v-model="beer_name" placeholder="beer name" v-on:change="fetchBeer">
+                <input autocomplete="off" v-model="food" placeholder="food pairing" v-on:change="fetchBeer">
+                <input autocomplete="off" v-model="abv_lt" placeholder="alcool max" v-on:change="fetchBeer">
+                <input autocomplete="off" v-model="abv_gt" placeholder="alcool min" v-on:change="fetchBeer">
             </div>
         </div>
         <transition name="fade">
