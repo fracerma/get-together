@@ -40,23 +40,36 @@ export default{
             if (index !== -1) {
                     this.partecipants.splice(index, 1);
             }
+        },
+        fetchFriends(){
+            fetch(`/friends`,{
+                method: "GET",
+                credentials: "include"
+            })
+                .then(response => response.json())
+                .then(data => {
+                        this.friends=data.filter(x=>x.status=="accepted");
+                }).catch(e=>{
+                    console.log(e);
+                });
         }
     },
-    beforeCreate() {
-        fetch(`/friends`,{
-            method: "GET",
-            credentials: "include"
-        })
-            .then(response => response.json())
-            .then(data => {
-                    this.friends=data.filter(x=>x.status=="accepted");
-            }).catch(e=>{
-                console.log(e);
-            });
+    created() {
+        this.fetchFriends();
     },
     watch: {
         error:function(val){
             this.errorText=val;
-        }
+        },
+            $route: function(val){
+                console.log(val.path);
+                    const regex=/(\/recipes\/[0-9]+)|(\/beers\/[0-9]+)|(\/cocktails\/[0-9]+)|(\/wines\/[0-9]+)/;
+                    if(!regex.test(val.path)){
+                        console.log("reload");
+                        this.fetchFriends();
+                    }
+                
+            }
+        
     },  
 }
