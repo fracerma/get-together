@@ -1,4 +1,5 @@
 import addFriendComp from "./add-friend-component.js"
+import { bus } from "../../../main.js";
 
 export default {
   props: ["user"],
@@ -21,6 +22,7 @@ export default {
   },
   template: `
         <div>
+        <button v-on:click="switchComponent('friendsComp')" class="btn bg-blue" style="margin:10px">&#10094 Back </button>
         <h4>Search for a person to add to your friends: </h4>
         <input  id="newFriendInput" v-model="newFriend" > 
         <div v-if="friends">
@@ -60,7 +62,10 @@ export default {
       if (this.newFriend == value) {
         this.search(this.newFriend);
         return;
-      }
+      },
+        switchComponent: function(comp) {
+            bus.$emit("switchComp", comp);
+          },
     },
     search: function (v) {
       this.friends = null;
@@ -79,6 +84,6 @@ export default {
   },
 
   components: {
-    addFriendComp,
+    addFriendComp
   },
 };

@@ -1,4 +1,4 @@
-import friendComponent from "../../profile/friend-component.js"
+import friendComponent from "../../../profile/friend-component.js"
 export default{
     props:["partecipants","error"],
     template:`
@@ -8,7 +8,6 @@ export default{
         </div>
         <p class="error">{{error}}</p>
         <div class="content">
-            
                 <friendComponent v-for="user in friends"
                     v-bind:key="user.id"
                     v-bind:user="user"

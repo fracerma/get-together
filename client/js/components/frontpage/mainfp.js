@@ -49,6 +49,7 @@ var fp=new Vue({
             const lastName= $("#lastnameform").val();
             const email= $("#emailform").val();
             const password= $("#pswform").val();
+            const con_password= $("#confirm_pswform").val();
 
             this.errorFirstName=null;
             this.errorLastName=null;
@@ -60,6 +61,9 @@ var fp=new Vue({
            if(lastName&&!regName.test(lastName)){
                 this.errorLastName="Last Name must conteins at least one letter"
            }
+           if(password&&con_password){
+            if(password!=con_password) this.errorPassword="Passwords are different";
+            }
            if(password&&regPassStrong.test(password)){
                 $("#pswform").css('background-color','lightgreen')
            }
@@ -69,6 +73,7 @@ var fp=new Vue({
                 this.errorPassword="Weak password: at least 8 character and one number!";
                 $("#pswform").css('background-color','red');
            }
+           
         },
         register(e){
             e.preventDefault();
