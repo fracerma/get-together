@@ -66,8 +66,10 @@ router.post("/destroy", async function(req, res){
   const notId = req.body.id;
   try{
     await Notification.destroy({ where: {id: notId}});
+    res.status(200).end();
   }catch(e){
     console.error(e);
+    res.status(400).end();
   }
 })
 
