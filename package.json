@@ -4,7 +4,7 @@
   "description": "Web app for let you organize your party",
   "main": "index.js",
   "scripts": {
-    "start": "npx sequelize-cli db:migrate && node index.js",
+    "start": "node index.js",
     "mon": "nodemon index.js"
   },
   "repository": {
