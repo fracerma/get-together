@@ -17,9 +17,9 @@ export default {
        }
    },
     template: `
-        <div class="content">
+        <div class="middleComp">
         <h4>Search for a person to add to your friends: </h4>
-        <input  v-model="newFriend" > 
+        <input  id="newFriendInput" v-model="newFriend" > 
         <div v-if="friends">
             <addFriendComp v-for="user in friends" v-bind:key="user.id"
                 v-bind:user="user">

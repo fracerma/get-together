@@ -29,10 +29,10 @@ export default {
     
    
     template: `
-        <div class="content">
-        <div id="addFriendDiv">
-            <button id="addFriend" class="btn btn-default leftB" v-on:click="switchComponent('addFriendsComp')">Add a friend</button> 
-        </div>
+        <div>
+        
+        <button id="addFriend" class="btn btn-default leftB" v-on:click="switchComponent('addFriendsComp')">Add a friend</button> 
+
         <div v-if="friends">
             <friendComp v-for="user in friends" v-bind:key="user.id"
                 v-bind:user="user">

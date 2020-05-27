@@ -1,6 +1,6 @@
 import notComp from './notification-component.js';
 export default {
-  props: ["notifications", "not",],
+  props: ["notifications", "not"],
   template: `
     <div>
     <div id="notifications" v-if="notifications && notifications.length > 0" >
@@ -8,9 +8,7 @@ export default {
             <notComp v-for="not in notifications" v-bind:not="not" v-bind:count="count" v-bind:key="not.id"></notComp>
         </div>
     </div>
-    <div v-else="notifications.length == 0">
-        <p>There are no notifications yet.</p>
-    </div>
+        <p v-else="notifications.length == 0" >There are no notifications yet.</p>
     </div>
     `,
   mounted() {
@@ -51,8 +49,6 @@ export default {
     this.$root.$data.socket.on("accept", (data) => {
       this.notifications.unshift(data);
     });
-
-
   },
   components: {
     notComp,

@@ -4,12 +4,21 @@
 }
 
 .middleComp{
-  width: 75%;
+  width: 70%;
   height: 100%;
   position: relative;
-  float: right;
+  float: left;
+  margin: 10px;
+  vertical-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
+/*.entire{
+  width: auto;
+  height: auto;
+  padding: 10px;
+}*/
 
 .btn.btn-primary{
   width: 100%;
@@ -18,12 +27,12 @@
 }
 
 
-.container {
-  width: 100%;
-  height: 100%;
+/*.container {
+  width: auto;
+  height: auto;
   position: absolute;
   padding: 10px;
-}
+}*/
 
 /** TOP BAR **/
 
@@ -51,7 +60,6 @@
 
 /* SIDE MENU */
 .high-left {
-  cursor: none;
   animation: slideInLeft;
   animation-duration: 1s;
   width: 20%;
@@ -67,6 +75,9 @@
   vertical-align: center;
   justify-content: center;
   align-items: center;
+  padding: 5px;
+  border-radius: 20px;
+  padding: 10px;
   margin: 10px;
 }
 
@@ -117,13 +128,13 @@
   background-color: darkred;
 }
 
-.middle-container {
+/*.middle-container {
     position: relative;
     width: 30%;
     height: 100%;
     float: right;
     margin: 10px;
-}
+}*/
 
 /** PROFILE INFO **/
 
@@ -165,16 +176,14 @@
   position: relative;
   font-weight: bold;
   font-size: 13px;
-  width: 70vw;
+  width: auto;
   display: flex;
   box-shadow: 0 4px 8px 0 rgba(249, 177, 101, 0.2), 0 6px 20px 0 rgba(249, 177, 101, 0.2);
 }
 
 /** EDIT PROFILE **/
 
-#fname{
-  width:100%;
-}
+
 
 .editB{
   font-size: 13px;
@@ -272,6 +281,13 @@
 #addFriend{
   width: 30%;
 
+}
+
+#newFriendInput{
+  border-radius: 20px;
+  border-color: black;
+  border: 2px solid black;
+  padding: 4px;
 }
 
 #addFriendDiv{
@@ -412,6 +428,11 @@
     text-align: center;
   }
 
+  .entire{
+    text-align: center;
+    vertical-align: center;
+    align-items: center;
+  }
 
   .container {
   width: 100%;
@@ -419,52 +440,48 @@
   position: absolute;
   text-align: center;
   vertical-align: center;
-}
+  align-items: center;
+  float: none;
+  }
 
 .middleComp{
-  width: auto;
-  height: 100%;
+  width: 80%;
   position: relative;
+  margin-left: 10%;
 
 }
 
-  .middle-container {
+ /** .middle-container {
     position: relative;
     width:auto;
     height: 100%;
-    margin: 10px;
     text-align: center;
     vertical-align: center;
     justify-content: center;
     align-items: center;
-    margin: auto;
-}
+    float: left;
+    margin: 10px;
+}**/
 
   .high-left {
-  cursor: none;
-  animation: slideInLeft;
-  animation-duration: 1s;
-  width: 100%;
-  position: relative;
-  height: 98%;
-  background-color: white;
-  border-collapse: collapse;
-  border-color: black;
-  border: 2px solid black;
+  width: auto;
+  height: 100%;
+  margin: auto auto auto auto;
+  display: inline;
   text-align: center;
-  vertical-align: center;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 4vw;
+  float: auto;
+  padding: 10px;
 }
 
+.edit{
+  width: auto;
+}
 
 .leftB{
   position: relative;
   font-size:calc(8px + 0.6vw);
   text-align: center;
   width: auto;
-  margin: 5px;
   background-color: #21535b;
   border-color: #21535b;
   vertical-align: center;
@@ -490,7 +507,7 @@
 .logout{
   font-size:calc(8px + 0.6vw);
   color: white;
-  width: 10vw;
+  width: auto;
   margin: 8px;
   position: relative;
   background-color: #a42e2ef1;
@@ -506,12 +523,11 @@
 }
 
 .info{
-  margin: 10px;
+  margin: 0;
   position: relative;
   font-weight: bold;
   font-size: 13px;
-  width: auto;
-  display: flex;
+  width: 100%;
   box-shadow: 0 4px 8px 0 rgba(249, 177, 101, 0.2), 0 6px 20px 0 rgba(249, 177, 101, 0.2);
 }
 
@@ -531,12 +547,12 @@
 
 .notPanel{
   display: flex;
-  width: 100%;
+  width: 100vw;
 
 }
 
 .bg-white{
-  width: auto;
+  width: 80vw;
   position: relative;
   border-color: black;
   border: 2px solid black;
@@ -546,11 +562,11 @@
   position: relative;
   float: left;
   background-color: white;
-  margin: 10px;
+  
 }
 
 .bg-lightblue{
-  width: 70%;
+  width: 80%;
   position: relative;
   border-color: black;
   border: 2px solid black;
@@ -568,9 +584,23 @@
 .btn-delete{
   position: relative;
   float: right;
-  margin: 4vw;
-  top: 10px;
+  width: auto;
+  margin-top: 9vw;
+  margin-right: 60px;
   background: lightgrey;
+}
+
+.btn-circle{ 
+    width: 23px; 
+    height: 23px; 
+    padding: 6px 0px; 
+    border-radius: 15px; 
+    font-size: 8px; 
+    text-align: center;
+    position: relative;
+    float: right;
+    border: white;
+    margin-left: 20px;
 }
 
 #addFriend{
