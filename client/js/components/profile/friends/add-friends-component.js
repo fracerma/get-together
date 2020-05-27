@@ -30,7 +30,7 @@ export default {
                 v-bind:user="user">
             </addFriendComp>
         </div>
-        <div v-if="fb && fbFriends">
+        <div v-if="fb && fbFriends.length > 0">
          <hr>
             <h4>People you might know</h4>
             <br>
@@ -62,10 +62,10 @@ export default {
       if (this.newFriend == value) {
         this.search(this.newFriend);
         return;
-      },
-        switchComponent: function(comp) {
-            bus.$emit("switchComp", comp);
-          },
+      }
+    },
+    switchComponent: function(comp) {
+      bus.$emit("switchComp", comp);
     },
     search: function (v) {
       this.friends = null;
