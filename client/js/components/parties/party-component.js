@@ -101,12 +101,12 @@ export default{
                     </friendComponent>
                 </div>
 
-                <div  class="high-bar bar bg-main" > <span> About: </span></div>
+                <div class="high-bar bar bg-main" > <span> About: </span></div>
                 <div class="aboutcontent">
 
                     <div class="ptrecipes">   
-                        <div  class="high-bar barsmall bg-blue"> <span v-on:click="openContent('rec')"> Recipes: </span></div>
-                        <recipeComponent v-for="(recipe,i) in party.apiRecipes" v-if="rec && (party.apiRecipes!=null)"
+                        <div class="high-bar barsmall bg-blue"> <span v-on:click="openContent('rec')"> Recipes: </span></div>
+                        <recipeComponent v-for="(recipe,i) in party.apiRecipes" v-show="rec" v-if="(party.apiRecipes!=null)"
                             v-bind:recipe="recipe"
                             v-bind:key="recipe.id"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
@@ -115,7 +115,7 @@ export default{
                         >
                         </recipeComponent>
 
-                        <recipeComponent v-for="(recipe,i) in party.userRecipes" v-if="rec && (party.userRecipes!=null)"
+                        <recipeComponent v-for="(recipe,i) in party.userRecipes" v-show="rec" v-if="(party.userRecipes!=null)"
                             v-bind:recipe="recipe"
                             v-bind:key="recipe.id"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
@@ -127,7 +127,7 @@ export default{
 
                     <div class="ptwines">   
                         <div class="high-bar barsmall bg-red" > <span v-on:click="openContent('win')"> Wines: </span></div>
-                        <wineComponent  v-for="(wine, i) in party.wines" v-if="win && (party.wines!=null)"
+                        <wineComponent  v-for="(wine, i) in party.wines"  v-show="win" v-if="(party.wines!=null)"
                             v-bind:wine="wine"
                             v-bind:key="wine.id"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
@@ -138,9 +138,9 @@ export default{
 
                     <div class="ptbeers"> 
                         <div   class="high-bar barsmall bg-yellow" > <span v-on:click="openContent('be')"> Beers: </span></div>  
-                        <beerComponent v-for="(beer, i) in party.beers" v-if="be && (party.beers!=null)"
+                        <beerComponent v-for="(beer, i) in party.beers" v-show="be" v-if=" (party.beers!=null)"
                             v-bind:beer="beer"
-                            v-bind:key="index"
+                            v-bind:key="beer.id"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
                             v-on:removeBeer="removeBeer(beer.id)"
                         > 
@@ -149,7 +149,7 @@ export default{
 
                     <div class="ptcocktail"> 
                         <div class="high-bar barsmall bg-green" > <span v-on:click="openContent('co')"> Cocktail: </span></div> 
-                        <cocktailComponent v-for="(cocktail, i) in party.cocktails" v-if="co && (party.cocktails!=null)"
+                        <cocktailComponent v-for="(cocktail, i) in party.cocktails" v-show="co" v-if="(party.cocktails!=null)"
                             v-bind:cocktail="cocktail"
                             v-bind:key="cocktail.cocktailID"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
