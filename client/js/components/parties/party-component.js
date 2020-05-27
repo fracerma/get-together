@@ -16,7 +16,7 @@ export default{
         <div class="all" v-if="party&&!deleted">
     
         <div class="backsave">
-            <router-link to="/parties" class="btn lateralbutton bg-orange" style="color: white;">&#10094 Back </router-link>
+            <a v-on:click="$router.go(-1)" class="btn lateralbutton bg-orange" style="color: white;">&#10094 Back </a>
             <button  v-on:click="save" class="btn lateralbutton bg-orange" v-if="party.isOwner && modify" > Save! </button>
             <button v-on:click="deleteparty" class="btn lateralbutton bg-orange" v-if="party.isOwner"> Delete Party </button>
 
