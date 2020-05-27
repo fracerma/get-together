@@ -17,7 +17,7 @@
   </head>
   <body>
 
-    <div id="fp">
+    <div v-if="control" id="fp">
       <nav-bar></nav-bar>
       <form @submit="register">
         <div id="pan">
@@ -128,7 +128,7 @@
           <div v-if="error" class="errors">
             <span >{{error}}</span>
           </div>
-          <button type="submit">Register</button>
+          <button type="submit">Sign up</button>
         </div>
       </form>
     </div>

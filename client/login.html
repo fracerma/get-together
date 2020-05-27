@@ -15,7 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
   <body>
-    <div id="fp">
+    <div v-if="control" id="fp">
       <nav-bar></nav-bar>
     
     <form @submit="login">
@@ -47,7 +47,7 @@
             </div>
             <div class="linktoregister">
               <span style="color: black">Not Registered? </span>
-              <a href="/register.html">Click here</a>
+              <a href="/register.html" class="linklog">Click here</a>
               <span style="color: black"> to join us</span>
             </div>
         </div>
