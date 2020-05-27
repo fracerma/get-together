@@ -35,7 +35,6 @@ export default{
             const index=this.partecipants.findIndex((o)=>{
                 return o === id;
             })
-            console.log(index);
             if (index !== -1) {
                     this.partecipants.splice(index, 1);
             }
@@ -49,7 +48,7 @@ export default{
                 .then(data => {
                         this.friends=data.filter(x=>x.status=="accepted");
                 }).catch(e=>{
-                    console.log(e);
+                    console.error(e);
                 });
         }
     },
@@ -61,12 +60,11 @@ export default{
             this.errorText=val;
         },
             $route: function(val){
-                console.log(val.path);
-                    const regex=/(\/recipes\/[0-9]+)|(\/beers\/[0-9]+)|(\/cocktails\/[0-9]+)|(\/wines\/[0-9]+)/;
-                    if(!regex.test(val.path)){
-                        console.log("reload");
+                const regex=/(\/recipes\/[0-9]+)|(\/beers\/[0-9]+)|(\/cocktails\/[0-9]+)|(\/wines\/[0-9]+)/;
+                if(!regex.test(val.path)){
+                    console.log("reload");
                         this.fetchFriends();
-                    }
+                }
                 
             }
         
