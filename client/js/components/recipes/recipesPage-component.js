@@ -1,4 +1,4 @@
-import recipeComponent from "../home_logged/party/recipe-component.js"
+import recipeComponent from "../home_logged/party/items-components/recipe-component.js"
 export default{
     name:"recipesPage",
     template:`
@@ -12,7 +12,7 @@ export default{
                 method="post">
                 <div>   
                     <p class="label">Recipe Url:</p>
-                    <div class="description-info">Insert here the url of your favorite recipes finded on the most famous recipes site </div>
+                    <div class="description-info">Insert here the url of your favorite recipes finded on <a href="https://ricette.giallozafferano.it/" target="_blank">giallozafferano</a> </div>
                     <input v-model="data.sourceUrl" class="mx-input" type="text" placeholder="URL of recipe">
                     <span class="error">{{errors.sourceUrl}}</span>
                 </div>
@@ -85,7 +85,7 @@ export default{
                     </select>
                 </div>
                 <div>
-                    <p class="label">Lenguage:</p>
+                    <p class="label">Language:</p>
                     <select v-model="data.leng" class="mx-input">
                         <option value="en">English</option>
                         <option value="it">Italian</option>
@@ -152,7 +152,9 @@ export default{
         addRecipe(e){
             e.preventDefault();
             this.resetErrors();
+            const regexUrl=/^https:\/\/ricette.giallozafferano.it/;
             if(this.data.sourceUrl==="") this.addError("sourceUrl","Source url is required");
+            if(!regexUrl.test(this.data.sourceUrl)) this.addError("sourceUrl","We only support giallozafferano recipes for now");
             if(this.data.dishTypes==null) this.addError("dishTypes","Dysh Type is required");
             if(this.data.cuisines==null) this.addError("cuisines","Cuisines is required");
             if(this.data.leng==null) this.addError("leng","Lenguage is required");
@@ -174,7 +176,9 @@ export default{
                     }
                     else{
                         this.resetErrors();
-                        this.errors.sourceUrl="Errore inserimento ricetta";
+                        console.log("error");
+                        
+                        this.errors.sourceUrl="Error adding recipe";
                     }
                 }).catch(e=>console.error(e));
             }
