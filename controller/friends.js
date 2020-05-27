@@ -19,23 +19,29 @@ router.get("/facebook",async (req,res)=>{
   try{
   const userId= req.session.userId;
   const user= await User.findByPk(userId);
-  let friends =(await axios.get(`https://graph.facebook.com/v7.0/${user.idfb}/friends?access_token=${user.accessToken}`)).data.data;
-  for(i=0;i<friends.length;i++){
-    const obj= (await User.findOne({where: { idfb:friends[i].id}, attributes:["id","firstName","lastName","image","email"]})).toJSON();
-    const state = await Friendship.findOne({ where: {
-      UserId: userId, 
-      FriendId: obj.id
-    }})
-    if( state )obj["state"] = false;
-    else obj["state"] = true;
-    console.log(obj);
-    friends[i]=obj;
+  if( user.idfb ){
+    let friends =(await axios.get(`https://graph.facebook.com/v7.0/${user.idfb}/friends?access_token=${user.accessToken}`)).data.data;
+    let array = [];
+    for(i=0;i<friends.length;i++){
+      let obj = (await User.findOne({ raw: true, where: { idfb:friends[i].id}, attributes:["id","firstName","lastName","image","email"]}));
+      if( obj ){
+        let state = await Friendship.findOne({ raw: true, where: {
+        UserId: userId, 
+        FriendId: obj.id
+        }});
+        if( state )obj["state"] = false;
+        else obj["state"] = true;
+        console.log(obj);
+        array.push(obj);
+      }
+    }
+    res.send(array);
   }
-  res.send(friends);
+  else
+    res.send(false);
   }catch(e){
-    console.log(e);
-    
-  }
+      console.log(e);
+    }
 });
 
 router.get("/", async (req, res) => {

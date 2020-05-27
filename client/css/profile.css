@@ -3,6 +3,7 @@
   height: 100%;
 }
 
+
 .middleComp{
   width: 70%;
   height: 100%;
@@ -61,7 +62,6 @@
   border: 2px solid black;
   display: block;
   text-align: center;
-  vertical-align: center;
   justify-content: center;
   align-items: center;
   padding: 5px;
@@ -148,6 +148,7 @@
 
 .data{
   display: block;
+  width: auto;
   justify-content: center;
   align-items: center;
   margin: 1.5vw;
@@ -199,11 +200,9 @@
 
 /** FRIENDS **/
 
-.friends{
-  width: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.friend{
+  width: 30%;
 }
 
 .bottomB{
@@ -248,8 +247,7 @@
 }
 
 #finfo{
-  font-weight: bold;
-   font-size: 13px;
+  font-size: 100%;
 }
 
 .finfo{
@@ -405,9 +403,8 @@
 
 @media only screen and (max-width: 670px){
 
-  p{
-    font-size:calc(8px + 0.6vw);
-    text-align: center;
+  .friend{
+  width: 60%;
   }
 
   .entire{
@@ -440,7 +437,6 @@
   margin: auto auto auto auto;
   display: inline;
   text-align: center;
-  float: auto;
   padding: 10px;
 }
 
@@ -576,7 +572,11 @@
 
 #addFriend{
   width: auto;
-
 }
+
+#pinfo{
+  font-size: calc(9px + 0.3vw);
+}
+
 
 }

@@ -18,8 +18,8 @@ export default {
       .then((response) => response.json())
       .then((data) => {
         this.profile = data;
-        if( this.profile.image ){
-            this.image = this.profile.image;
+        if (this.profile.image) {
+          this.image = this.profile.image;
         }
       })
       .catch((error) => {
@@ -33,9 +33,9 @@ export default {
   </div>
     <div class="leftInfo">
     <div class="data">
-        <p>Nome: {{ profile.firstName }}</p>
-        <p>Cognome: {{ profile.lastName }}</p>
-        <p>E-mail: {{ profile.email }}</p>
+        <p id="pinfo">Nome: {{ profile.firstName }}</p>
+        <p id="pinfo">Cognome: {{ profile.lastName }}</p>
+        <p id="pinfo">E-mail: {{ profile.email }}</p>
     </div>
     <button id="" class="btn btn-default leftB"  @click="switchComponent('editComp')">Edit</button>
     </div>
