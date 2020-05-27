@@ -132,7 +132,12 @@ svg{
 /************
 PARTY PROGRAM COMPONENT
 *************/
-
+.titlecreateparty{
+    text-align: center;
+    color:black;
+    font-weight: bolder;
+    margin:20px;
+}
 .partyProgram-component{
     position: relative;
     width: 100%;
