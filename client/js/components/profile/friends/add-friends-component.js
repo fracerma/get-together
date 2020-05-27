@@ -65,7 +65,7 @@ export default {
       }
     },
     switchComponent: function(comp) {
-        bus.$emit("switchComp", comp);
+      bus.$emit("switchComp", comp);
     },
     search: function (v) {
       this.friends = null;

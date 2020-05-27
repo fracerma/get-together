@@ -32,25 +32,6 @@ export default {
       if (comp == "notComp") this.section = "Notifications";
       if (comp == "friendsComp") this.section = "Friends";
     },
-    logout: function () {
-      fetch("/logout", {
-        credentials: "include",
-        method: "GET",
-        redirect: "follow",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        //body: JSON.stringify(data),
-      })
-        .then((response) => response.text())
-        .then((data) => {
-          console.log(data);
-          this.$router.push("/");
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    },
   },
   components: {
     middleComp,

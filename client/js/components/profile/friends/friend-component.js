@@ -62,8 +62,6 @@ export default {
           },
           body: JSON.stringify({ friendId: this.id }),
         })
-          .then((response) => response.json())
-          .then((data) => {})
           .catch((error) => {
             console.error("Error:", error);
           });

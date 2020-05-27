@@ -55,7 +55,6 @@ export default {
   filters: {
     date: function (value) {
       if (value) {
-        console.log(moment(value).format('LLLL'))
         return moment(String(value)).format('LLLL')
       }
     }
@@ -80,9 +79,6 @@ export default {
           },
           body: JSON.stringify({ id: this.not.id }),
         })
-          .then(response => response.json())
-          .then(data => {
-          })
           .catch((error) => {
             console.error('Error:', error);
           });
@@ -98,9 +94,6 @@ export default {
           },
           body: JSON.stringify({ id: this.not.party.id, decision: "accepted" }),
         })
-          .then(response => response.json())
-          .then(data => {
-          })
           .catch((error) => {
             console.error('Error:', error);
           });
@@ -115,9 +108,6 @@ export default {
           },
           body: JSON.stringify({ id: this.not.party.id, decision: "rejected" }),
         })
-          .then(response => response.json())
-          .then(data => {
-          })
           .catch((error) => {
             console.error('Error:', error);
           });
@@ -132,9 +122,6 @@ export default {
           },
           body: JSON.stringify({ dstId: this.not.source.id, decision: "accepted" }),
         })
-          .then(response => response.json())
-          .then(data => {
-          })
           .catch((error) => {
             console.error('Error:', error);
           });
@@ -149,9 +136,6 @@ export default {
           },
           body: JSON.stringify({ dstId: this.not.source.id, decision: "rejected" }),
         })
-          .then(response => response.json())
-          .then(data => {
-          })
           .catch((error) => {
             console.error('Error:', error);
           });
@@ -175,9 +159,6 @@ export default {
           },
           body: JSON.stringify({id: this.not.id }),
         })
-          .then(response => response.json())
-          .then(data => {
-          })
           .catch((error) => {
             console.error('Error:', error);
           });

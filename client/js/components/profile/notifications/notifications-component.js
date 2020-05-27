@@ -23,7 +23,6 @@ export default {
       .then((response) => response.json())
       .then((data) => {
         this.notifications = data;
-        console.log(this.notifications);
         this.count = 0;
       })
       .catch((error) => {
@@ -38,7 +37,6 @@ export default {
     });
 
     this.$root.$data.socket.on("newFriend", (data) => {
-      console.log("ok");
       this.notifications.unshift(data);
     });
 
