@@ -3,9 +3,12 @@ import settingComponent from "./settingParty-component.js"
 export default{
     props: ["party"],
     template:`
-        <div class="partyProgram-component">
-            <settingComponent v-on:next="nextStep" />
-            <friendsComponent v-bind:error="friendError" v-bind:partecipants="partecipants"/>
+        <div>
+            <h1 class="titlecreateparty">Create your party</h1>
+            <div class="partyProgram-component">
+                <settingComponent v-on:next="nextStep" />
+                <friendsComponent v-bind:error="friendError" v-bind:partecipants="partecipants"/>
+            </div>
         </div>
     `,
     data() {

@@ -7,8 +7,8 @@ export default {
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="collapse navbar-collapse" id="navbarNav">
         
-        <div id="register">
-            <a href="../../../register.html"> <p id="link"> REGISTER </p> </a>
+        <div id="signup">
+            <a href="../../../register.html"> <p id="link"> Sign up </p> </a>
         </div>
     
         <div id="navbar-brand">
@@ -18,7 +18,7 @@ export default {
         </div>
 
         <div id="login">
-            <a href="../../../login.html"> <p id="link"> LOG IN </p> </a>
+            <a href="../../../login.html"> <p id="link"> Log In </p> </a>
        </div>
     </div>
     </nav>

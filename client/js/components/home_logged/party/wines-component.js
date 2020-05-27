@@ -109,7 +109,7 @@ export default{
                     url="/recommendation";
                     query=new URLSearchParams(Object.assign({},{wine:this.type}));
                 }
-                fetch(`/api/wines${url}?${query.toString()}&number=8`)
+                fetch(`/api/wines${url}?${query.toString()}&number=4`)
                 .then(response => response.json())
                 .then(data => {
                     this.wines=data.wines;
