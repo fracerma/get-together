@@ -35,7 +35,11 @@ export default{
             recipes: this.party.recipes,
             beers: this.party.beers,
             wines: this.party.wines,
-            number: 0
+            number: 0,
+            cocktails_len: this.party.cocktails.length,
+            recipes_len: this.party.recipes.length,
+            beers_len: this.party.beers.length,
+            wines_len: this.party.wines.length
         }
     },
     methods: {
@@ -97,16 +101,26 @@ export default{
     },
     watch: {
         cocktails: function(val){
-            this.number++;
+            console.log(this.cocktails_len,this.cocktails.length);
+            
+            if(this.cocktails_len<this.cocktails.length){
+                this.cocktails_len=this.cocktails.length;
+                this.number++;}
         },
         beers: function(val){
-            this.number++;
+            if(this.beers_len<this.beers.length){
+                this.beers_len=this.beers.length;
+                this.number++;}
         },
         wines: function(val){
-            this.number++;
+            if(this.wines_len<this.wines.length){
+                this.wines_len=this.wines.length;
+                this.number++;}
         },
         recipes: function(val){
-            this.number++;
+            if(this.recipes_len<this.recipes.length){
+                this.recipes_len=this.recipes.length;
+                this.number++;}
         },
         
     },

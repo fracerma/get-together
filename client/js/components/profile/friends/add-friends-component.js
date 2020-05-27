@@ -62,10 +62,10 @@ export default {
       if (this.newFriend == value) {
         this.search(this.newFriend);
         return;
-      },
-        switchComponent: function(comp) {
-            bus.$emit("switchComp", comp);
-          },
+      }
+    },
+    switchComponent: function(comp) {
+      bus.$emit("switchComp", comp);
     },
     search: function (v) {
       this.friends = null;

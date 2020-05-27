@@ -225,7 +225,7 @@ LIST COMPONENT
     display: none;
 }
 .list-component{
-border-top: 3px solid black;
+  border-top: 3px solid black;
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 100px;
@@ -653,6 +653,10 @@ RESPONSIVE STUFF
         background-color: white;
         height: 400px;
         overflow-y: scroll;
+        border-top: 3px solid black;
+    }
+    .list-component{
+        border-top: none;
     }
     .list{
         display: flex;
