@@ -13,7 +13,7 @@ var fp=new Vue({
     components:{
         "nav-bar":navBar
     },
-    mounted(){
+    created(){
         this.control=true;
     },
     methods: {

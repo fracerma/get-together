@@ -124,9 +124,9 @@
             />
             
           </div>
-          <div class="errors"><span v-if="errorPassword">{{errorPassword}}</span></div>
+          <div class="errors"><span v-if="control && errorPassword">{{errorPassword}}</span></div>
           <div v-if="error" class="errors">
-            <span >{{error}}</span>
+            <span v-if="control">{{error}}</span>
           </div>
           <button type="submit">Sign up</button>
         </div>
