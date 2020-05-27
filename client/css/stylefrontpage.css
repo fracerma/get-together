@@ -40,6 +40,16 @@ body{
     line-height: 35px;
     display:table-cell;
     vertical-align: middle;
+    padding:2px;
+}
+
+.linkfp{
+    color:orange;
+    font-weight: bolder;
+    text-underline-position: below; 
+}
+.linkfp:hover{
+    color:red;
 }
 
 /****************************

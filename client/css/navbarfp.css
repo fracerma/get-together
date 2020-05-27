@@ -17,7 +17,7 @@ nav{
     margin-right: 1%;
     
 }
-#register{
+#signup{
     margin-left: 1%;
     display: table;
 }
@@ -27,10 +27,13 @@ nav{
     text-decoration: none;
     color:rgb(242, 106, 48);
 }
+#link:hover{
+    color: brown;
+}
 #login a:hover{
     text-decoration: none;
 }
-#register a:hover{
+#signup a:hover{
     text-decoration: none;
 }
 
