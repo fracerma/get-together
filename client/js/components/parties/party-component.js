@@ -115,7 +115,7 @@ export default{
                         >
                         </recipeComponent>
 
-                        <recipeComponent v-for="(recipe,i) in party.userRecipes" v-show="rec" v-if"(party.userRecipes!=null)"
+                        <recipeComponent v-for="(recipe,i) in party.userRecipes" v-show="rec" v-if="(party.userRecipes!=null)"
                             v-bind:recipe="recipe"
                             v-bind:key="recipe.id"
                             v-bind:btn="(party.isOwner && modify)? 'remove' : null"
