@@ -104,7 +104,7 @@ export default{
                 <div class="high-bar bar bg-main" > <span> About: </span></div>
                 <div class="aboutcontent">
 
-                    <div class="ptrecipes">   
+                    <div class="ptrecipes"  v-if="!(party.userRecipes.length==0 && party.apiRecipes.length==0)">   
                         <div class="high-bar barsmall bg-blue"> <span v-on:click="openContent('rec')"> Recipes: </span></div>
                         <recipeComponent v-for="(recipe,i) in party.apiRecipes" v-show="rec" v-if="(party.apiRecipes!=null)"
                             v-bind:recipe="recipe"
@@ -125,7 +125,7 @@ export default{
                         </recipeComponent>
                     </div>
 
-                    <div class="ptwines">   
+                    <div class="ptwines"  v-if="!(party.wines.length==0)">   
                         <div class="high-bar barsmall bg-red" > <span v-on:click="openContent('win')"> Wines: </span></div>
                         <wineComponent  v-for="(wine, i) in party.wines"  v-show="win" v-if="(party.wines!=null)"
                             v-bind:wine="wine"
@@ -136,7 +136,7 @@ export default{
                         </wineComponent>
                     </div>
 
-                    <div class="ptbeers"> 
+                    <div class="ptbeers" v-if="!(party.beers.length==0)"> 
                         <div   class="high-bar barsmall bg-yellow" > <span v-on:click="openContent('be')"> Beers: </span></div>  
                         <beerComponent v-for="(beer, i) in party.beers" v-show="be" v-if=" (party.beers!=null)"
                             v-bind:beer="beer"
@@ -147,7 +147,7 @@ export default{
                         </beerComponent>
                     </div>
 
-                    <div class="ptcocktail"> 
+                    <div class="ptcocktail" v-if="!(party.cocktails.length==0)"> 
                         <div class="high-bar barsmall bg-green" > <span v-on:click="openContent('co')"> Cocktail: </span></div> 
                         <cocktailComponent v-for="(cocktail, i) in party.cocktails" v-show="co" v-if="(party.cocktails!=null)"
                             v-bind:cocktail="cocktail"
@@ -217,7 +217,6 @@ export default{
             method: "GET",
             credentials: "include"
         }).then(response =>{ 
-            console.log(response);
             if(response.status==404){
                 this.deleted=true;
             }
@@ -256,11 +255,41 @@ export default{
             this.edit.cocktails=this.party.cocktails;
         },
         openContent: function(el) {
-            if(el=="par") this.par=!this.par;
-            else if(el=="win") this.win=!this.win;
-            else if(el=="be") this.be=!this.be;
-            else if(el=="co") this.co=!this.co;
-            else if(el=="rec") this.rec=!this.rec;
+            if(el=="par"){
+             this.par=!this.par;
+             this.rec=false;
+             this.win=false;
+             this.be=false;
+             this.co=false;
+            }
+            else if(el=="win"){
+                this.win=!this.win;
+                this.rec=false;
+                this.par=false;
+                this.be=false;
+                this.co=false;
+            }
+            else if(el=="be"){
+                this.be=!this.be;
+                this.rec=false;
+                this.win=false;
+                this.par=false;
+                this.co=false;
+            }
+            else if(el=="co") {
+                this.co=!this.co;
+                this.rec=false;
+                this.win=false;
+                this.be=false;
+                this.par=false;
+            }
+            else if(el=="rec"){
+                this.rec=!this.rec;
+                this.par=false;
+                this.win=false;
+                this.be=false;
+                this.co=false;
+            }
         },
         save: function(event){
             const timeStart=this.edit.startTime.split(":");
