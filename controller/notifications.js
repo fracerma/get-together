@@ -13,8 +13,10 @@ router.delete("/delete/all", async function(req, res){
   const userId = req.session.userId;
   try{
     await Notification.destroy({ where: { destination: userId } });
+    res.end();
   }catch(e){
     console.error(e);
+    res.status(400).end();
   }
 });
 
@@ -43,6 +45,7 @@ router.get("/all", async function(req, res){
        }
      } catch (e) {
        console.error(e);
+       res.status(400).end();
      }
 })
 
@@ -56,9 +59,11 @@ router.post("/mark", async function(req, res){
       not.update({ state: false }).then((res)=>{});
       not.save();
     }
+    res.end();
 
   }catch(e){
     console.error(e);
+    res.status(400).end();
   }
 })
 
