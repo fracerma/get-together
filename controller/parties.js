@@ -30,6 +30,7 @@ router.get("/", async (req, res) => {
   }
   catch(e){
     console.log(e);
+    res.status(400).end();
   }
 });
 
@@ -65,6 +66,7 @@ router.get("/other", async (req, res) => {
   }
 catch(e){
   console.log(e);
+  res.status(400).end();
 }
 });
 
@@ -127,7 +129,6 @@ router.post("/", async (req, res) => {
 //ottieni il party con id e carica tutti i commenti e le info relative
 router.get("/:id", async function (req, res) {
   const partyId = req.params.id;
-  console.log(partyId);
   try {
     //const comments = await Party.getComments(partyId); //Devo fare una chiamata al db che ritorna tutti i commenti relativi ad un party
     let party = await Party.findOne({
@@ -183,6 +184,7 @@ router.get("/:id", async function (req, res) {
     }
   } catch (error) {
     console.log(error);
+    res.status(400).end();
   }
 });
 //modifica il party con id
@@ -204,18 +206,24 @@ router.put("/:id", async (req, res) => {
     }
 
     await party.save();
-
+    res.send(party);
 
 });
 
 //elimina il party con id
 router.delete("/:id",async (req,res)=>{
+  try{
     await Party.destroy({
       where:{
         id:req.params.id
       }
     });
-    res.send('ok');
+    res.status(200);
+  }
+  catch(e){
+    console.error(e);
+    res.status(400).end();
+  }
 });
 
 
@@ -248,6 +256,7 @@ router.post("/:id/comment", async function (req, res) {
     res.send(newComm);
   } catch (error) {
     console.error(error);
+    res.status(400).end();
   }
 
 });
@@ -278,9 +287,10 @@ router.post("/response", async function (req, res) {
         console.log(decision);
         await broadcast(not);
       }
-    
+    res.end();
   } catch (error) {
     console.error(error);
+    res.status(400).end();
   }
 });
 
