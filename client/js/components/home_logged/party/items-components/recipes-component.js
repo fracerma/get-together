@@ -1,13 +1,12 @@
 import recipeComponent from "./recipe-component.js"
 export default{
-    //TODO tipo di portata
     template: `
     <div class="conteiner-component">
         <div class="high-bar bg-blue" >
             <span v-on:click="openContent">Select recipes</span>
             <div>
             <a v-on:click="resetFilter">Remove filter</a>
-            <input v-model="query" placeholder="recipe name" v-on:change="fetchRecipe">
+            <input autocomplete="off" v-model="query" placeholder="recipe name" v-on:change="fetchRecipe">
             
             <select v-model="diets" v-on:change="fetchRecipe">
                 <option selected hidden>Diets type</option>
