@@ -282,9 +282,7 @@ export default{
             this.startTime= this.date.getHours()+":";
             this.startTime+=(this.date.getMinutes() <'10')?'0'+this.date.getMinutes():this.date.getMinutes();
             this.finishTime= (new Date(this.edit.datefinish)).getHours()+":";
-            this.finishTime+=((new Date(this.party.finishDate)).getMinutes() <'10')?'0'+(new Date(this.party.finishDate)).getMinutes():(new Date(this.party.finishDate)).getMinutes();
-
-
+            this.finishTime+=((new Date(this.edit.datefinish)).getMinutes() <'10')?'0'+(new Date(this.edit.datefinish)).getMinutes():(new Date(this.edit.datefinish)).getMinutes();
             fetch('/parties/'+this.$route.params.id,{
                 method: "PUT",
                 headers: {
@@ -299,6 +297,7 @@ export default{
             .catch(error => {
               console.error('Error:', error);
             });
+
             this.modify=false;
         },
         removeapiRecipe:function(id){

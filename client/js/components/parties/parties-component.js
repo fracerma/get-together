@@ -10,7 +10,7 @@ export default{
                 </div>
                 <div v-if="yourparties">
                     <div v-for="party in yourparties" class="parties-elements">
-                        <router-link v-if="party" :to='"/parties/"+party.id' id="link">
+                        <router-link v-if="party!='null'" :to='"/parties/"+party.id' id="link">
                             <li> "{{party.name}}" on {{parsing(party.startDate)}}</li>
                         </router-link>
                     </div>
@@ -23,7 +23,7 @@ export default{
                 </div>
                 <div v-if="otherparties">
                     <div v-for="party in otherparties" class="parties-elements">
-                            <router-link v-if="party" :to='"/parties/"+party.id' id="link">
+                            <router-link v-if="party!='null'" :to='"/parties/"+party.id' id="link">
                                 <li> "{{party.name}}" on {{parsing(party.startDate)}}</li>
                             </router-link>
                     </div>

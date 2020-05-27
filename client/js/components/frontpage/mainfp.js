@@ -7,10 +7,14 @@ var fp=new Vue({
         errorFirstName: null,
         errorLastName: null,
         errorPassword: null,
-        error: null
+        error: null,
+        control:false
     },
     components:{
         "nav-bar":navBar
+    },
+    created(){
+        this.control=true;
     },
     methods: {
         login(e){
