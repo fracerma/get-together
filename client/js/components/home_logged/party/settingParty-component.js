@@ -28,6 +28,7 @@ export default{
                         </div>
                     </DatePicker>
                     <p class="error">{{errors.startTime}}</p>
+                    <p class="error">{{errors.finishTime}}</p>
                 </div>
                 <div>
                         <input type="submit" class="btn bg-orange" value="Next"> 
@@ -71,7 +72,9 @@ export default{
                 this.resetErrors();
                 if(this.name==null) this.addError("name","Name is required");
                 if(this.date==null) this.addError("date","Date is required");
+                if(this.date<(new Date()).setDate((new Date()).getDate()-1)) this.addError("date","Date has already passed");
                 if(this.startTime==null) this.addError("startTime","Starting time is required");
+                if(this.finishTime==null) this.addError("finishTime","Finish time is required");
                 if(!this.errors.occure){
                     this.$emit("next",this.name,this.date,this.startTime,this.finishTime);
                 }
