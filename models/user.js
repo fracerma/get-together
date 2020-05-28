@@ -20,16 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       through: "Friendships",
       foreignKey: "UserId",
     });
-    User.belongsToMany(models.Recipe, {
-      as: "favourites",
-      through: "Favourites",
-      foreignKey: "UserId",
-    });
     User.belongsToMany(models.Party, {
       through: "UserParty",
       foreignKey: "UserId",
     });
-    //User.hasMany(models.Party, { foreignKey: "owner" });
     User.hasMany(models.Comment, { foreignKey: "UserId" });
     User.hasMany(models.Recipe, { foreignKey: "UserId" });
 

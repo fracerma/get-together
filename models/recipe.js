@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Recipe.associate = function(models) {
     // associations can be defined here
-    Recipe.belongsToMany(models.User,{as: "favourites", through: "Favourites",foreignKey:"RecipeId"});
     Recipe.belongsToMany(models.Party, {through: 'PartyRecipe', foreingKey: "RecipeId"});
     Recipe.belongsTo(models.User);
   };
