@@ -50,7 +50,17 @@ export default{
                 }).catch(e=>{
                     console.error(e);
                 });
-        }
+        },
+        objectsAreSame(x, y) {
+            var objectsAreSame = true;
+            for(var propertyName in x) {
+               if(x[propertyName] !== y[propertyName]) {
+                  objectsAreSame = false;
+                  break;
+               }
+            }
+            return objectsAreSame;
+         }
     },
     created() {
         this.fetchFriends();
@@ -60,9 +70,30 @@ export default{
             this.errorText=val;
         },
             $route: function(val){
+                //funxione per capire quando aggiornare i friends
                 const regex=/(\/recipes\/[0-9]+)|(\/beers\/[0-9]+)|(\/cocktails\/[0-9]+)|(\/wines\/[0-9]+)/;
                 if(!regex.test(val.path)){
-                    this.fetchFriends();
+                    fetch(`/friends`,{
+                        method: "GET",
+                        credentials: "include"
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                                const new_friends=data.filter(x=>x.status=="accepted");
+                                let same=true;
+                                if(new_friends.length!==this.friends) same=false;
+                                else{
+                                    for(i=0;i<new_friend.length;i++){
+                                        if(!this.objectsAreSame(new_friend[i],this.friends[i])){
+                                            same=false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if(!same) this.friends=new_friends;
+                        }).catch(e=>{
+                            console.error(e);
+                        });
                 }    
             }
     },  
