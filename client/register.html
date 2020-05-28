@@ -17,7 +17,7 @@
   </head>
   <body>
 
-    <div v-if="control" id="fp">
+    <div id="fp">
       <nav-bar></nav-bar>
       <form @submit="register">
         <div id="pan">
@@ -33,7 +33,7 @@
               @change="checkInput()"
               required/>
           </div>
-          <div class="errors" v-if="errorFirstName"><span>{{errorFirstName}}</span></div>
+          <div v-cloak v-if="errorFirstName"><span>{{errorFirstName}}</span></div>
 
           <div class="line">
             <label for="lastName" class="txt">Last Name:</label>
@@ -61,7 +61,7 @@
               required
             />
           </div>
-          <div class="errors" v-if="errorLastName"><span>{{errorLastName}}</span></div>
+          <div v-cloak class="errors" v-if="errorLastName"><span>{{errorLastName}}</span></div>
           
           <div class="line">
             <label for="email" class="txt">Email:</label>
@@ -151,9 +151,9 @@
             />
             
           </div>
-          <div class="errors"><span v-if="control && errorPassword">{{errorPassword}}</span></div>
-          <div v-if="error" class="errors">
-            <span v-if="control">{{error}}</span>
+          <div v-cloak class="errors"><span v-if="errorPassword">{{errorPassword}}</span></div>
+          <div v-cloak v-if="error" class="errors">
+            <span>{{error}}</span>
           </div>
           <button type="submit">Sign up</button>
         </div>

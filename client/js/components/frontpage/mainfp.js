@@ -8,7 +8,6 @@ var fp=new Vue({
         errorLastName: null,
         errorPassword: null,
         error: null,
-        control:false
     },
     components:{
         "nav-bar":navBar
