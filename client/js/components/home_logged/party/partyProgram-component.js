@@ -1,8 +1,8 @@
 import friendsComponent from "./items-components/friends-component.js"
 import settingComponent from "./settingParty-component.js"
 export default{
-    props: ["party"],
-    template:`
+    props: ["party"],   //proprietà ricevuta dal padre
+    template:`          
         <div>
             <h1 class="titlecreateparty">Create your party</h1>
             <div class="partyProgram-component">
