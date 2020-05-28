@@ -13,7 +13,7 @@ router.use(bodyParser.json());
 //ricerco spoonacular cuisine diets intolerances
 router.get('/', function(req, res) {
   const query=req.url;
-  axios.get(`https://api.spoonacular.com/recipes/complexSearch${query}&instructionsRequired=true&apiKey=${process.env.SPOONACULAR_KEY}`)
+  axios.get(`https://api.spoonacular.com/recipes/complexSearch${query}&instructionsRequired=true&addRecipeInformation=true&apiKey=${process.env.SPOONACULAR_KEY}`)
   .then((response)=>{
     let result=response.data.results;
     result=result.map((ricetta)=>{

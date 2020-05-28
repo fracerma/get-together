@@ -62,11 +62,8 @@ export default{
             $route: function(val){
                 const regex=/(\/recipes\/[0-9]+)|(\/beers\/[0-9]+)|(\/cocktails\/[0-9]+)|(\/wines\/[0-9]+)/;
                 if(!regex.test(val.path)){
-                    console.log("reload");
-                        this.fetchFriends();
-                }
-                
+                    this.fetchFriends();
+                }    
             }
-        
     },  
 }
