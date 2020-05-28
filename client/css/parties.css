@@ -245,4 +245,12 @@
         box-shadow: 0 4px 8px 0 rgba(249, 177, 101, 0.2), 0 6px 20px 0 rgba(249, 177, 101, 0.2);
         vertical-align: middle;
     }
+    .elmod{
+        width: 80%;
+        font-size: 30px;
+    }
+    .title{
+        width: 90%;
+        font-size: 40px;
+    }
 }
