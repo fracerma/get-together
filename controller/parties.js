@@ -178,8 +178,10 @@ router.get("/:id", async function (req, res) {
           x.mycomm=false;
         }
       })
-
+      party.owner= (await User.findOne({where:{id: party.owner},attributes:["firstName","lastName","email"]})).toJSON();
       let response = party;
+      console.log(party);
+      
       res.send(response);
     }
   } catch (error) {
