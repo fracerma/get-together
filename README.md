@@ -36,9 +36,7 @@ OAUTH:   Facebook
 
 -----------------------------------------------------NOTIFICHE---------------------------------------------------------
 
-Socket.io : 
-            - Notifiche in tempo reale
-            - Commenti relativi ad un party ( chat )
+Socket.io : - Notifiche in tempo reale e commenti relativi ad un party ( chat )
 
 ------------------------------------------------------LA NOSTRA DOCUMENTAZIONE-----------------------------------------
 
