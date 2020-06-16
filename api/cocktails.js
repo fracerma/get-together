@@ -99,8 +99,10 @@ function cleaner(rawData, max) {
 router.get("/type", function (req, response) {
   const q = req.query;
   var num = q.number;
+  if (!num) num = 3;
   var type = q.type;
   //Prendo prima tutti i cocktail con type ( il JSON di risposta contiene solo l'id del cocktail e poco altro)
+
   axios
     .get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=" + type)
     .then(function (res) {
@@ -155,6 +157,7 @@ router.get("/type", function (req, response) {
 router.get("/random", function (req, response) {
   const q = req.query;
   var num = q.number;
+  if (!num) num = 3;
   ////////////////////////////////////
 
   var array = new Array();
@@ -193,6 +196,7 @@ router.get("/random", function (req, response) {
 router.get("/name", function (req, response) {
   const q = req.query;
   var num = q.number;
+  if (!num) num = 3;
   axios
     .get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + q.name)
     .then(function (res) {
@@ -210,6 +214,7 @@ router.get("/name", function (req, response) {
 router.get("/category", function (req, response) {
   const q = req.query;
   var num = q.number;
+  if (!num) num = 3;
   axios
     .get(
       "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=" + q.category
@@ -264,6 +269,7 @@ router.get("/category", function (req, response) {
 router.get("/ingredient", function (req, response) {
   const q = req.query;
   var num = q.number;
+  if (!num) num = 3;
   axios
     .get(
       "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + q.ingredient
