@@ -1,1 +1,18 @@
 # get-togheter
+
+-----------------------------------------------------
+
+L’obiettivo del nostro sito web è offrire un servizio a coloro che 
+vogliono organizzare una cena o una festa, principalmente a casa.
+
+Infatti “Get Together” offre a queste persone la possibilità di organizzare la festa, dando un nome, una data e invitando i propri amici.
+
+Inoltre aiuta a trovare ricette, vini, birre e cocktail a seconda delle proprie preferenze o abbinati al cibo
+
+
+------------------------------------------------------TECNOLOGIE UTILIZZATE----------------------------------------------
+
+Node.js, Express, Socket.io   ---->   Back-End
+Vue.js,Javascript, Html,Css   ---->   Front-End
+Sequelize                     ---->   Object Relational Mapping
+Postgres                      ---->   Database
