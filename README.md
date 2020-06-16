@@ -8,7 +8,7 @@ Infatti “Get Together” offre a queste persone la possibilità di organizzare
 Inoltre aiuta a trovare ricette, vini, birre e cocktail a seconda delle proprie preferenze o abbinati al cibo
 
 
-------------------------------------------------------TECNOLOGIE UTILIZZATE------------------------------------------
+------------------------------------------------------TECNOLOGIE UTILIZZATE--------------------------------------------
 
 Node.js, Express, Socket.io   ---->   Back-End
 
@@ -20,7 +20,7 @@ Postgres                      ---->   Database
 
 
 
-------------------------------------------------------REST-API UTILIZZATE------------------------------------------
+------------------------------------------------------REST-API UTILIZZATE----------------------------------------------
 
 Spoonacular (per ricette e vini)            ----> https://spoonacular.com/food-api/docs
 
@@ -30,17 +30,17 @@ TheCocktailDb (per i cocktail)              ----> https://www.thecocktaildb.com/
 
 Facebook API(per foto e amici consigliati)  ----> https://developers.facebook.com/docs/apis-and-sdks?locale=it_IT
 
-------------------------------------------------------OAUTH--------------------------------------------------------
+------------------------------------------------------OAUTH------------------------------------------------------------
 
 OAUTH:   Facebook
 
 -----------------------------------------------------NOTIFICHE---------------------------------------------------------
 
-Socket.io : - Notifiche in tempo reale
-
+Socket.io : 
+            - Notifiche in tempo reale
             - Commenti relativi ad un party ( chat )
 
-------------------------------------------------------LA NOSTRA DOCUMENTAZIONE--------------------------------------
+------------------------------------------------------LA NOSTRA DOCUMENTAZIONE-----------------------------------------
 
 https://getogetherprova.herokuapp.com/api/docs
 
