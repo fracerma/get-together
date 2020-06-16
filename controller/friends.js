@@ -31,7 +31,6 @@ router.get("/facebook",async (req,res)=>{
         }});
         if( state )obj["state"] = false;
         else obj["state"] = true;
-        console.log(obj);
         array.push(obj);
       }
     }
