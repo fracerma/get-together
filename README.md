@@ -13,6 +13,9 @@ Inoltre aiuta a trovare ricette, vini, birre e cocktail a seconda delle proprie 
 ------------------------------------------------------TECNOLOGIE UTILIZZATE----------------------------------------------
 
 Node.js, Express, Socket.io   ---->   Back-End
+
 Vue.js,Javascript, Html,Css   ---->   Front-End
+
 Sequelize                     ---->   Object Relational Mapping
+
 Postgres                      ---->   Database
