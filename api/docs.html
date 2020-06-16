@@ -703,11 +703,9 @@ margin-bottom: 20px;
       <div id="sidenav" class="span2">
         <nav id="scrollingNav">
           <ul class="sidenav nav nav-list">
-              <div style="width: 80%; background-color: white; color: white; padding: 20px; text-align: center; margin-bottom: 20px; ">
-
-                <img src="/image/LogoGetTorgether.png">
-
-              </div>
+            <div style="width: 80%; background-color: white; color: white; padding: 20px; text-align: center; margin-bottom: 20px; ">
+              <img src="/image/LogoGetTorgether.png">
+            </div>
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
                   <li class="nav-header" data-group="Default"><a href="#api-Default">API Methods - Default</a></li>
@@ -716,6 +714,9 @@ margin-bottom: 20px;
                     </li>
                     <li data-group="Default" data-name="beersRandomGet" class="">
                       <a href="#api-Default-beersRandomGet">beersRandomGet</a>
+                    </li>
+                    <li data-group="Default" data-name="beersidGet" class="">
+                      <a href="#api-Default-beersidGet">beersidGet</a>
                     </li>
                     <li data-group="Default" data-name="cocktailsCategoryGet" class="">
                       <a href="#api-Default-cocktailsCategoryGet">cocktailsCategoryGet</a>
@@ -732,14 +733,32 @@ margin-bottom: 20px;
                     <li data-group="Default" data-name="cocktailsTypeGet" class="">
                       <a href="#api-Default-cocktailsTypeGet">cocktailsTypeGet</a>
                     </li>
+                    <li data-group="Default" data-name="cocktailsidGet" class="">
+                      <a href="#api-Default-cocktailsidGet">cocktailsidGet</a>
+                    </li>
+                    <li data-group="Default" data-name="partyGet" class="">
+                      <a href="#api-Default-partyGet">partyGet</a>
+                    </li>
+                    <li data-group="Default" data-name="partyRandomGet" class="">
+                      <a href="#api-Default-partyRandomGet">partyRandomGet</a>
+                    </li>
                     <li data-group="Default" data-name="recipesGet" class="">
                       <a href="#api-Default-recipesGet">recipesGet</a>
                     </li>
                     <li data-group="Default" data-name="recipesRandomGet" class="">
                       <a href="#api-Default-recipesRandomGet">recipesRandomGet</a>
                     </li>
+                    <li data-group="Default" data-name="recipesidGet" class="">
+                      <a href="#api-Default-recipesidGet">recipesidGet</a>
+                    </li>
                     <li data-group="Default" data-name="winesPairingGet" class="">
                       <a href="#api-Default-winesPairingGet">winesPairingGet</a>
+                    </li>
+                    <li data-group="Default" data-name="winesRecommendationGet" class="">
+                      <a href="#api-Default-winesRecommendationGet">winesRecommendationGet</a>
+                    </li>
+                    <li data-group="Default" data-name="winesidGet" class="">
+                      <a href="#api-Default-winesidGet">winesidGet</a>
                     </li>
           </ul>
         </nav>
@@ -795,7 +814,7 @@ margin-bottom: 20px;
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-beersGet-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/beers?food=&abv_lt=&abv_gt=&beer_name=&number="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/beers?food=&abv_lt=&abv_gt=&beer_name=&number="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-beersGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1140,7 +1159,7 @@ except ApiException as e:
                       <article id="api-Default-beersRandomGet-0" data-group="User" data-name="beersRandomGet" data-version="0">
                         <div class="pull-left">
                           <h1>beersRandomGet</h1>
-                          <p>returns 3 random beers;</p>
+                          <p>returns random beers;</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -1168,7 +1187,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-beersRandomGet-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/beers/random?number="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/beers/random?number="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-beersRandomGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1221,7 +1240,7 @@ public class DefaultApiExample {
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
-// returns 3 random beers;
+// returns random beers;
 [apiInstance beersRandomGetWith:number
               completionHandler: ^(NSError* error) {
                             if (error) {
@@ -1273,7 +1292,7 @@ namespace Example
 
             try
             {
-                // returns 3 random beers;
+                // returns random beers;
                 apiInstance.beersRandomGet(number);
             }
             catch (Exception e)
@@ -1329,7 +1348,7 @@ api_instance = swagger_client.DefaultApi()
 number = 56 # Integer | the number of random beers to return. (optional)
 
 try: 
-    # returns 3 random beers;
+    # returns random beers;
     api_instance.beers_random_get(number=number)
 except ApiException as e:
     print("Exception when calling DefaultApi->beersRandomGet: %s\n" % e)</code></pre>
@@ -1390,6 +1409,222 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Default-beersidGet">
+                      <article id="api-Default-beersidGet-0" data-group="User" data-name="beersidGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>beersidGet</h1>
+                          <p>returns a specific beer with id&#x3D; :id;</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/beers/:id</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-beersidGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-beersidGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-beersidGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-beersidGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-beersidGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-beersidGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-beersidGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-beersidGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-beersidGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-beersidGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-beersidGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-beersidGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/beers/:id"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-beersidGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            apiInstance.beersidGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#beersidGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-beersidGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            apiInstance.beersidGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#beersidGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-beersidGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-beersidGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// returns a specific beer with id= :id;
+[apiInstance beersidGetWithCompletionHandler: 
+              ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-beersidGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var GetTogether = require('get_together');
+
+var api = new GetTogether.DefaultApi()
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.beersidGet(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-beersidGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-beersidGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class beersidGetExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+
+            try
+            {
+                // returns a specific beer with id= :id;
+                apiInstance.beersidGet();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.beersidGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-beersidGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\DefaultApi();
+
+try {
+    $api_instance->beersidGet();
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->beersidGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-beersidGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+
+eval { 
+    $api_instance->beersidGet();
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->beersidGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-beersidGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+
+try: 
+    # returns a specific beer with id= :id;
+    api_instance.beersid_get()
+except ApiException as e:
+    print("Exception when calling DefaultApi->beersidGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - the request was successful </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - bad request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Default-cocktailsCategoryGet">
                       <article id="api-Default-cocktailsCategoryGet-0" data-group="User" data-name="cocktailsCategoryGet" data-version="0">
                         <div class="pull-left">
@@ -1423,7 +1658,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-cocktailsCategoryGet-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/cocktails/category?cocktail_category=&number="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/cocktails/category?category=&number="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-cocktailsCategoryGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1439,10 +1674,10 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
-        String cocktailCategory = cocktailCategory_example; // String | pass a category of cocktails to be returned
+        String category = category_example; // String | pass a category of cocktails to be returned
         Integer number = 56; // Integer | pass a number of cocktails to be returned
         try {
-            apiInstance.cocktailsCategoryGet(cocktailCategory, number);
+            apiInstance.cocktailsCategoryGet(category, number);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#cocktailsCategoryGet");
             e.printStackTrace();
@@ -1458,10 +1693,10 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
-        String cocktailCategory = cocktailCategory_example; // String | pass a category of cocktails to be returned
+        String category = category_example; // String | pass a category of cocktails to be returned
         Integer number = 56; // Integer | pass a number of cocktails to be returned
         try {
-            apiInstance.cocktailsCategoryGet(cocktailCategory, number);
+            apiInstance.cocktailsCategoryGet(category, number);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#cocktailsCategoryGet");
             e.printStackTrace();
@@ -1474,13 +1709,13 @@ public class DefaultApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-cocktailsCategoryGet-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *cocktailCategory = cocktailCategory_example; // pass a category of cocktails to be returned
+                              <pre class="prettyprint"><code class="language-cpp">String *category = category_example; // pass a category of cocktails to be returned
 Integer *number = 56; // pass a number of cocktails to be returned (optional)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 // returns a list of cocktails in a category
-[apiInstance cocktailsCategoryGetWith:cocktailCategory
+[apiInstance cocktailsCategoryGetWith:category
     number:number
               completionHandler: ^(NSError* error) {
                             if (error) {
@@ -1495,7 +1730,7 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 var api = new GetTogether.DefaultApi()
 
-var cocktailCategory = cocktailCategory_example; // {String} pass a category of cocktails to be returned
+var category = category_example; // {String} pass a category of cocktails to be returned
 
 var opts = { 
   'number': 56 // {Integer} pass a number of cocktails to be returned
@@ -1508,7 +1743,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.cocktailsCategoryGet(cocktailCategory, opts, callback);
+api.cocktailsCategoryGet(category, opts, callback);
 </code></pre>
                             </div>
 
@@ -1530,13 +1765,13 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var cocktailCategory = cocktailCategory_example;  // String | pass a category of cocktails to be returned
+            var category = category_example;  // String | pass a category of cocktails to be returned
             var number = 56;  // Integer | pass a number of cocktails to be returned (optional) 
 
             try
             {
                 // returns a list of cocktails in a category
-                apiInstance.cocktailsCategoryGet(cocktailCategory, number);
+                apiInstance.cocktailsCategoryGet(category, number);
             }
             catch (Exception e)
             {
@@ -1553,11 +1788,11 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\Api\DefaultApi();
-$cocktailCategory = cocktailCategory_example; // String | pass a category of cocktails to be returned
+$category = category_example; // String | pass a category of cocktails to be returned
 $number = 56; // Integer | pass a number of cocktails to be returned
 
 try {
-    $api_instance->cocktailsCategoryGet($cocktailCategory, $number);
+    $api_instance->cocktailsCategoryGet($category, $number);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->cocktailsCategoryGet: ', $e->getMessage(), PHP_EOL;
 }
@@ -1570,11 +1805,11 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
-my $cocktailCategory = cocktailCategory_example; # String | pass a category of cocktails to be returned
+my $category = category_example; # String | pass a category of cocktails to be returned
 my $number = 56; # Integer | pass a number of cocktails to be returned
 
 eval { 
-    $api_instance->cocktailsCategoryGet(cocktailCategory => $cocktailCategory, number => $number);
+    $api_instance->cocktailsCategoryGet(category => $category, number => $number);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->cocktailsCategoryGet: $@\n";
@@ -1590,12 +1825,12 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
-cocktailCategory = cocktailCategory_example # String | pass a category of cocktails to be returned
+category = category_example # String | pass a category of cocktails to be returned
 number = 56 # Integer | pass a number of cocktails to be returned (optional)
 
 try: 
     # returns a list of cocktails in a category
-    api_instance.cocktails_category_get(cocktailCategory, number=number)
+    api_instance.cocktails_category_get(category, number=number)
 except ApiException as e:
     print("Exception when calling DefaultApi->cocktailsCategoryGet: %s\n" % e)</code></pre>
                             </div>
@@ -1613,11 +1848,11 @@ except ApiException as e:
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">cocktail_category*</td>
+                                <tr><td style="width:150px;">category*</td>
 <td>
 
 
-    <div id="d2e199_cocktailsCategoryGet_cocktailCategory">
+    <div id="d2e199_cocktailsCategoryGet_category">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
@@ -1714,7 +1949,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-cocktailsIngredientGet-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/cocktails/ingredient?cocktail_ingredient=&number="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/cocktails/ingredient?ingredient=&number="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-cocktailsIngredientGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1730,10 +1965,10 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
-        String cocktailIngredient = cocktailIngredient_example; // String | pass the name of the main ingredient in the cocktails to be returned
+        String ingredient = ingredient_example; // String | pass the name of the main ingredient in the cocktails to be returned
         Integer number = 56; // Integer | pass a number of cocktails to be returned
         try {
-            apiInstance.cocktailsIngredientGet(cocktailIngredient, number);
+            apiInstance.cocktailsIngredientGet(ingredient, number);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#cocktailsIngredientGet");
             e.printStackTrace();
@@ -1749,10 +1984,10 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
-        String cocktailIngredient = cocktailIngredient_example; // String | pass the name of the main ingredient in the cocktails to be returned
+        String ingredient = ingredient_example; // String | pass the name of the main ingredient in the cocktails to be returned
         Integer number = 56; // Integer | pass a number of cocktails to be returned
         try {
-            apiInstance.cocktailsIngredientGet(cocktailIngredient, number);
+            apiInstance.cocktailsIngredientGet(ingredient, number);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#cocktailsIngredientGet");
             e.printStackTrace();
@@ -1765,13 +2000,13 @@ public class DefaultApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-cocktailsIngredientGet-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *cocktailIngredient = cocktailIngredient_example; // pass the name of the main ingredient in the cocktails to be returned
+                              <pre class="prettyprint"><code class="language-cpp">String *ingredient = ingredient_example; // pass the name of the main ingredient in the cocktails to be returned
 Integer *number = 56; // pass a number of cocktails to be returned (optional)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 // returns cocktails based on ingredient
-[apiInstance cocktailsIngredientGetWith:cocktailIngredient
+[apiInstance cocktailsIngredientGetWith:ingredient
     number:number
               completionHandler: ^(NSError* error) {
                             if (error) {
@@ -1786,7 +2021,7 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 var api = new GetTogether.DefaultApi()
 
-var cocktailIngredient = cocktailIngredient_example; // {String} pass the name of the main ingredient in the cocktails to be returned
+var ingredient = ingredient_example; // {String} pass the name of the main ingredient in the cocktails to be returned
 
 var opts = { 
   'number': 56 // {Integer} pass a number of cocktails to be returned
@@ -1799,7 +2034,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.cocktailsIngredientGet(cocktailIngredient, opts, callback);
+api.cocktailsIngredientGet(ingredient, opts, callback);
 </code></pre>
                             </div>
 
@@ -1821,13 +2056,13 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var cocktailIngredient = cocktailIngredient_example;  // String | pass the name of the main ingredient in the cocktails to be returned
+            var ingredient = ingredient_example;  // String | pass the name of the main ingredient in the cocktails to be returned
             var number = 56;  // Integer | pass a number of cocktails to be returned (optional) 
 
             try
             {
                 // returns cocktails based on ingredient
-                apiInstance.cocktailsIngredientGet(cocktailIngredient, number);
+                apiInstance.cocktailsIngredientGet(ingredient, number);
             }
             catch (Exception e)
             {
@@ -1844,11 +2079,11 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\Api\DefaultApi();
-$cocktailIngredient = cocktailIngredient_example; // String | pass the name of the main ingredient in the cocktails to be returned
+$ingredient = ingredient_example; // String | pass the name of the main ingredient in the cocktails to be returned
 $number = 56; // Integer | pass a number of cocktails to be returned
 
 try {
-    $api_instance->cocktailsIngredientGet($cocktailIngredient, $number);
+    $api_instance->cocktailsIngredientGet($ingredient, $number);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->cocktailsIngredientGet: ', $e->getMessage(), PHP_EOL;
 }
@@ -1861,11 +2096,11 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
-my $cocktailIngredient = cocktailIngredient_example; # String | pass the name of the main ingredient in the cocktails to be returned
+my $ingredient = ingredient_example; # String | pass the name of the main ingredient in the cocktails to be returned
 my $number = 56; # Integer | pass a number of cocktails to be returned
 
 eval { 
-    $api_instance->cocktailsIngredientGet(cocktailIngredient => $cocktailIngredient, number => $number);
+    $api_instance->cocktailsIngredientGet(ingredient => $ingredient, number => $number);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->cocktailsIngredientGet: $@\n";
@@ -1881,12 +2116,12 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
-cocktailIngredient = cocktailIngredient_example # String | pass the name of the main ingredient in the cocktails to be returned
+ingredient = ingredient_example # String | pass the name of the main ingredient in the cocktails to be returned
 number = 56 # Integer | pass a number of cocktails to be returned (optional)
 
 try: 
     # returns cocktails based on ingredient
-    api_instance.cocktails_ingredient_get(cocktailIngredient, number=number)
+    api_instance.cocktails_ingredient_get(ingredient, number=number)
 except ApiException as e:
     print("Exception when calling DefaultApi->cocktailsIngredientGet: %s\n" % e)</code></pre>
                             </div>
@@ -1904,11 +2139,11 @@ except ApiException as e:
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">cocktail_ingredient*</td>
+                                <tr><td style="width:150px;">ingredient*</td>
 <td>
 
 
-    <div id="d2e199_cocktailsIngredientGet_cocktailIngredient">
+    <div id="d2e199_cocktailsIngredientGet_ingredient">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
@@ -2005,7 +2240,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-cocktailsNameGet-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/cocktails/name?cocktail_name=&number="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/cocktails/name?name=&number="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-cocktailsNameGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2021,10 +2256,10 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
-        String cocktailName = cocktailName_example; // String | pass the name of the cocktail to be returned
+        String name = name_example; // String | pass the name of the cocktail to be returned
         Integer number = 56; // Integer | pass a number of cocktails to be returned
         try {
-            apiInstance.cocktailsNameGet(cocktailName, number);
+            apiInstance.cocktailsNameGet(name, number);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#cocktailsNameGet");
             e.printStackTrace();
@@ -2040,10 +2275,10 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
-        String cocktailName = cocktailName_example; // String | pass the name of the cocktail to be returned
+        String name = name_example; // String | pass the name of the cocktail to be returned
         Integer number = 56; // Integer | pass a number of cocktails to be returned
         try {
-            apiInstance.cocktailsNameGet(cocktailName, number);
+            apiInstance.cocktailsNameGet(name, number);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#cocktailsNameGet");
             e.printStackTrace();
@@ -2056,13 +2291,13 @@ public class DefaultApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-cocktailsNameGet-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *cocktailName = cocktailName_example; // pass the name of the cocktail to be returned
+                              <pre class="prettyprint"><code class="language-cpp">String *name = name_example; // pass the name of the cocktail to be returned
 Integer *number = 56; // pass a number of cocktails to be returned (optional)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 // returns a given cocktail
-[apiInstance cocktailsNameGetWith:cocktailName
+[apiInstance cocktailsNameGetWith:name
     number:number
               completionHandler: ^(NSError* error) {
                             if (error) {
@@ -2077,7 +2312,7 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 var api = new GetTogether.DefaultApi()
 
-var cocktailName = cocktailName_example; // {String} pass the name of the cocktail to be returned
+var name = name_example; // {String} pass the name of the cocktail to be returned
 
 var opts = { 
   'number': 56 // {Integer} pass a number of cocktails to be returned
@@ -2090,7 +2325,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.cocktailsNameGet(cocktailName, opts, callback);
+api.cocktailsNameGet(name, opts, callback);
 </code></pre>
                             </div>
 
@@ -2112,13 +2347,13 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var cocktailName = cocktailName_example;  // String | pass the name of the cocktail to be returned
+            var name = name_example;  // String | pass the name of the cocktail to be returned
             var number = 56;  // Integer | pass a number of cocktails to be returned (optional) 
 
             try
             {
                 // returns a given cocktail
-                apiInstance.cocktailsNameGet(cocktailName, number);
+                apiInstance.cocktailsNameGet(name, number);
             }
             catch (Exception e)
             {
@@ -2135,11 +2370,11 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\Api\DefaultApi();
-$cocktailName = cocktailName_example; // String | pass the name of the cocktail to be returned
+$name = name_example; // String | pass the name of the cocktail to be returned
 $number = 56; // Integer | pass a number of cocktails to be returned
 
 try {
-    $api_instance->cocktailsNameGet($cocktailName, $number);
+    $api_instance->cocktailsNameGet($name, $number);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->cocktailsNameGet: ', $e->getMessage(), PHP_EOL;
 }
@@ -2152,11 +2387,11 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
-my $cocktailName = cocktailName_example; # String | pass the name of the cocktail to be returned
+my $name = name_example; # String | pass the name of the cocktail to be returned
 my $number = 56; # Integer | pass a number of cocktails to be returned
 
 eval { 
-    $api_instance->cocktailsNameGet(cocktailName => $cocktailName, number => $number);
+    $api_instance->cocktailsNameGet(name => $name, number => $number);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->cocktailsNameGet: $@\n";
@@ -2172,12 +2407,12 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
-cocktailName = cocktailName_example # String | pass the name of the cocktail to be returned
+name = name_example # String | pass the name of the cocktail to be returned
 number = 56 # Integer | pass a number of cocktails to be returned (optional)
 
 try: 
     # returns a given cocktail
-    api_instance.cocktails_name_get(cocktailName, number=number)
+    api_instance.cocktails_name_get(name, number=number)
 except ApiException as e:
     print("Exception when calling DefaultApi->cocktailsNameGet: %s\n" % e)</code></pre>
                             </div>
@@ -2195,11 +2430,11 @@ except ApiException as e:
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">cocktail_name*</td>
+                                <tr><td style="width:150px;">name*</td>
 <td>
 
 
-    <div id="d2e199_cocktailsNameGet_cocktailName">
+    <div id="d2e199_cocktailsNameGet_name">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
@@ -2296,7 +2531,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-cocktailsRandomGet-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/cocktails/random?number="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/cocktails/random?number="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-cocktailsRandomGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2554,7 +2789,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-cocktailsTypeGet-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/cocktails/type?cocktail_type=&number="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/cocktails/type?type=&number="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-cocktailsTypeGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2570,10 +2805,10 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
-        String cocktailType = cocktailType_example; // String | pass the type of the cocktail to be returned
+        String type = type_example; // String | pass the type of the cocktail to be returned
         Integer number = 56; // Integer | pass a number of cocktails to be returned
         try {
-            apiInstance.cocktailsTypeGet(cocktailType, number);
+            apiInstance.cocktailsTypeGet(type, number);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#cocktailsTypeGet");
             e.printStackTrace();
@@ -2589,10 +2824,10 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
-        String cocktailType = cocktailType_example; // String | pass the type of the cocktail to be returned
+        String type = type_example; // String | pass the type of the cocktail to be returned
         Integer number = 56; // Integer | pass a number of cocktails to be returned
         try {
-            apiInstance.cocktailsTypeGet(cocktailType, number);
+            apiInstance.cocktailsTypeGet(type, number);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#cocktailsTypeGet");
             e.printStackTrace();
@@ -2605,13 +2840,13 @@ public class DefaultApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-cocktailsTypeGet-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">String *cocktailType = cocktailType_example; // pass the type of the cocktail to be returned
+                              <pre class="prettyprint"><code class="language-cpp">String *type = type_example; // pass the type of the cocktail to be returned
 Integer *number = 56; // pass a number of cocktails to be returned (optional)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 // returns a list of random cocktails with type Cocktail_type
-[apiInstance cocktailsTypeGetWith:cocktailType
+[apiInstance cocktailsTypeGetWith:type
     number:number
               completionHandler: ^(NSError* error) {
                             if (error) {
@@ -2626,7 +2861,7 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 var api = new GetTogether.DefaultApi()
 
-var cocktailType = cocktailType_example; // {String} pass the type of the cocktail to be returned
+var type = type_example; // {String} pass the type of the cocktail to be returned
 
 var opts = { 
   'number': 56 // {Integer} pass a number of cocktails to be returned
@@ -2639,7 +2874,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.cocktailsTypeGet(cocktailType, opts, callback);
+api.cocktailsTypeGet(type, opts, callback);
 </code></pre>
                             </div>
 
@@ -2661,13 +2896,13 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
-            var cocktailType = cocktailType_example;  // String | pass the type of the cocktail to be returned
+            var type = type_example;  // String | pass the type of the cocktail to be returned
             var number = 56;  // Integer | pass a number of cocktails to be returned (optional) 
 
             try
             {
                 // returns a list of random cocktails with type Cocktail_type
-                apiInstance.cocktailsTypeGet(cocktailType, number);
+                apiInstance.cocktailsTypeGet(type, number);
             }
             catch (Exception e)
             {
@@ -2684,11 +2919,11 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\Api\DefaultApi();
-$cocktailType = cocktailType_example; // String | pass the type of the cocktail to be returned
+$type = type_example; // String | pass the type of the cocktail to be returned
 $number = 56; // Integer | pass a number of cocktails to be returned
 
 try {
-    $api_instance->cocktailsTypeGet($cocktailType, $number);
+    $api_instance->cocktailsTypeGet($type, $number);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->cocktailsTypeGet: ', $e->getMessage(), PHP_EOL;
 }
@@ -2701,11 +2936,11 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
-my $cocktailType = cocktailType_example; # String | pass the type of the cocktail to be returned
+my $type = type_example; # String | pass the type of the cocktail to be returned
 my $number = 56; # Integer | pass a number of cocktails to be returned
 
 eval { 
-    $api_instance->cocktailsTypeGet(cocktailType => $cocktailType, number => $number);
+    $api_instance->cocktailsTypeGet(type => $type, number => $number);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->cocktailsTypeGet: $@\n";
@@ -2721,12 +2956,12 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
-cocktailType = cocktailType_example # String | pass the type of the cocktail to be returned
+type = type_example # String | pass the type of the cocktail to be returned
 number = 56 # Integer | pass a number of cocktails to be returned (optional)
 
 try: 
     # returns a list of random cocktails with type Cocktail_type
-    api_instance.cocktails_type_get(cocktailType, number=number)
+    api_instance.cocktails_type_get(type, number=number)
 except ApiException as e:
     print("Exception when calling DefaultApi->cocktailsTypeGet: %s\n" % e)</code></pre>
                             </div>
@@ -2744,11 +2979,11 @@ except ApiException as e:
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">cocktail_type*</td>
+                                <tr><td style="width:150px;">type*</td>
 <td>
 
 
-    <div id="d2e199_cocktailsTypeGet_cocktailType">
+    <div id="d2e199_cocktailsTypeGet_type">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
@@ -2812,6 +3047,1211 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Default-cocktailsidGet">
+                      <article id="api-Default-cocktailsidGet-0" data-group="User" data-name="cocktailsidGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>cocktailsidGet</h1>
+                          <p>returns a specific cocktail with id&#x3D; :id;</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/cocktails/:id</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-cocktailsidGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-cocktailsidGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-cocktailsidGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-cocktailsidGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-cocktailsidGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-cocktailsidGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-cocktailsidGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-cocktailsidGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-cocktailsidGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-cocktailsidGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-cocktailsidGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-cocktailsidGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/cocktails/:id"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-cocktailsidGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            apiInstance.cocktailsidGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#cocktailsidGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-cocktailsidGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            apiInstance.cocktailsidGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#cocktailsidGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-cocktailsidGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-cocktailsidGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// returns a specific cocktail with id= :id;
+[apiInstance cocktailsidGetWithCompletionHandler: 
+              ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-cocktailsidGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var GetTogether = require('get_together');
+
+var api = new GetTogether.DefaultApi()
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.cocktailsidGet(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-cocktailsidGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-cocktailsidGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class cocktailsidGetExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+
+            try
+            {
+                // returns a specific cocktail with id= :id;
+                apiInstance.cocktailsidGet();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.cocktailsidGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-cocktailsidGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\DefaultApi();
+
+try {
+    $api_instance->cocktailsidGet();
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->cocktailsidGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-cocktailsidGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+
+eval { 
+    $api_instance->cocktailsidGet();
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->cocktailsidGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-cocktailsidGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+
+try: 
+    # returns a specific cocktail with id= :id;
+    api_instance.cocktailsid_get()
+except ApiException as e:
+    print("Exception when calling DefaultApi->cocktailsidGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - the request was successful </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - bad request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-partyGet">
+                      <article id="api-Default-partyGet-0" data-group="User" data-name="partyGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>partyGet</h1>
+                          <p>returns party</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">returns recipes, beers, cocktail and wines for a party 
+</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/party</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-partyGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-partyGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-partyGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-partyGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-partyGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-partyGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-partyGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-partyGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-partyGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-partyGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-partyGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-partyGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/party?number_beer=&number_cocktail=&number_recipe=&number_wine=&beer_food=&beer_abv_lt=&beer_abv_gt=&beer_beer_name=&recipe_query=&recipe_cusines=&recipe_intolerances=&wine_food=&wine_wine=&cocktail_category=&cocktail_name=&cocktail_type=&cocktail_ingredient="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-partyGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        Integer numberBeer = 56; // Integer | pass the number of random beers to return; if you will not pass this parameter this will be 3
+        Integer numberCocktail = 56; // Integer | pass the number of random cocktails to return; if you will not pass this parameter this will be 3
+        Integer numberRecipe = 56; // Integer | pass the number of random recipes to return; if you will not pass this parameter this will be 3
+        Integer numberWine = 56; // Integer | pass the number of random wines to return; if you will not pass this parameter this will be 3
+        String beerFood = beerFood_example; // String | food that beers to return are matching to
+        BigDecimal beerAbvLt = 8.14; // BigDecimal | minimum alcohol percentage  of beers percentage
+        BigDecimal beerAbvGt = 8.14; // BigDecimal | maximum alcohol percentage  of beers to return
+        String beerBeerName = beerBeerName_example; // String | style or name of beers to return
+        String recipeQuery = recipeQuery_example; // String | the (natural language) recipe search query.
+        String recipeCusines = recipeCusines_example; // String | the cuisine(s) of the recipes. One or more comma separated.
+        String recipeIntolerances = recipeIntolerances_example; // String | a comma-separated list of intolerance
+        String wineFood = wineFood_example; // String | the food with which the wines to return must combine
+        String wineWine = wineWine_example; // String | the type of wine that you want
+        String cocktailCategory = cocktailCategory_example; // String | pass a category of cocktails to be returned
+        String cocktailName = cocktailName_example; // String | pass the name of the cocktail to be returned
+        String cocktailType = cocktailType_example; // String | pass the type of the cocktail to be returned
+        String cocktailIngredient = cocktailIngredient_example; // String | pass the name of the main ingredient in the cocktails to be returned
+        try {
+            apiInstance.partyGet(numberBeer, numberCocktail, numberRecipe, numberWine, beerFood, beerAbvLt, beerAbvGt, beerBeerName, recipeQuery, recipeCusines, recipeIntolerances, wineFood, wineWine, cocktailCategory, cocktailName, cocktailType, cocktailIngredient);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#partyGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-partyGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        Integer numberBeer = 56; // Integer | pass the number of random beers to return; if you will not pass this parameter this will be 3
+        Integer numberCocktail = 56; // Integer | pass the number of random cocktails to return; if you will not pass this parameter this will be 3
+        Integer numberRecipe = 56; // Integer | pass the number of random recipes to return; if you will not pass this parameter this will be 3
+        Integer numberWine = 56; // Integer | pass the number of random wines to return; if you will not pass this parameter this will be 3
+        String beerFood = beerFood_example; // String | food that beers to return are matching to
+        BigDecimal beerAbvLt = 8.14; // BigDecimal | minimum alcohol percentage  of beers percentage
+        BigDecimal beerAbvGt = 8.14; // BigDecimal | maximum alcohol percentage  of beers to return
+        String beerBeerName = beerBeerName_example; // String | style or name of beers to return
+        String recipeQuery = recipeQuery_example; // String | the (natural language) recipe search query.
+        String recipeCusines = recipeCusines_example; // String | the cuisine(s) of the recipes. One or more comma separated.
+        String recipeIntolerances = recipeIntolerances_example; // String | a comma-separated list of intolerance
+        String wineFood = wineFood_example; // String | the food with which the wines to return must combine
+        String wineWine = wineWine_example; // String | the type of wine that you want
+        String cocktailCategory = cocktailCategory_example; // String | pass a category of cocktails to be returned
+        String cocktailName = cocktailName_example; // String | pass the name of the cocktail to be returned
+        String cocktailType = cocktailType_example; // String | pass the type of the cocktail to be returned
+        String cocktailIngredient = cocktailIngredient_example; // String | pass the name of the main ingredient in the cocktails to be returned
+        try {
+            apiInstance.partyGet(numberBeer, numberCocktail, numberRecipe, numberWine, beerFood, beerAbvLt, beerAbvGt, beerBeerName, recipeQuery, recipeCusines, recipeIntolerances, wineFood, wineWine, cocktailCategory, cocktailName, cocktailType, cocktailIngredient);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#partyGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-partyGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-partyGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Integer *numberBeer = 56; // pass the number of random beers to return; if you will not pass this parameter this will be 3 (optional)
+Integer *numberCocktail = 56; // pass the number of random cocktails to return; if you will not pass this parameter this will be 3 (optional)
+Integer *numberRecipe = 56; // pass the number of random recipes to return; if you will not pass this parameter this will be 3 (optional)
+Integer *numberWine = 56; // pass the number of random wines to return; if you will not pass this parameter this will be 3 (optional)
+String *beerFood = beerFood_example; // food that beers to return are matching to (optional)
+BigDecimal *beerAbvLt = 8.14; // minimum alcohol percentage  of beers percentage (optional)
+BigDecimal *beerAbvGt = 8.14; // maximum alcohol percentage  of beers to return (optional)
+String *beerBeerName = beerBeerName_example; // style or name of beers to return (optional)
+String *recipeQuery = recipeQuery_example; // the (natural language) recipe search query. (optional)
+String *recipeCusines = recipeCusines_example; // the cuisine(s) of the recipes. One or more comma separated. (optional)
+String *recipeIntolerances = recipeIntolerances_example; // a comma-separated list of intolerance (optional)
+String *wineFood = wineFood_example; // the food with which the wines to return must combine (optional)
+String *wineWine = wineWine_example; // the type of wine that you want (optional)
+String *cocktailCategory = cocktailCategory_example; // pass a category of cocktails to be returned (optional)
+String *cocktailName = cocktailName_example; // pass the name of the cocktail to be returned (optional)
+String *cocktailType = cocktailType_example; // pass the type of the cocktail to be returned (optional)
+String *cocktailIngredient = cocktailIngredient_example; // pass the name of the main ingredient in the cocktails to be returned (optional)
+
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// returns party
+[apiInstance partyGetWith:numberBeer
+    numberCocktail:numberCocktail
+    numberRecipe:numberRecipe
+    numberWine:numberWine
+    beerFood:beerFood
+    beerAbvLt:beerAbvLt
+    beerAbvGt:beerAbvGt
+    beerBeerName:beerBeerName
+    recipeQuery:recipeQuery
+    recipeCusines:recipeCusines
+    recipeIntolerances:recipeIntolerances
+    wineFood:wineFood
+    wineWine:wineWine
+    cocktailCategory:cocktailCategory
+    cocktailName:cocktailName
+    cocktailType:cocktailType
+    cocktailIngredient:cocktailIngredient
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-partyGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var GetTogether = require('get_together');
+
+var api = new GetTogether.DefaultApi()
+
+var opts = { 
+  'numberBeer': 56, // {Integer} pass the number of random beers to return; if you will not pass this parameter this will be 3
+  'numberCocktail': 56, // {Integer} pass the number of random cocktails to return; if you will not pass this parameter this will be 3
+  'numberRecipe': 56, // {Integer} pass the number of random recipes to return; if you will not pass this parameter this will be 3
+  'numberWine': 56, // {Integer} pass the number of random wines to return; if you will not pass this parameter this will be 3
+  'beerFood': beerFood_example, // {String} food that beers to return are matching to
+  'beerAbvLt': 8.14, // {BigDecimal} minimum alcohol percentage  of beers percentage
+  'beerAbvGt': 8.14, // {BigDecimal} maximum alcohol percentage  of beers to return
+  'beerBeerName': beerBeerName_example, // {String} style or name of beers to return
+  'recipeQuery': recipeQuery_example, // {String} the (natural language) recipe search query.
+  'recipeCusines': recipeCusines_example, // {String} the cuisine(s) of the recipes. One or more comma separated.
+  'recipeIntolerances': recipeIntolerances_example, // {String} a comma-separated list of intolerance
+  'wineFood': wineFood_example, // {String} the food with which the wines to return must combine
+  'wineWine': wineWine_example, // {String} the type of wine that you want
+  'cocktailCategory': cocktailCategory_example, // {String} pass a category of cocktails to be returned
+  'cocktailName': cocktailName_example, // {String} pass the name of the cocktail to be returned
+  'cocktailType': cocktailType_example, // {String} pass the type of the cocktail to be returned
+  'cocktailIngredient': cocktailIngredient_example // {String} pass the name of the main ingredient in the cocktails to be returned
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.partyGet(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-partyGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-partyGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class partyGetExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var numberBeer = 56;  // Integer | pass the number of random beers to return; if you will not pass this parameter this will be 3 (optional) 
+            var numberCocktail = 56;  // Integer | pass the number of random cocktails to return; if you will not pass this parameter this will be 3 (optional) 
+            var numberRecipe = 56;  // Integer | pass the number of random recipes to return; if you will not pass this parameter this will be 3 (optional) 
+            var numberWine = 56;  // Integer | pass the number of random wines to return; if you will not pass this parameter this will be 3 (optional) 
+            var beerFood = beerFood_example;  // String | food that beers to return are matching to (optional) 
+            var beerAbvLt = 8.14;  // BigDecimal | minimum alcohol percentage  of beers percentage (optional) 
+            var beerAbvGt = 8.14;  // BigDecimal | maximum alcohol percentage  of beers to return (optional) 
+            var beerBeerName = beerBeerName_example;  // String | style or name of beers to return (optional) 
+            var recipeQuery = recipeQuery_example;  // String | the (natural language) recipe search query. (optional) 
+            var recipeCusines = recipeCusines_example;  // String | the cuisine(s) of the recipes. One or more comma separated. (optional) 
+            var recipeIntolerances = recipeIntolerances_example;  // String | a comma-separated list of intolerance (optional) 
+            var wineFood = wineFood_example;  // String | the food with which the wines to return must combine (optional) 
+            var wineWine = wineWine_example;  // String | the type of wine that you want (optional) 
+            var cocktailCategory = cocktailCategory_example;  // String | pass a category of cocktails to be returned (optional) 
+            var cocktailName = cocktailName_example;  // String | pass the name of the cocktail to be returned (optional) 
+            var cocktailType = cocktailType_example;  // String | pass the type of the cocktail to be returned (optional) 
+            var cocktailIngredient = cocktailIngredient_example;  // String | pass the name of the main ingredient in the cocktails to be returned (optional) 
+
+            try
+            {
+                // returns party
+                apiInstance.partyGet(numberBeer, numberCocktail, numberRecipe, numberWine, beerFood, beerAbvLt, beerAbvGt, beerBeerName, recipeQuery, recipeCusines, recipeIntolerances, wineFood, wineWine, cocktailCategory, cocktailName, cocktailType, cocktailIngredient);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.partyGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-partyGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\DefaultApi();
+$numberBeer = 56; // Integer | pass the number of random beers to return; if you will not pass this parameter this will be 3
+$numberCocktail = 56; // Integer | pass the number of random cocktails to return; if you will not pass this parameter this will be 3
+$numberRecipe = 56; // Integer | pass the number of random recipes to return; if you will not pass this parameter this will be 3
+$numberWine = 56; // Integer | pass the number of random wines to return; if you will not pass this parameter this will be 3
+$beerFood = beerFood_example; // String | food that beers to return are matching to
+$beerAbvLt = 8.14; // BigDecimal | minimum alcohol percentage  of beers percentage
+$beerAbvGt = 8.14; // BigDecimal | maximum alcohol percentage  of beers to return
+$beerBeerName = beerBeerName_example; // String | style or name of beers to return
+$recipeQuery = recipeQuery_example; // String | the (natural language) recipe search query.
+$recipeCusines = recipeCusines_example; // String | the cuisine(s) of the recipes. One or more comma separated.
+$recipeIntolerances = recipeIntolerances_example; // String | a comma-separated list of intolerance
+$wineFood = wineFood_example; // String | the food with which the wines to return must combine
+$wineWine = wineWine_example; // String | the type of wine that you want
+$cocktailCategory = cocktailCategory_example; // String | pass a category of cocktails to be returned
+$cocktailName = cocktailName_example; // String | pass the name of the cocktail to be returned
+$cocktailType = cocktailType_example; // String | pass the type of the cocktail to be returned
+$cocktailIngredient = cocktailIngredient_example; // String | pass the name of the main ingredient in the cocktails to be returned
+
+try {
+    $api_instance->partyGet($numberBeer, $numberCocktail, $numberRecipe, $numberWine, $beerFood, $beerAbvLt, $beerAbvGt, $beerBeerName, $recipeQuery, $recipeCusines, $recipeIntolerances, $wineFood, $wineWine, $cocktailCategory, $cocktailName, $cocktailType, $cocktailIngredient);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->partyGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-partyGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+my $numberBeer = 56; # Integer | pass the number of random beers to return; if you will not pass this parameter this will be 3
+my $numberCocktail = 56; # Integer | pass the number of random cocktails to return; if you will not pass this parameter this will be 3
+my $numberRecipe = 56; # Integer | pass the number of random recipes to return; if you will not pass this parameter this will be 3
+my $numberWine = 56; # Integer | pass the number of random wines to return; if you will not pass this parameter this will be 3
+my $beerFood = beerFood_example; # String | food that beers to return are matching to
+my $beerAbvLt = 8.14; # BigDecimal | minimum alcohol percentage  of beers percentage
+my $beerAbvGt = 8.14; # BigDecimal | maximum alcohol percentage  of beers to return
+my $beerBeerName = beerBeerName_example; # String | style or name of beers to return
+my $recipeQuery = recipeQuery_example; # String | the (natural language) recipe search query.
+my $recipeCusines = recipeCusines_example; # String | the cuisine(s) of the recipes. One or more comma separated.
+my $recipeIntolerances = recipeIntolerances_example; # String | a comma-separated list of intolerance
+my $wineFood = wineFood_example; # String | the food with which the wines to return must combine
+my $wineWine = wineWine_example; # String | the type of wine that you want
+my $cocktailCategory = cocktailCategory_example; # String | pass a category of cocktails to be returned
+my $cocktailName = cocktailName_example; # String | pass the name of the cocktail to be returned
+my $cocktailType = cocktailType_example; # String | pass the type of the cocktail to be returned
+my $cocktailIngredient = cocktailIngredient_example; # String | pass the name of the main ingredient in the cocktails to be returned
+
+eval { 
+    $api_instance->partyGet(numberBeer => $numberBeer, numberCocktail => $numberCocktail, numberRecipe => $numberRecipe, numberWine => $numberWine, beerFood => $beerFood, beerAbvLt => $beerAbvLt, beerAbvGt => $beerAbvGt, beerBeerName => $beerBeerName, recipeQuery => $recipeQuery, recipeCusines => $recipeCusines, recipeIntolerances => $recipeIntolerances, wineFood => $wineFood, wineWine => $wineWine, cocktailCategory => $cocktailCategory, cocktailName => $cocktailName, cocktailType => $cocktailType, cocktailIngredient => $cocktailIngredient);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->partyGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-partyGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+numberBeer = 56 # Integer | pass the number of random beers to return; if you will not pass this parameter this will be 3 (optional)
+numberCocktail = 56 # Integer | pass the number of random cocktails to return; if you will not pass this parameter this will be 3 (optional)
+numberRecipe = 56 # Integer | pass the number of random recipes to return; if you will not pass this parameter this will be 3 (optional)
+numberWine = 56 # Integer | pass the number of random wines to return; if you will not pass this parameter this will be 3 (optional)
+beerFood = beerFood_example # String | food that beers to return are matching to (optional)
+beerAbvLt = 8.14 # BigDecimal | minimum alcohol percentage  of beers percentage (optional)
+beerAbvGt = 8.14 # BigDecimal | maximum alcohol percentage  of beers to return (optional)
+beerBeerName = beerBeerName_example # String | style or name of beers to return (optional)
+recipeQuery = recipeQuery_example # String | the (natural language) recipe search query. (optional)
+recipeCusines = recipeCusines_example # String | the cuisine(s) of the recipes. One or more comma separated. (optional)
+recipeIntolerances = recipeIntolerances_example # String | a comma-separated list of intolerance (optional)
+wineFood = wineFood_example # String | the food with which the wines to return must combine (optional)
+wineWine = wineWine_example # String | the type of wine that you want (optional)
+cocktailCategory = cocktailCategory_example # String | pass a category of cocktails to be returned (optional)
+cocktailName = cocktailName_example # String | pass the name of the cocktail to be returned (optional)
+cocktailType = cocktailType_example # String | pass the type of the cocktail to be returned (optional)
+cocktailIngredient = cocktailIngredient_example # String | pass the name of the main ingredient in the cocktails to be returned (optional)
+
+try: 
+    # returns party
+    api_instance.party_get(numberBeer=numberBeer, numberCocktail=numberCocktail, numberRecipe=numberRecipe, numberWine=numberWine, beerFood=beerFood, beerAbvLt=beerAbvLt, beerAbvGt=beerAbvGt, beerBeerName=beerBeerName, recipeQuery=recipeQuery, recipeCusines=recipeCusines, recipeIntolerances=recipeIntolerances, wineFood=wineFood, wineWine=wineWine, cocktailCategory=cocktailCategory, cocktailName=cocktailName, cocktailType=cocktailType, cocktailIngredient=cocktailIngredient)
+except ApiException as e:
+    print("Exception when calling DefaultApi->partyGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">number_beer</td>
+<td>
+
+
+    <div id="d2e199_partyGet_numberBeer">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description">
+                        pass the number of random beers to return; if you will not pass this parameter this will be 3
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">number_cocktail</td>
+<td>
+
+
+    <div id="d2e199_partyGet_numberCocktail">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description">
+                        pass the number of random cocktails to return; if you will not pass this parameter this will be 3
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">number_recipe</td>
+<td>
+
+
+    <div id="d2e199_partyGet_numberRecipe">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description">
+                        pass the number of random recipes to return; if you will not pass this parameter this will be 3
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">number_wine</td>
+<td>
+
+
+    <div id="d2e199_partyGet_numberWine">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description">
+                        pass the number of random wines to return; if you will not pass this parameter this will be 3
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">beer_food</td>
+<td>
+
+
+    <div id="d2e199_partyGet_beerFood">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        food that beers to return are matching to
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">beer_abv_lt</td>
+<td>
+
+
+    <div id="d2e199_partyGet_beerAbvLt">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    BigDecimal
+                </span>
+
+                    <div class="inner description">
+                        minimum alcohol percentage  of beers percentage
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">beer_abv_gt</td>
+<td>
+
+
+    <div id="d2e199_partyGet_beerAbvGt">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    BigDecimal
+                </span>
+
+                    <div class="inner description">
+                        maximum alcohol percentage  of beers to return
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">beer_beer_name</td>
+<td>
+
+
+    <div id="d2e199_partyGet_beerBeerName">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        style or name of beers to return
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">recipe_query</td>
+<td>
+
+
+    <div id="d2e199_partyGet_recipeQuery">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        the (natural language) recipe search query.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">recipe_cusines</td>
+<td>
+
+
+    <div id="d2e199_partyGet_recipeCusines">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        the cuisine(s) of the recipes. One or more comma separated.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">recipe_intolerances</td>
+<td>
+
+
+    <div id="d2e199_partyGet_recipeIntolerances">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        a comma-separated list of intolerance
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">wine_food</td>
+<td>
+
+
+    <div id="d2e199_partyGet_wineFood">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        the food with which the wines to return must combine
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">wine_wine</td>
+<td>
+
+
+    <div id="d2e199_partyGet_wineWine">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        the type of wine that you want
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">cocktail_category</td>
+<td>
+
+
+    <div id="d2e199_partyGet_cocktailCategory">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        pass a category of cocktails to be returned
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">cocktail_name</td>
+<td>
+
+
+    <div id="d2e199_partyGet_cocktailName">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        pass the name of the cocktail to be returned
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">cocktail_type</td>
+<td>
+
+
+    <div id="d2e199_partyGet_cocktailType">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        pass the type of the cocktail to be returned
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">cocktail_ingredient</td>
+<td>
+
+
+    <div id="d2e199_partyGet_cocktailIngredient">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        pass the name of the main ingredient in the cocktails to be returned
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - the request was successful </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - bad request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-partyRandomGet">
+                      <article id="api-Default-partyRandomGet-0" data-group="User" data-name="partyRandomGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>partyRandomGet</h1>
+                          <p>returns random party</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">returns random recipes, beers, cocktail and wines
+</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/party/random</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-partyRandomGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-partyRandomGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-partyRandomGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-partyRandomGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-partyRandomGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-partyRandomGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-partyRandomGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-partyRandomGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-partyRandomGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-partyRandomGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-partyRandomGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-partyRandomGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/party/random?number_beer, number_cocktail, number_recipe, number_wine="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-partyRandomGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        Integer numberBeer, numberCocktail, numberRecipe, numberWine = 56; // Integer | pass the number of random elements to return; if you will not pass this parameter this will be 3
+        try {
+            apiInstance.partyRandomGet(numberBeer, numberCocktail, numberRecipe, numberWine);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#partyRandomGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-partyRandomGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        Integer numberBeer, numberCocktail, numberRecipe, numberWine = 56; // Integer | pass the number of random elements to return; if you will not pass this parameter this will be 3
+        try {
+            apiInstance.partyRandomGet(numberBeer, numberCocktail, numberRecipe, numberWine);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#partyRandomGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-partyRandomGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-partyRandomGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Integer *numberBeer, numberCocktail, numberRecipe, numberWine = 56; // pass the number of random elements to return; if you will not pass this parameter this will be 3 (optional)
+
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// returns random party
+[apiInstance partyRandomGetWith:numberBeer, numberCocktail, numberRecipe, numberWine
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-partyRandomGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var GetTogether = require('get_together');
+
+var api = new GetTogether.DefaultApi()
+
+var opts = { 
+  'numberBeer, numberCocktail, numberRecipe, numberWine': 56 // {Integer} pass the number of random elements to return; if you will not pass this parameter this will be 3
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.partyRandomGet(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-partyRandomGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-partyRandomGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class partyRandomGetExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var numberBeer, numberCocktail, numberRecipe, numberWine = 56;  // Integer | pass the number of random elements to return; if you will not pass this parameter this will be 3 (optional) 
+
+            try
+            {
+                // returns random party
+                apiInstance.partyRandomGet(numberBeer, numberCocktail, numberRecipe, numberWine);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.partyRandomGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-partyRandomGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\DefaultApi();
+$numberBeer, numberCocktail, numberRecipe, numberWine = 56; // Integer | pass the number of random elements to return; if you will not pass this parameter this will be 3
+
+try {
+    $api_instance->partyRandomGet($numberBeer, numberCocktail, numberRecipe, numberWine);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->partyRandomGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-partyRandomGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+my $numberBeer, numberCocktail, numberRecipe, numberWine = 56; # Integer | pass the number of random elements to return; if you will not pass this parameter this will be 3
+
+eval { 
+    $api_instance->partyRandomGet(numberBeer, numberCocktail, numberRecipe, numberWine => $numberBeer, numberCocktail, numberRecipe, numberWine);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->partyRandomGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-partyRandomGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+numberBeer, numberCocktail, numberRecipe, numberWine = 56 # Integer | pass the number of random elements to return; if you will not pass this parameter this will be 3 (optional)
+
+try: 
+    # returns random party
+    api_instance.party_random_get(numberBeer, numberCocktail, numberRecipe, numberWine=numberBeer, numberCocktail, numberRecipe, numberWine)
+except ApiException as e:
+    print("Exception when calling DefaultApi->partyRandomGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">number_beer, number_cocktail, number_recipe, number_wine</td>
+<td>
+
+
+    <div id="d2e199_partyRandomGet_numberBeer, numberCocktail, numberRecipe, numberWine">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description">
+                        pass the number of random elements to return; if you will not pass this parameter this will be 3
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - the request was successful </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - bad request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Default-recipesGet">
                       <article id="api-Default-recipesGet-0" data-group="User" data-name="recipesGet" data-version="0">
                         <div class="pull-left">
@@ -2845,7 +4285,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-recipesGet-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/recipes?query=&cusines=&intolerances=&number="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/recipes?query=&cusines=&intolerances=&number="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-recipesGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -3190,7 +4630,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-recipesRandomGet-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/recipes/random?number="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/recipes/random?number="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-recipesRandomGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -3415,11 +4855,227 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Default-recipesidGet">
+                      <article id="api-Default-recipesidGet-0" data-group="User" data-name="recipesidGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>recipesidGet</h1>
+                          <p>returns a specific recipe with id&#x3D; :id;</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/recipes/:id</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-recipesidGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-recipesidGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-recipesidGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-recipesidGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-recipesidGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-recipesidGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-recipesidGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-recipesidGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-recipesidGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-recipesidGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-recipesidGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-recipesidGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/recipes/:id"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-recipesidGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            apiInstance.recipesidGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#recipesidGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-recipesidGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            apiInstance.recipesidGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#recipesidGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-recipesidGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-recipesidGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// returns a specific recipe with id= :id;
+[apiInstance recipesidGetWithCompletionHandler: 
+              ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-recipesidGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var GetTogether = require('get_together');
+
+var api = new GetTogether.DefaultApi()
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.recipesidGet(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-recipesidGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-recipesidGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class recipesidGetExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+
+            try
+            {
+                // returns a specific recipe with id= :id;
+                apiInstance.recipesidGet();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.recipesidGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-recipesidGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\DefaultApi();
+
+try {
+    $api_instance->recipesidGet();
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->recipesidGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-recipesidGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+
+eval { 
+    $api_instance->recipesidGet();
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->recipesidGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-recipesidGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+
+try: 
+    # returns a specific recipe with id= :id;
+    api_instance.recipesid_get()
+except ApiException as e:
+    print("Exception when calling DefaultApi->recipesidGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - the request was successful </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - bad request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Default-winesPairingGet">
                       <article id="api-Default-winesPairingGet-0" data-group="User" data-name="winesPairingGet" data-version="0">
                         <div class="pull-left">
                           <h1>winesPairingGet</h1>
-                          <p>returns a list of wines matching with food</p>
+                          <p>returns a list of wines matching with food or cousine type</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -3448,7 +5104,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-winesPairingGet-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/wines/pairing?food="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/wines/pairing?food=&number="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-winesPairingGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -3465,8 +5121,9 @@ public class DefaultApiExample {
         
         DefaultApi apiInstance = new DefaultApi();
         String food = food_example; // String | the food with which the wines to return must combine
+        Integer number = 56; // Integer | The number of results to return.
         try {
-            apiInstance.winesPairingGet(food);
+            apiInstance.winesPairingGet(food, number);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#winesPairingGet");
             e.printStackTrace();
@@ -3483,8 +5140,9 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
         String food = food_example; // String | the food with which the wines to return must combine
+        Integer number = 56; // Integer | The number of results to return.
         try {
-            apiInstance.winesPairingGet(food);
+            apiInstance.winesPairingGet(food, number);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#winesPairingGet");
             e.printStackTrace();
@@ -3498,11 +5156,13 @@ public class DefaultApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-Default-winesPairingGet-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">String *food = food_example; // the food with which the wines to return must combine
+Integer *number = 56; // The number of results to return. (optional)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
-// returns a list of wines matching with food
+// returns a list of wines matching with food or cousine type
 [apiInstance winesPairingGetWith:food
+    number:number
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -3518,6 +5178,9 @@ var api = new GetTogether.DefaultApi()
 
 var food = food_example; // {String} the food with which the wines to return must combine
 
+var opts = { 
+  'number': 56 // {Integer} The number of results to return.
+};
 
 var callback = function(error, data, response) {
   if (error) {
@@ -3526,7 +5189,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.winesPairingGet(food, callback);
+api.winesPairingGet(food, opts, callback);
 </code></pre>
                             </div>
 
@@ -3549,11 +5212,12 @@ namespace Example
             
             var apiInstance = new DefaultApi();
             var food = food_example;  // String | the food with which the wines to return must combine
+            var number = 56;  // Integer | The number of results to return. (optional) 
 
             try
             {
-                // returns a list of wines matching with food
-                apiInstance.winesPairingGet(food);
+                // returns a list of wines matching with food or cousine type
+                apiInstance.winesPairingGet(food, number);
             }
             catch (Exception e)
             {
@@ -3571,9 +5235,10 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\Api\DefaultApi();
 $food = food_example; // String | the food with which the wines to return must combine
+$number = 56; // Integer | The number of results to return.
 
 try {
-    $api_instance->winesPairingGet($food);
+    $api_instance->winesPairingGet($food, $number);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->winesPairingGet: ', $e->getMessage(), PHP_EOL;
 }
@@ -3587,9 +5252,10 @@ use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
 my $food = food_example; # String | the food with which the wines to return must combine
+my $number = 56; # Integer | The number of results to return.
 
 eval { 
-    $api_instance->winesPairingGet(food => $food);
+    $api_instance->winesPairingGet(food => $food, number => $number);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->winesPairingGet: $@\n";
@@ -3606,10 +5272,11 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
 food = food_example # String | the food with which the wines to return must combine
+number = 56 # Integer | The number of results to return. (optional)
 
 try: 
-    # returns a list of wines matching with food
-    api_instance.wines_pairing_get(food)
+    # returns a list of wines matching with food or cousine type
+    api_instance.wines_pairing_get(food, number=number)
 except ApiException as e:
     print("Exception when calling DefaultApi->winesPairingGet: %s\n" % e)</code></pre>
                             </div>
@@ -3650,7 +5317,537 @@ except ApiException as e:
 </td>
 </tr>
 
+                                <tr><td style="width:150px;">number</td>
+<td>
+
+
+    <div id="d2e199_winesPairingGet_number">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description">
+                        The number of results to return.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                             </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - the request was successful </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - bad request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-winesRecommendationGet">
+                      <article id="api-Default-winesRecommendationGet-0" data-group="User" data-name="winesRecommendationGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>winesRecommendationGet</h1>
+                          <p>returns recommended wines by food associations</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">By passing in the appropriate options, you can get recommended wines by food associations
+</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/wines/recommendation</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-winesRecommendationGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-winesRecommendationGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-winesRecommendationGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-winesRecommendationGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-winesRecommendationGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-winesRecommendationGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-winesRecommendationGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-winesRecommendationGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-winesRecommendationGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-winesRecommendationGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-winesRecommendationGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-winesRecommendationGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/wines/recommendation?wine=&number="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-winesRecommendationGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        String wine = wine_example; // String | the type of wine that you want
+        Integer number = 56; // Integer | The number of results to return.
+        try {
+            apiInstance.winesRecommendationGet(wine, number);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#winesRecommendationGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-winesRecommendationGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        String wine = wine_example; // String | the type of wine that you want
+        Integer number = 56; // Integer | The number of results to return.
+        try {
+            apiInstance.winesRecommendationGet(wine, number);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#winesRecommendationGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-winesRecommendationGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-winesRecommendationGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *wine = wine_example; // the type of wine that you want
+Integer *number = 56; // The number of results to return. (optional)
+
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// returns recommended wines by food associations
+[apiInstance winesRecommendationGetWith:wine
+    number:number
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-winesRecommendationGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var GetTogether = require('get_together');
+
+var api = new GetTogether.DefaultApi()
+
+var wine = wine_example; // {String} the type of wine that you want
+
+var opts = { 
+  'number': 56 // {Integer} The number of results to return.
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.winesRecommendationGet(wine, opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-winesRecommendationGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-winesRecommendationGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class winesRecommendationGetExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+            var wine = wine_example;  // String | the type of wine that you want
+            var number = 56;  // Integer | The number of results to return. (optional) 
+
+            try
+            {
+                // returns recommended wines by food associations
+                apiInstance.winesRecommendationGet(wine, number);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.winesRecommendationGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-winesRecommendationGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\DefaultApi();
+$wine = wine_example; // String | the type of wine that you want
+$number = 56; // Integer | The number of results to return.
+
+try {
+    $api_instance->winesRecommendationGet($wine, $number);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->winesRecommendationGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-winesRecommendationGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+my $wine = wine_example; # String | the type of wine that you want
+my $number = 56; # Integer | The number of results to return.
+
+eval { 
+    $api_instance->winesRecommendationGet(wine => $wine, number => $number);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->winesRecommendationGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-winesRecommendationGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+wine = wine_example # String | the type of wine that you want
+number = 56 # Integer | The number of results to return. (optional)
+
+try: 
+    # returns recommended wines by food associations
+    api_instance.wines_recommendation_get(wine, number=number)
+except ApiException as e:
+    print("Exception when calling DefaultApi->winesRecommendationGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">wine*</td>
+<td>
+
+
+    <div id="d2e199_winesRecommendationGet_wine">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        the type of wine that you want
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">number</td>
+<td>
+
+
+    <div id="d2e199_winesRecommendationGet_number">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description">
+                        The number of results to return.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - the request was successful </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - bad request </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-winesidGet">
+                      <article id="api-Default-winesidGet-0" data-group="User" data-name="winesidGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>winesidGet</h1>
+                          <p>returns a specific wine with id&#x3D; :id;</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/wines/:id</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-winesidGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-winesidGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-winesidGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-winesidGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-winesidGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-winesidGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-winesidGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-winesidGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-winesidGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-winesidGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-winesidGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-winesidGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://getogetherprova.herokuapp.com/api/wines/:id"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-winesidGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            apiInstance.winesidGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#winesidGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-winesidGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            apiInstance.winesidGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#winesidGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-winesidGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-winesidGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// returns a specific wine with id= :id;
+[apiInstance winesidGetWithCompletionHandler: 
+              ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-winesidGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var GetTogether = require('get_together');
+
+var api = new GetTogether.DefaultApi()
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.winesidGet(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-winesidGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-winesidGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class winesidGetExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new DefaultApi();
+
+            try
+            {
+                // returns a specific wine with id= :id;
+                apiInstance.winesidGet();
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.winesidGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-winesidGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\DefaultApi();
+
+try {
+    $api_instance->winesidGet();
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->winesidGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-winesidGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+
+eval { 
+    $api_instance->winesidGet();
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->winesidGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-winesidGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+
+try: 
+    # returns a specific wine with id= :id;
+    api_instance.winesid_get()
+except ApiException as e:
+    print("Exception when calling DefaultApi->winesidGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
 
                           <h2>Responses</h2>
                             <h3> Status: 200 - the request was successful </h3>
@@ -3676,12 +5873,12 @@ except ApiException as e:
           </div>
           <div id="footer">
             <div id="api-_footer">
-              <!-- <p>Suggestions, contact, support and error reporting;
+              <p>Suggestions, contact, support and error reporting;
                   <div class="app-desc">Information URL: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
                   <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
               </p>
                 <div class="license-info">All rights reserved</div>
-                <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div> -->
+                <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
             </div>
           </div>
       </div>

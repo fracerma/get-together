@@ -38,6 +38,7 @@ router.get("/random",(req,res)=>{
       })
       .catch((error) => {
         console.error(error);
+        res.status(400);
       });
     }
     else{
@@ -57,6 +58,7 @@ router.get("/:id",(req,res)=>{
     })
     .catch((error) => {
       console.error(error);
+      res.status(400);
     });
   }
   else res.status(400);
@@ -86,10 +88,12 @@ router.get("/", function (req, res) {
             abv: obj.abv,
           };
         });
-        res.send(alldata);
+        const number=req.query.number||3;
+        res.send(alldata.slice(0,number));
       })
       .catch((error) => {
         console.error(error);
+        res.status(400)
       });
   } else {
     res

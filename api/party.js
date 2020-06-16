@@ -1,9 +1,13 @@
 const express= require("express");
 const router = express.Router();
 const axios= require("axios");
+const https= require("https");
 const buildUrl=require("build-url");
 require("dotenv").config();
-const baseUrl=process.env["BASE_URL"]||"http://localhost:4000";
+const baseUrl=process.env["BASE_URL"]||"https://localhost:4000";
+const httpsAgent = new https.Agent({
+  rejectUnauthorized: false
+});
 
 // random party
 router.get('/random', function(req, res) {
@@ -25,16 +29,16 @@ router.get('/random', function(req, res) {
   });
 
   let request=[];
-  request[0]=axios.get(urlRecipe);
-  request[1]=axios.get(urlBeer);
-  request[2]=axios.get(urlCocktail);
+  request[0]=axios.get(urlRecipe, { httpsAgent });
+  request[1]=axios.get(urlBeer, { httpsAgent });
+  request[2]=axios.get(urlCocktail, { httpsAgent });
 
   axios.all(request)
   .then(axios.spread((...responses) => {
     const finalResponse={
       recipes: responses[0].data,
       beers: responses[1].data,
-      cocktail: responses[2].data.slice(0,number)
+      cocktail: responses[2].data
     }
     res.json(finalResponse);
   })).catch(error=>{
@@ -77,9 +81,9 @@ router.get('/', (req, res) =>{
       });
 
       let request=[];
-      request[0]=axios.get(urlRecipe);
-      request[1]=axios.get(urlBeer);
-      request[2]=axios.get(urlCocktail);
+      request[0]=axios.get(urlRecipe, { httpsAgent });
+      request[1]=axios.get(urlBeer, { httpsAgent });
+      request[2]=axios.get(urlCocktail, { httpsAgent });
     
 
       axios.all(request)
