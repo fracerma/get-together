@@ -141,11 +141,13 @@ router.get("/type", function (req, response) {
         )
         .catch(function (error) {
           console.error(error);
+          res.status(400);
         });
       //////////////////////////////////////////
     })
     .catch(function (error) {
       console.error(error);
+      res.status(400);
     })
     .finally(function (final) {});
 });
@@ -182,6 +184,7 @@ router.get("/random", function (req, response) {
     )
     .catch(function (error) {
       console.error(error);
+      res.status(400);
     });
   //////////////////////////////////////////
 });
@@ -198,6 +201,7 @@ router.get("/name", function (req, response) {
     })
     .catch(function (error) {
       console.error(error);
+      res.status(400);
     })
     .finally(function (final) {});
 });
@@ -206,7 +210,6 @@ router.get("/name", function (req, response) {
 router.get("/category", function (req, response) {
   const q = req.query;
   var num = q.number;
-  console.log(q);
   axios
     .get(
       "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=" + q.category
@@ -246,11 +249,13 @@ router.get("/category", function (req, response) {
         )
         .catch(function (error) {
           console.error(error);
+          res.status(400);
         });
       //////////////////////////////////////////
     })
     .catch(function (error) {
       console.error(error);
+      res.status(400);
     })
     .finally(function (final) {});
 });
@@ -299,11 +304,13 @@ router.get("/ingredient", function (req, response) {
         )
         .catch(function (error) {
           console.error(error);
+          res.status(400);
         });
       //////////////////////////////////////////
     })
     .catch(function (error) {
       console.error(error);
+      res.status(400);
     })
     .finally(function (final) {});
 });

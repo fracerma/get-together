@@ -14,7 +14,7 @@ router.get('/pairing', function(req, res) {
     res.send(obj);
   }).catch(e=>{
       console.log(e);
-      
+      res.status(400);
   });
 });
 router.get('/recommendation', function(req, res) {
@@ -27,6 +27,9 @@ router.get('/recommendation', function(req, res) {
       wines: result.recommendedWines
     }
     res.send(obj);
+  }).catch(e=>{
+    console.error(e);
+    res.status(400);
   });
 });
 
@@ -44,7 +47,10 @@ router.get("/:id",(req,res)=>{
         image: result.images[1]
       }
       res.send(obj);
-    }).catch(e=>console.log(e));
+    }).catch(e=>{
+      console.error(e);
+      res.status(400);
+    });
   }
 });
 

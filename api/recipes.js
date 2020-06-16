@@ -43,7 +43,7 @@ router.get('/', function(req, res) {
   })
   .catch((error)=>{
     console.error(error);
-    res.status(500).end(error);
+    res.status(400).end(error);
   });
 });
 
@@ -81,7 +81,7 @@ router.get('/random', function(req, res) {
   })
   .catch((error)=>{
     console.error(error);
-    res.status(500).end(error);
+    res.status(400).end(error);
   });
 });
 
@@ -110,6 +110,9 @@ router.get('/:id', function(req, res) {
     }
     console.log(obj);
     res.send(obj);
+  }).catch(e=>{
+    console.error(e);
+    res.status(400);
   });
 });
 

@@ -92,11 +92,11 @@ router.get('/', (req, res) =>{
           beers: responses[1].data.slice(0,number_beer),
           cocktail: responses[2].data.slice(0,number_cocktail)
         }
-        console.log("Final response:",finalResponse);
         
         res.json(finalResponse);
       })).catch(error=>{
         console.log(error);
+        res.status(400);
       });
     }
     else{

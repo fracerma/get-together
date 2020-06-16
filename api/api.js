@@ -12,5 +12,7 @@ router.use("/cocktails", cocktails);
 router.use("/wines", wines);
 router.use("/recipes", recipes );
 router.use("/party",party);
-
+router.get("/docs",(req,res)=>{
+    res.sendFile('docs.html', {root: __dirname });
+});
 module.exports= router;
