@@ -1,4 +1,4 @@
-# get-togheter
+# get-together
 ------------------------------------------------------L'APPLICAZIONE-----------------------------------------
 https://getogetherprova.herokuapp.com
 
