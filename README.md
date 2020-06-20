@@ -1,6 +1,8 @@
 # get-togheter
+------------------------------------------------------L'APPLICAZIONE-----------------------------------------
+https://getogetherprova.herokuapp.com
 
-L’obiettivo del nostro sito web è offrire un servizio a coloro che 
+L’obiettivo del nostra applicazione web è offrire un servizio a coloro che 
 vogliono organizzare una cena o una festa, principalmente a casa.
 
 Infatti “Get Together” offre a queste persone la possibilità di organizzare la festa, dando un nome, una data e invitando i propri amici.
@@ -38,7 +40,7 @@ OAUTH:   Facebook
 
 Socket.io : - Notifiche in tempo reale e commenti relativi ad un party ( chat )
 
-------------------------------------------------------LA NOSTRA DOCUMENTAZIONE-----------------------------------------
+------------------------------------------------------LA DOCUMENTAZIONE API-----------------------------------------
 
 https://getogetherprova.herokuapp.com/api/docs
 
